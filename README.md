@@ -53,10 +53,10 @@ To create your own app copy this Repository.
 
 ### /assets/*
 
-The main html construct is based in the asset folder: `dbp-frontend-starter-app.html.ej`
+The main html construct is based in the asset folder: `dbp-frontend-starter-app.html.ejs`
 You can change here favicons, the color variables, fonts and the outer html construct.
 
-- To get started rename this file t `<your-app-name>.html.ej`
+- To get started rename this file to `<your-app-name>.html.ejs`
 
 For favicon support in multiple browsers there exist one folder and twi other files. The icons - in different size - are based in the folder `icon`. The file `dbp-frontend-starter-app.browserconfig.xml.ejs` is for styled windows tiles. `manifest.json` tells the browser information about the website on different device. (short name, name, start url, icons, colors ...)
 
@@ -108,5 +108,11 @@ In this folder there is the whole translation based. You have subfolder for your
 
 
 
+## Design
 
+This source is delivered with a clean brandable design. If you want your own design fork the repo [toolkit](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/tree/master), make your own appshell and change vars in [common/styles.js](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/blob/master/packages/common/styles.js)
+
+The style for the activities itself, can be changed in ````src/<your-activity-name>.js``` in the function ```static get styles()```.
+
+For TU Graz purposes go to `<your-app-name>.html.ejs` and simple delete the attributes `shell-name`, `shell-subname` and `no-brand` in line 111-113.
 
