@@ -58,6 +58,8 @@ switch (build) {
     keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
     keyCloakClientId = 'auth-dev-mw-frontend-local';
     break;
+  case 'test':
+    break;
   default:
     console.error('Unknown build environment: ' + build);
     process.exit(1);
