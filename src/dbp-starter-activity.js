@@ -1,9 +1,8 @@
-import {createI18nInstance, i18nKey} from './i18n.js';
+import {createI18nInstance} from './i18n.js';
 import {css, html} from 'lit-element';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import * as commonUtils from '@dbp-toolkit/common/utils';
-import {LoadingButton, Icon, MiniSpinner, InlineNotification} from '@dbp-toolkit/common';
-import {classMap} from 'lit-html/directives/class-map.js';
+import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
 
@@ -43,8 +42,6 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
 
         super.update(changedProperties);
     }
-
-
 
     static get styles() {
         // language=css
