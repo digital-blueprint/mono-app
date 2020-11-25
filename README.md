@@ -7,7 +7,7 @@
 ```bash
 # get the source
 git clone git@gitlab.tugraz.at:dbp//web-components/dbp-starter-app.git
-cd checkin
+cd dbp-starter-app
 git submodule update --init
 
 # install dependencies
@@ -21,6 +21,9 @@ yarn run watch-full
 
 # run tests
 yarn test
+
+# build for deployment
+yarn build
 ```
 
 Jump to <https://localhost:8001> and you should get a Single Sign On login page.
