@@ -55,7 +55,7 @@ For favicon support in multiple browsers there exist one folder and twi other fi
     - (optional) Change the background_color and/or the theme_color
 
 The main structer - the topic - from the application is based in `dbp-frontend-starter-app.topic.metadata.json.ejs`
-For more information about the structure look at: https://gitlab.tugraz.at/dbp/web-components/frontend-docs/-/blob/master/components.md
+For more information about the structure look at: [Components](https://gitlab.tugraz.at/dbp/web-components/frontend-docs/-/blob/master/components.md)
 
 - Change the ``name`` in german and english (or add another language if you support one)
 - Change the ```short_name```
@@ -76,7 +76,7 @@ The main logic is based in the `src` folder.
 
 There are at least two files. One for a topic, one or more for an activity and some other files with e.g.: helper functions. (In our case ``i18n.js`` for the translation).
 
-``dbp-frontend-starter-app.js`` is the entry point of the App. If you want to use it with the app [shell](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/tree/master/packages/app-shell) ():
+``dbp-frontend-starter-app.js`` is the entry point of the App. If you want to use it with the [app shell](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/tree/master/packages/app-shell):
 
 - Rename the file ``dbp-frontend-starter-app.js`` to ``<your-app-name.js``
 - Change the ``dbp-frontend-starter-app`` string to ``<your-app-name>``
