@@ -68,7 +68,7 @@ The activity metadatas should be also based in the assets folder. The file ``dbp
 - Copy or rename the file ``dbp-starter-activity.metadata.json`` to ``<your-activity-name>.metadata.json``
 - Change ```element``` to your element name.
 - Change the ``module_src`` - this is the file where the code of your activity is based.
-- Change the ``routing_name``, ``name``, ``short_name`` and add a ``description``,
+- Change the ``routing_name``(has to be unique and url safe), ``name``, ``short_name`` and add a ``description`` 
 
 ### /src/*
 
