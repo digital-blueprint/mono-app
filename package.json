@@ -52,12 +52,9 @@
     "source-sans-pro": "^2.45.0"
   },
   "scripts": {
-    "build-dev": "rollup -c --environment BUILD:development",
-    "build-prod": "rollup -c --environment BUILD:production",
-    "build-demo": "rollup -c --environment BUILD:demo",
+    "build": "rollup -c --environment BUILD:local",
     "i18next": "i18next-scanner",
     "watch": "rollup -c --watch",
-    "watch-local": "yarn run watch",
     "watch-full": "rollup -c --watch --environment FORCE_FULL",
     "watch-bs": "rollup -c --watch --environment BUILD:bs",
     "test": "rollup -c --environment BUILD:test && karma start --singleRun",

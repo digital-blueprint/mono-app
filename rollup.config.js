@@ -51,35 +51,6 @@ switch (build) {
     keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
     keyCloakClientId = 'auth-dev-mw-frontend-local';
     break;
-/*  case 'development':
-    basePath = '/apps/checkin/'; // TODO ?
-    entryPointURL = 'https://mw-dev.tugraz.at';
-    keyCloakServer = 'auth-dev.tugraz.at';
-    keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
-    keyCloakClientId = 'checkin-dev_tugraz_at-CHECKIN'; // TODO ?
-    break;
-  case 'demo':
-    basePath = '/apps/checkin/'; // TODO ?
-    entryPointURL = 'https://api-demo.tugraz.at';
-    keyCloakServer = 'auth-test.tugraz.at';
-    keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
-    keyCloakClientId = 'checkin-demo_tugraz_at-CHECKIN'; // TODO ?
-    break;
-  case 'production':
-    basePath = '/';
-    entryPointURL = 'https://api.tugraz.at';
-    keyCloakServer = 'auth.tugraz.at';
-    keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
-    keyCloakClientId = 'checkin_tugraz_at-CHECKIN'; // TODO ?
-    matomoSiteId = 150;
-    break;
-  case 'test':
-    basePath = '/apps/checkin/'; // TODO ?
-    entryPointURL = '';
-    keyCloakServer = '';
-    keyCloakBaseURL = '';
-    keyCloakClientId = '';
-    break;*/
   case 'bs':
     basePath = '/dist/';
     entryPointURL = 'https://bs-local.com:8000';
