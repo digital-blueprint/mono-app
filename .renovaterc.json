@@ -3,5 +3,8 @@
     "config:base",
     "group:allNonMajor"
   ],
-  "rangeStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile",
+  "git-submodules": {
+    "enabled": true
+  }
 }
