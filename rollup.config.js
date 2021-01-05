@@ -234,7 +234,7 @@ export default (async () => {
                     {src: 'assets/*.ico', dest: 'dist/local/' + pkg.name},
                     {src: 'assets/*.svg', dest: 'dist/local/' + pkg.name},
                     {src: 'assets/icon/*', dest: 'dist/local/'  + pkg.name + '/icon/'},
-                    {src: await getPackagePath('source-sans-pro', 'WOFF2/OTF/*'), dest: 'dist/local/' + pkg.name + '/fonts'},
+                    {src: await getPackagePath('@dbp-toolkit/font-source-sans-pro', 'files/*'), dest: 'dist/local/' + pkg.name + '/fonts/source-sans-pro'},
                     {src: await getPackagePath('@dbp-toolkit/common', 'src/spinner.js'), dest: 'dist/local/' + pkg.name, rename: 'spinner.js'},
                     {src: await getPackagePath('@dbp-toolkit/common', 'misc/browser-check.js'), dest: 'dist/local/' + pkg.name, rename: 'browser-check.js'},
                     {src: 'assets/icon-*.png', dest: 'dist/local/' + pkg.name},
