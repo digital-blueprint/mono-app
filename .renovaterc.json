@@ -1,3 +1,7 @@
 {
+  "extends": [
+    "config:base",
+    "group:allNonMajor"
+  ],
   "rangeStrategy": "update-lockfile"
 }
