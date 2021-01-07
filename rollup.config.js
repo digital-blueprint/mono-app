@@ -150,11 +150,6 @@ export default (async () => {
             }
             warn(warning);
         },
-        watch: {
-        chokidar: {
-            usePolling: true
-        }
-        },
         plugins: [
             del({
             targets: 'dist/*'
