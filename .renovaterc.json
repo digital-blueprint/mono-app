@@ -4,8 +4,5 @@
     "group:allNonMajor"
   ],
   "ignorePresets": [":prHourlyLimit2"],
-  "rangeStrategy": "update-lockfile",
-  "git-submodules": {
-    "enabled": true
-  }
+  "rangeStrategy": "update-lockfile"
 }
