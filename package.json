@@ -41,11 +41,11 @@
     "@dbp-toolkit/app-shell": "^0.1.0",
     "@dbp-toolkit/auth": "^0.1.0",
     "@dbp-toolkit/common": "^0.1.0",
+    "@dbp-toolkit/font-source-sans-pro": "^0.1.0",
     "@dbp-toolkit/language-select": "^0.1.0",
     "@dbp-toolkit/notification": "^0.1.0",
     "@dbp-toolkit/person-profile": "^0.1.0",
     "@open-wc/scoped-elements": "^1.1.1",
-    "@dbp-toolkit/font-source-sans-pro": "^0.1.0",
     "i18next": "^20.0.0",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1"
