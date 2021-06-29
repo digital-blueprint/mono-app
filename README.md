@@ -105,3 +105,5 @@ The style for the activities itself, can be changed in ````src/<your-activity-na
 
 For TU Graz purposes go to `<your-app-name>.html.ejs` and simple delete the attributes `shell-name`, `shell-subname` and `no-brand` in line 111-113.
 
+### Note
+To ensure a uniform and responsive design the activity should occupy 100% of the window width when the activity width is less than 768 px.
