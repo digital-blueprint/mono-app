@@ -1,4 +1,4 @@
-import {createI18nInstance} from './i18n.js';
+import {createInstance} from './i18n.js';
 import {css, html} from 'lit-element';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import * as commonUtils from '@dbp-toolkit/common/utils';
@@ -6,13 +6,12 @@ import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
 
-const i18n = createI18nInstance();
-
 
 class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     constructor() {
         super();
-        this.lang = i18n.language;
+        this._i18n = createInstance();
+        this.lang = this._i18n.language;
     }
 
     static get scopedElements() {
@@ -35,7 +34,7 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
         changedProperties.forEach((oldValue, propName) => {
             switch (propName) {
                 case "lang":
-                    i18n.changeLanguage(this.lang);
+                    this._i18n.changeLanguage(this.lang);
                     break;
             }
         });
