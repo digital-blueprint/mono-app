@@ -1,20 +1,55 @@
 {
   "short_name": "Frontend Starter App",
   "name": "Frontend Starter App",
-  "start_url": "./dbp-frontend-starter-app.html",
+  "start_url": "./",
   "icons": [
     {
-      "src": "local/dbp-frontend-starter-app/icon/pwa-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "local/dbp-frontend-starter-app/icon/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     },
     {
-      "src": "local/dbp-frontend-starter-app/icon/pwa-256x256.png",
-      "type": "image/png",
-      "sizes": "256x256"
+      "src": "local/dbp-frontend-starter-app/icon/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "local/dbp-frontend-starter-app/icon/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "background_color": "#FFFFFF",
+  "background_color": "#FEFEFE",
   "display": "standalone",
-  "theme_color": "#E4154B"
+  "theme_color": "FFFFFF"
 }
