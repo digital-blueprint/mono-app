@@ -2,8 +2,12 @@
   "extends": [
     "config:base",
     "group:allNonMajor",
-    "schedule:weekly"
+    "schedule:weekends",
+    ":automergePatch"
   ],
   "ignorePresets": [":prHourlyLimit2"],
-  "rangeStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile",
+  "lockFileMaintenance": {
+    "enabled": true
+  }
 }
