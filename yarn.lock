@@ -924,9 +924,9 @@
     to-fast-properties "^2.0.0"
 
 "@dbp-toolkit/app-shell@^0.2.2":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@dbp-toolkit/app-shell/-/app-shell-0.2.6.tgz#e68fff4ba5925c0c5fd8ccb38ae0513a505e7db9"
-  integrity sha512-1kNtOizaYsqY/M/dQ4fr/znpB9Q8kwBpfbzi2K7WGrxHMqaxx0OZgAOb/N3CI8hb9YWcUBSVaBn/RXDqMuWpiQ==
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@dbp-toolkit/app-shell/-/app-shell-0.2.7.tgz#fd0cd26ff93dd9d4b92f42cf7625ca8599248841"
+  integrity sha512-y5gLvvUqhOFw8KIRRpdsLwAnHx5CtuCX9lfNIimiWDZAZ1HKX3dv0NmQ11ZPfiJ51YC9Qb0CU+fuUFGDepv0gQ==
   dependencies:
     "@dbp-toolkit/auth" "^0.2.2"
     "@dbp-toolkit/common" "^0.2.2"
