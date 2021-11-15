@@ -35,6 +35,7 @@ let basePath = '';
 let entryPointURL = '';
 let keyCloakServer = '';
 let keyCloakBaseURL = '';
+let keyCloakRealm = '';
 let keyCloakClientId = '';
 let matomoSiteId = 131;
 let useTerser = buildFull;
@@ -48,6 +49,7 @@ switch (build) {
     keyCloakServer = 'auth-dev.tugraz.at';
     keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
     keyCloakClientId = 'auth-dev-mw-frontend-local';
+    keyCloakRealm = 'tugraz-vpu';
     break;
   case 'bs':
     basePath = '/dist/';
@@ -55,6 +57,7 @@ switch (build) {
     keyCloakServer = 'auth-dev.tugraz.at';
     keyCloakBaseURL = 'https://' + keyCloakServer + '/auth';
     keyCloakClientId = 'auth-dev-mw-frontend-local';
+    keyCloakRealm = 'tugraz-vpu';
     break;
   case 'test':
     break;
@@ -114,6 +117,7 @@ export default (async () => {
                 keyCloakServer: keyCloakServer,
                 keyCloakBaseURL: keyCloakBaseURL,
                 keyCloakClientId: keyCloakClientId,
+                keyCloakRealm: keyCloakRealm,
                 environment: build,
                 matomoUrl: matomoUrl,
                 matomoSiteId: matomoSiteId,
