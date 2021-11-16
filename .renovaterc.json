@@ -10,5 +10,6 @@
   "lockFileMaintenance": {
     "enabled": true
   },
-  "cloneSubmodules": true
+  "cloneSubmodules": true,
+  "fullClone": true
 }
