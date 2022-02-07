@@ -6,7 +6,6 @@ import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
 
-
 class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     constructor() {
         super();
@@ -16,13 +15,13 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
 
     static get scopedElements() {
         return {
-          'dbp-icon': Icon,
+            'dbp-icon': Icon,
         };
     }
 
     static get properties() {
         return {
-            lang: { type: String },
+            lang: {type: String},
         };
     }
 
@@ -33,7 +32,7 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     update(changedProperties) {
         changedProperties.forEach((oldValue, propName) => {
             switch (propName) {
-                case "lang":
+                case 'lang':
                     this._i18n.changeLanguage(this.lang);
                     break;
             }
@@ -46,14 +45,11 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
         // language=css
         return css`
             ${commonStyles.getThemeCSS()}
-
-            
         `;
     }
 
     render() {
         return html`
-
             hallo
         `;
     }
