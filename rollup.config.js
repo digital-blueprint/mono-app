@@ -29,6 +29,7 @@ let useTerser = buildFull;
 let useBabel = buildFull;
 let checkLicenses = buildFull;
 let treeshake = buildFull;
+let development = !buildFull;
 let useHTTPS = true;
 
 let config;
@@ -109,6 +110,7 @@ export default (async () => {
                 moduleDirectories: [path.join(process.cwd(), 'node_modules')],
                 browser: true,
                 preferBuiltins: true,
+                exportConditions: development ? ['development'] : [],
             }),
             checkLicenses &&
                 license({
