@@ -24,13 +24,7 @@ let appName = 'dbp-frontend-starter-app';
 const pkg = require('./package.json');
 const appEnv = typeof process.env.APP_ENV !== 'undefined' ? process.env.APP_ENV : 'local';
 const watch = process.env.ROLLUP_WATCH === 'true';
-const buildFull = (!watch && appEnv !== 'test') || process.env.FORCE_FULL !== undefined;
-let useTerser = buildFull;
-let useBabel = buildFull;
-let checkLicenses = buildFull;
-let treeshake = buildFull;
-let development = !buildFull;
-let useHTTPS = true;
+const prodBuild = (!watch && appEnv !== 'test') || process.env.FORCE_FULL !== undefined;
 
 let config;
 if (appEnv in appConfig) {
@@ -69,7 +63,7 @@ export default (async () => {
             format: 'esm',
             sourcemap: true,
         },
-        treeshake: treeshake,
+        treeshake: prodBuild,
         preserveEntrySignatures: false,
         onwarn: function (warning, warn) {
             // ignore chai warnings
@@ -110,9 +104,9 @@ export default (async () => {
                 moduleDirectories: [path.join(process.cwd(), 'node_modules')],
                 browser: true,
                 preferBuiltins: true,
-                exportConditions: development ? ['development'] : [],
+                exportConditions: !prodBuild ? ['development'] : [],
             }),
-            checkLicenses &&
+            prodBuild &&
                 license({
                     banner: {
                         commentStyle: 'ignored',
@@ -169,7 +163,7 @@ export default (async () => {
                     },
                 ],
             }),
-            useBabel &&
+            prodBuild &&
                 getBabelOutputPlugin({
                     compact: false,
                     presets: [
@@ -187,14 +181,14 @@ export default (async () => {
                         ],
                     ],
                 }),
-            useTerser ? terser() : false,
+            prodBuild ? terser() : false,
             watch
                 ? serve({
                       contentBase: '.',
                       host: '127.0.0.1',
                       port: 8001,
                       historyApiFallback: config.basePath + appName + '.html',
-                      https: useHTTPS ? await generateTLSConfig() : false,
+                      https: await generateTLSConfig(),
                       headers: {
                           'Content-Security-Policy': config.CSP,
                       },
