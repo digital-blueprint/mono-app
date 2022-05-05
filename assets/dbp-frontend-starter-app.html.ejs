@@ -128,6 +128,10 @@
     keycloak-config='{"url": "<%= keyCloakBaseURL %>", "realm": "<%= keyCloakRealm %>", "clientId": "<%= keyCloakClientId %>", "silentCheckSsoRedirectUri": "<%= getUrl('silent-check-sso.html') %>"}'
     matomo-url="<%= matomoUrl %>"
     matomo-site-id="<%= matomoSiteId %>"
+    git-info='<%= buildInfo.info %>'
+    build-url='<%= buildInfo.url %>'
+    build-time='<%= buildInfo.time %>'
+    env='<%= buildInfo.env %>'
     themes='[{"class": "light-theme", "icon": "sun", "name": "Light Mode"},
         {"class": "dark-theme", "icon": "night", "name": "Dark Mode"}]'
 ><dbp-loading-spinner></dbp-loading-spinner>
