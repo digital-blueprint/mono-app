@@ -60,7 +60,7 @@ deploy_demo:
 deploy_development:
   only:
     refs:
-      - master
+      - main
   environment:
     name: development
     url: https://dbp-dev.tugraz.at/apps/starter
