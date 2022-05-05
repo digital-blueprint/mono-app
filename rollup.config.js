@@ -156,7 +156,7 @@ export default (async () => {
                         dest: 'dist/' + (await getDistPath(pkg.name)),
                     },
                     {src: 'assets/manifest.json', dest: 'dist', rename: appName + '.manifest.json'},
-                    {src: 'assets/*.metadata.json', dest: 'dist'},
+                    {src: 'src/*.metadata.json', dest: 'dist'},
                     {
                         src: await getPackagePath('@dbp-toolkit/common', 'assets/icons/*.svg'),
                         dest: 'dist/' + (await getDistPath('@dbp-toolkit/common', 'icons')),

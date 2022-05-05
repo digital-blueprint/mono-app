@@ -3,15 +3,15 @@
     "module_src": "dbp-starter-activity.js",
     "routing_name": "starter-activity",
     "name": {
-        "de": "Frontend Starter Activity",
+        "de": "Frontend Starter-Aktivität",
         "en": "Frontend Starter Activity"
     },
     "short_name": {
-        "de": "Frontend Starter Activity",
+        "de": "Frontend Starter-Aktivität",
         "en": "Frontend Starter Activity"
     },
     "description": {
-        "de": "Dies ist eine Starter Activity für den Digital Blueprint.",
-        "en": "This is a starter activity for the digital blueprint."
+        "de": "Dies ist eine Starter-Aktivität für eine Digital Blueprint Applikation",
+        "en": "This is a starter activity for a digital blueprint application"
     }
 }

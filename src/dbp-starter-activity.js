@@ -5,12 +5,15 @@ import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
+import metadata from './dbp-starter-activity.metadata.json';
+import {Activity} from './activity.js';
 
 class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     constructor() {
         super();
         this._i18n = createInstance();
         this.lang = this._i18n.language;
+        this.activity = new Activity(metadata);
     }
 
     static get scopedElements() {
@@ -50,7 +53,8 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
 
     render() {
         return html`
-            hallo
+            <h3>${this.activity.getName(this.lang)}</h3>
+            <p>${this.activity.getDescription(this.lang)}</p>
         `;
     }
 }
