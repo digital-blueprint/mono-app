@@ -54,22 +54,6 @@ For favicon support in multiple browsers there exist one folder and twi other fi
 - In `manifest.json` change the short_name, the name, the starter url and the path to the icon folder
     - (optional) Change the background_color and/or the theme_color
 
-The main structer - the topic - from the application is based in `dbp-frontend-starter-app.topic.metadata.json.ejs`
-For more information about the structure look at: [Components](https://gitlab.tugraz.at/dbp/web-components/frontend-docs/-/blob/master/components.md)
-
-- Change the ``name`` in german and english (or add another language if you support one)
-- Change the ```short_name```
-- Add a ``description`` of your App 
-- Change the ``routong_name``
-- Add the path of your your activities.metadata.json
-
-The activity metadatas should be also based in the assets folder. The file ``dbp-starter-activity.metadata.json`` is an example for an activity. It is contains basic description of an acitivty.
-
-- Copy or rename the file ``dbp-starter-activity.metadata.json`` to ``<your-activity-name>.metadata.json``
-- Change ```element``` to your element name.
-- Change the ``module_src`` - this is the file where the code of your activity is based.
-- Change the ``routing_name``(has to be unique and url safe), ``name``, ``short_name`` and add a ``description`` 
-
 ### /src/*
 
 The main logic is based in the `src` folder.
@@ -95,6 +79,21 @@ The class in this file is based on [lit-elements](https://lit-element.polymer-pr
 There is another folder `i18n`. 
 In this folder there is the whole translation based. You have subfolder for your different languages. In these subfolder you have a ``translation.json`` file where you can bin strings to your translation keys. For further information look at: https://www.i18next.com/
 
+The main structure - the topic - from the application is based in `dbp-frontend-starter-app.topic.metadata.json.ejs`
+For more information about the structure look at: [Components](https://gitlab.tugraz.at/dbp/web-components/frontend-docs/-/blob/master/components.md)
+
+- Change the ``name`` in german and english (or add another language if you support one)
+- Change the ```short_name```
+- Add a ``description`` of your App 
+- Change the ``routong_name``
+- Add the path of your your activities.metadata.json
+
+The activity metadata should be also based in the assets folder. The file ``dbp-starter-activity.metadata.json`` is an example for an activity. It is contains basic description of an activity.
+
+- Copy or rename the file ``dbp-starter-activity.metadata.json`` to ``<your-activity-name>.metadata.json``
+- Change ```element``` to your element name.
+- Change the ``module_src`` - this is the file where the code of your activity is based.
+- Change the ``routing_name``(has to be unique and url safe), ``name``, ``short_name`` and add a ``description`` 
 
 
 ## Design
