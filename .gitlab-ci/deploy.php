@@ -37,7 +37,7 @@ host('development')
     ->set('rsync_src', $PROJECT_ROOT.'/dist')
     ->set('deploy_path', '/home/mw/dev/deploy/apps/starter');
 
-task('build', function () {
+task('build', function () use ($PROJECT_ROOT) {
     $options = ['cwd' => $PROJECT_ROOT];
     $stage = get('labels')['stage'];
     runLocally("yarn install", $options);
