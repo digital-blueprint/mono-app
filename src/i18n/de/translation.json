@@ -1,1 +1,5 @@
-{}
+{
+    "click-me": "Klick mich",
+    "hello": "Hello {{name}}!",
+    "please-log-in": "Bitte melde dich an"
+}

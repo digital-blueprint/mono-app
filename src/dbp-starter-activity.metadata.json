@@ -13,5 +13,6 @@
     "description": {
         "de": "Dies ist eine Starter-Aktivität für eine Digital Blueprint Applikation",
         "en": "This is a starter activity for a digital blueprint application"
-    }
+    },
+    "subscribe": "lang,auth,entry-point-url"
 }

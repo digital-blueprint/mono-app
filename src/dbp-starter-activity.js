@@ -14,6 +14,9 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
         this._i18n = createInstance();
         this.lang = this._i18n.language;
         this.activity = new Activity(metadata);
+        this.auth = null;
+        this.name = null;
+        this.entryPointUrl = null;
     }
 
     static get scopedElements() {
@@ -25,6 +28,9 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     static get properties() {
         return {
             lang: {type: String},
+            auth: {type: Object},
+            name: {type: String},
+            entryPointUrl: {type: String, attribute: 'entry-point-url'},
         };
     }
 
@@ -45,16 +51,54 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     }
 
     static get styles() {
-        // language=css
-        return css`
-            ${commonStyles.getThemeCSS()}
-        `;
+        return [
+            commonStyles.getThemeCSS(),
+            css`
+                .hidden {
+                    display: none;
+                }
+            `,
+        ];
+    }
+
+    async onClick(event) {
+        let response = await fetch(this.entryPointUrl + '/base/people/' + this.auth['user-id'], {
+            headers: {
+                'Content-Type': 'application/ld+json',
+                Authorization: 'Bearer ' + this.auth.token,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(response);
+        }
+
+        let data = await response.json();
+        this.name = `${data['givenName']} ${data['familyName']}`;
     }
 
     render() {
+        let loggedIn = !!this.auth.token;
+        let i18n = this._i18n;
+
         return html`
             <h3>${this.activity.getName(this.lang)}</h3>
             <p>${this.activity.getDescription(this.lang)}</p>
+
+            <div class="${loggedIn ? '' : 'hidden'}">
+                <input type="button" value="${i18n.t('click-me')}" @click="${this.onClick}"></input>
+                <p>${
+                    this.name
+                        ? html`
+                              <dbp-icon name="world"></dbp-icon>
+                              ${i18n.t('hello', {name: this.name})}
+                          `
+                        : ``
+                }</p>
+            </div>
+
+            <div class="${!loggedIn ? '' : 'hidden'}">
+                <p>${i18n.t('please-log-in')}</p>
+            </div>
         `;
     }
 }
