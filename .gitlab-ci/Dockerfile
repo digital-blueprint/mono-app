@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     libgbm1 \
     firefox-esr \
     composer \
+    php-curl \
     php-zip \
     rsync \
     sudo \
