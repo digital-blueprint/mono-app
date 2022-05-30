@@ -1,7 +1,7 @@
 {
-    "name": "dbp-frontend-starter-app",
+    "name": "dbp-frontend-template-app",
     "version": "1.1.0",
-    "main": "src/dbp-frontend-starter-app.js",
+    "main": "src/dbp-frontend-template-app.js",
     "license": "LGPL-2.1-or-later",
     "private": true,
     "workspaces": [

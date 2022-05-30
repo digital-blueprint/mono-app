@@ -28,14 +28,14 @@ host('demo')
     ->setHostname('mw@vpu01-demo.tugraz.at')
     ->set('rsync', $RSYNC_CONFIG)
     ->set('rsync_src', $PROJECT_ROOT.'/dist')
-    ->set('deploy_path', '/home/mw/demo/deploy/apps/starter-app');
+    ->set('deploy_path', '/home/mw/demo/deploy/apps/template-app');
 
 host('development')
     ->set('labels', ['stage' => 'development'])
     ->setHostname('mw@mw01-dev.tugraz.at')
     ->set('rsync', $RSYNC_CONFIG)
     ->set('rsync_src', $PROJECT_ROOT.'/dist')
-    ->set('deploy_path', '/home/mw/dev/deploy/apps/starter-app');
+    ->set('deploy_path', '/home/mw/dev/deploy/apps/template-app');
 
 task('build', function () use ($PROJECT_ROOT) {
     $options = ['cwd' => $PROJECT_ROOT];

@@ -1,0 +1,17 @@
+{
+    "name": {
+        "de": "Frontend Template App",
+        "en": "Frontend Template App"
+    },
+    "short_name": {
+        "de": "Frontend Template App",
+        "en": "Frontend Template App"
+    },
+    "description": {
+        "de": "Das ist eine Frontend Template App. Mit dieser kann man die Frontendentwicklung für Digitial Blueprint starten.",
+        "en": "This is a frontend template app. With this app you can start the frontend development for Digitial Blueprint."
+    },
+    "routing_name": "frontend-template-app",
+    "activities": [{"path": "dbp-template-activity.metadata.json"}],
+    "attributes": []
+}

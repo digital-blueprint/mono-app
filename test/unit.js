@@ -1,13 +1,13 @@
 import {assert} from 'chai';
 
-import '../src/dbp-starter-activity';
-import '../src/dbp-frontend-starter-app.js';
+import '../src/dbp-template-activity';
+import '../src/dbp-frontend-template-app.js';
 
-suite('dbp-starter-activity basics', () => {
+suite('dbp-template-activity basics', () => {
     let node;
 
     suiteSetup(async () => {
-        node = document.createElement('dbp-starter-activity');
+        node = document.createElement('dbp-template-activity');
         document.body.appendChild(node);
         await node.updateComplete;
     });

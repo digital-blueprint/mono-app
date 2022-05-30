@@ -5,7 +5,7 @@ import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
-import metadata from './dbp-starter-activity.metadata.json';
+import metadata from './dbp-template-activity.metadata.json';
 import {Activity} from './activity.js';
 
 class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
@@ -103,4 +103,4 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     }
 }
 
-commonUtils.defineCustomElement('dbp-starter-activity', StarterActivity);
+commonUtils.defineCustomElement('dbp-template-activity', StarterActivity);

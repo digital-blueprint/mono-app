@@ -1,6 +1,6 @@
 {
-    "element": "dbp-starter-activity",
-    "module_src": "dbp-starter-activity.js",
+    "element": "dbp-template-activity",
+    "module_src": "dbp-template-activity.js",
     "routing_name": "starter-activity",
     "name": {
         "de": "Frontend Starter-Aktivität",
