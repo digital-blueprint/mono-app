@@ -1,0 +1,17 @@
+services:
+
+  # for testing .htaccess files
+  apache:
+    build: apache
+    ports:
+    - '8002:80'
+    volumes:
+    - ../:/var/www/html/
+
+  # for developing in docker
+  dev:
+    build: dev
+    ports:
+    - '8001:8001'
+    volumes:
+    - ../:/application
