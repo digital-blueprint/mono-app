@@ -1,0 +1,26 @@
+{
+  "name": {
+    "de": "Electronic payments",
+    "en": "Electronic payments"
+  },
+  "short_name": {
+    "de": "Electronic payments",
+    "en": "Electronic payments"
+  },
+  "description": {
+    "de": "Electronic payments",
+    "en": "Electronic payments"
+  },
+  "routing_name": "mono",
+  "activities": [
+    {
+      "path": "dbp-mono-start.metadata.json",
+      "visible": false
+    },
+    {
+      "path": "dbp-mono-paymentmethod.metadata.json",
+      "visible": false
+    }
+  ],
+  "attributes": []
+}

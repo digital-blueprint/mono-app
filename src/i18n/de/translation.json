@@ -1,4 +1,7 @@
 {
+    "select-payment-method": "Bitte wähle ein Zahlungsmittel aus:",
+    "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
+    "start-pay-action-btn-title": "Zahlung starten",
     "click-me": "Klick mich",
     "hello": "Hallo {{name}}!",
     "please-log-in": "Bitte melde dich an"

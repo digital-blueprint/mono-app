@@ -5,10 +5,10 @@ import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
-import metadata from './dbp-template-activity.metadata.json';
+import metadata from './dbp-mono-start.metadata.json';
 import {Activity} from './activity.js';
 
-class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
+class DbpMonoStart extends ScopedElementsMixin(DBPLitElement) {
     constructor() {
         super();
         this._i18n = createInstance();
@@ -17,6 +17,16 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
         this.auth = null;
         this.name = null;
         this.entryPointUrl = null;
+        this.router = null;
+        this.basePath = null;
+
+        let params = (new URL(document.location)).searchParams;
+        this.type = params.get('type') ?? '';
+        this.data = params.get('data') ?? '';
+        this.clientIp = params.get('clientIp');
+        this.returnUrl = params.get('returnUrl');
+        this.notifyUrl = params.get('notifyUrl');
+        this.localIdentifier = params.get('localIdentifier');
     }
 
     static get scopedElements() {
@@ -31,11 +41,22 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
             auth: {type: Object},
             name: {type: String},
             entryPointUrl: {type: String, attribute: 'entry-point-url'},
+            router: {type: Object},
+            basePath: {type: String, attribute: 'base-path'},
+
+            type: {type: String},
+            data: {type: String},
+            clientIp: {type: String},
+            returnUrl: {type: String},
+            notifyUrl: {type: String},
+            localIdentifier: {type: String},
         };
     }
 
     connectedCallback() {
         super.connectedCallback();
+
+        this.createPayment();
     }
 
     update(changedProperties) {
@@ -60,6 +81,73 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
             `,
         ];
     }
+
+    async createPayment() {
+        let responseData = await this.sendCreatePaymentRequest(
+            this.type,
+            this.data,
+            this.clientIp,
+            this.returnUrl,
+            this.notifyUrl,
+            this.localIdentifier
+        );
+        await this.createPaymentResponse(
+            responseData
+        );
+    }
+
+    async httpGetAsync(url, options) {
+        let response = await fetch(url, options)
+            .then((result) => {
+                if (!result.ok) throw result;
+                return result;
+            })
+            .catch((error) => {
+                return error;
+            });
+
+        return response;
+    }
+
+    async sendCreatePaymentRequest(
+        type,
+        data,
+        clientIp,
+        returnUrl,
+        notifyUrl,
+        localIdentifier
+    ) {
+        let body = {
+            type: type,
+            data: data,
+            clientIp: clientIp,
+            returnUrl: returnUrl,
+            notifyUrl: notifyUrl,
+            localIdentifier: localIdentifier
+        }
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/ld+json',
+            },
+            body: JSON.stringify(body),
+        };
+
+        return await this.httpGetAsync(this.entryPointUrl + '/mono/payment', options);
+    }
+
+    async createPaymentResponse(
+        responseData
+    ) {
+        let status = responseData.status;
+        let data = await responseData.clone().json();
+
+        // todo
+        console.log(data);
+        window.location.href = '/dist/de/mono-paymentmethod?identifier=' + data.identifier;
+    }
+
 
     async onClick(event) {
         let response = await fetch(this.entryPointUrl + '/base/people/' + this.auth['user-id'], {
@@ -103,4 +191,4 @@ class StarterActivity extends ScopedElementsMixin(DBPLitElement) {
     }
 }
 
-commonUtils.defineCustomElement('dbp-template-activity', StarterActivity);
+commonUtils.defineCustomElement('dbp-mono-start', DbpMonoStart);

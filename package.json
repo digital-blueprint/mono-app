@@ -1,8 +1,13 @@
 {
-    "name": "dbp-frontend-template-app",
-    "version": "1.1.0",
-    "main": "src/dbp-frontend-template-app.js",
+    "name": "@dbp-topics/mono",
+    "internalName": "dbp-mono",
+    "version": "0.0.0",
+    "main": "src/dbp-mono.js",
     "license": "LGPL-2.1-or-later",
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.tugraz.at/dbp/mono/mono.git"
+    },
     "private": true,
     "workspaces": [
         "vendor/toolkit/packages/*"

@@ -60,14 +60,14 @@ The main logic is based in the `src` folder.
 
 There are at least two files. One for a topic, one or more for an activity and some other files with e.g.: helper functions. (In our case ``i18n.js`` for the translation).
 
-``dbp-frontend-template-app.js`` is the entry point of the App. If you want to use it with the [app shell](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/tree/master/packages/app-shell):
+``dbp-mono.js`` is the entry point of the App. If you want to use it with the [app shell](https://gitlab.tugraz.at/dbp/web-components/toolkit/-/tree/master/packages/app-shell):
 
-- Rename the file ``dbp-frontend-template-app.js`` to ``<your-app-name.js``
+- Rename the file ``dbp-mono.js`` to ``<your-app-name.js``
 - Change the ``dbp-frontend-template-app`` string to ``<your-app-name>``
 
-``dbp-template-activity.js`` is one activity of the topic. The main code of the activity is based there.
+``dbp-mono-start.js`` is one activity of the topic. The main code of the activity is based there.
 
-- Copy or rename the file ``dbp-template-activity.js`` to ``<your-activity-name>.js`` (the name given in ``<your-activity-name>.metadata.json``: ``module_src``)
+- Copy or rename the file ``dbp-mono-start.js`` to ``<your-activity-name>.js`` (the name given in ``<your-activity-name>.metadata.json``: ``module_src``)
 
 The class in this file is based on [lit-elements](https://lit-element.polymer-project.org/)
 

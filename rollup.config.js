@@ -20,7 +20,7 @@ import {
     getDistPath,
 } from './vendor/toolkit/rollup.utils.js';
 
-let appName = 'dbp-frontend-template-app';
+let appName = 'dbp-mono';
 const pkg = require('./package.json');
 const appEnv = typeof process.env.APP_ENV !== 'undefined' ? process.env.APP_ENV : 'local';
 const watch = process.env.ROLLUP_WATCH === 'true';
@@ -58,7 +58,7 @@ export default (async () => {
     return {
         input:
             appEnv != 'test'
-                ? ['src/' + appName + '.js', 'src/dbp-template-activity.js']
+                ? ['src/' + appName + '.js', 'src/dbp-mono-start.js', 'src/dbp-mono-paymentmethod.js']
                 : glob.sync('test/**/*.js'),
         output: {
             dir: 'dist',

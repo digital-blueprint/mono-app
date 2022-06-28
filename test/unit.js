@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 
 import '../src/dbp-template-activity';
-import '../src/dbp-frontend-template-app.js';
+import '../src/dbp-mono.js';
 
 suite('dbp-template-activity basics', () => {
     let node;
