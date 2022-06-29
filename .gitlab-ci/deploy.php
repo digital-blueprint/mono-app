@@ -37,6 +37,13 @@ host('development')
     ->set('rsync_src', $PROJECT_ROOT.'/dist')
     ->set('deploy_path', '/home/mw/dev/deploy/apps/mono');
 
+host('production')
+    ->set('labels', ['stage' => 'production'])
+    ->setHostname('mw@mw01-prod.tugraz.at')
+    ->set('rsync', $RSYNC_CONFIG)
+    ->set('rsync_src', $PROJECT_ROOT.'/dist')
+    ->set('deploy_path', '/home/mw/prod_pay/deploy');
+
 task('build', function () use ($PROJECT_ROOT) {
     $options = ['cwd' => $PROJECT_ROOT];
     $stage = get('labels')['stage'];
