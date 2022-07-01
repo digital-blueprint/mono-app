@@ -1,0 +1,18 @@
+{
+    "element": "dbp-mono-complete",
+    "module_src": "dbp-mono-complete.js",
+    "routing_name": "mono-complete",
+    "name": {
+        "de": "Elektronische Bezahlung Frontend-Abschluss",
+        "en": "Electronic payment frontend complete"
+    },
+    "short_name": {
+        "de": "Frontend-Abschluss",
+        "en": "Frontend complete"
+    },
+    "description": {
+        "de": "Elektronische Bezahlung im Frontend abschließen.",
+        "en": "Complete electronic payment in frontend."
+    },
+    "subscribe": "lang,auth,entry-point-url,router,base-path"
+}

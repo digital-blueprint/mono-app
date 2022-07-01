@@ -20,6 +20,10 @@
     {
       "path": "dbp-mono-paymentmethod.metadata.json",
       "visible": false
+    },
+    {
+      "path": "dbp-mono-complete.metadata.json",
+      "visible": false
     }
   ],
   "attributes": []

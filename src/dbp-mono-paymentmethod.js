@@ -1,5 +1,6 @@
 import {createInstance} from './i18n.js';
 import {css, html} from 'lit';
+import {classMap} from 'lit/directives/class-map.js';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Button,Icon,LoadingButton} from '@dbp-toolkit/common';
@@ -23,10 +24,14 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
         let params = (new URL(document.location)).searchParams;
         this.identifier = params.get('identifier');
 
+        this.showPaymentMethods = false;
         this.paymentMethods = [];
         this.selectedPaymentMethod = {};
 
         this.consent = false;
+
+        this.showWidget = false;
+        this.widgetUrl = 'about:blank';
     }
 
     static get scopedElements() {
@@ -48,10 +53,14 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
 
             identifier: {type: String},
 
+            showPaymentMethods: {type: Boolean, attribute: false},
             paymentMethods: {type: Array, attribute: false},
             selectedPaymentMethod: {type: Object, attribute: false},
 
             consent: {type: Boolean, attribute: false},
+
+            showWidget: {type: Boolean, attribute: false},
+            widgetUrl: {type: String, attribute: false},
         };
     }
 
@@ -79,6 +88,15 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
             css`
                 .hidden {
                     display: none;
+                }
+                .widget {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #fff;
+                    border: 0;
                 }
             `,
         ];
@@ -132,11 +150,8 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
 
     // start pay action
 
-    isStartPayActionEnabled() {
-        return !!this.selectedPaymentMethod;
-    }
-
     async startPayAction() {
+        this.showPaymentMethods = false;
         let responseData = await this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
@@ -177,6 +192,18 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
     {
         let status = responseData.status;
         let data = await responseData.clone().json();
+
+        let returnUrl = new URL(document.location);
+        returnUrl.pathname = '/dist/de/mono-complete/' + this.identifier + '/';
+        returnUrl.hash = '';
+        returnUrl.search = ''
+
+        let widgetUrl = new URL(data.widgetUrl);
+        let params = widgetUrl.searchParams;
+        params.set('returnUrl', returnUrl.toString());
+        widgetUrl.search = params.toString();
+        this.widgetUrl = widgetUrl.toString();
+        this.showWidget = true;
     }
 
     render() {
@@ -184,33 +211,39 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
         let i18n = this._i18n;
 
         return html`
-            <h3>${i18n.t('select-payment-method')}</h3>
-            <ul>
-                ${this.paymentMethods.map((paymentMethod) =>
-                    html`<li>
-                        <label>
-                            ${paymentMethod.name}
-                            <input type="radio"
-                                   id="paymentMethod"
-                                   name="paymentMethod"
-                                   @click="${(event) => this.selectedPaymentMethod = paymentMethod.identifier}"
-                                   .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
-                                   />
-                        </label>
-                    </li>`
-                )}
-            </ul>
-            <p>
-                ${i18n.t('start-pay-action-info')}
-            </p>
-            <div class="btn-row-left">
-                <dbp-button class='button next-btn'
-                            title='${i18n.t('start-pay-action-btn-title')}'
-                            @click='${this.startPayAction}'
-                            ?disabled='${!this.isStartPayActionEnabled()}'>
-                    ${i18n.t('start-pay-action-btn-title')}
-                    <dbp-icon name='chevron-right'></dbp-icon>
-                </dbp-button>
+            <div class="${classMap({hidden: !this.showPaymentMethods})}">
+                <h3>${i18n.t('select-payment-method')}</h3>
+                <ul>
+                    ${this.paymentMethods.map((paymentMethod) =>
+                        html`<li>
+                            <label>
+                                ${paymentMethod.name}
+                                <input type="radio"
+                                       id="paymentMethod"
+                                       name="paymentMethod"
+                                       @click="${(event) => this.selectedPaymentMethod = paymentMethod.identifier}"
+                                       .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
+                                       />
+                            </label>
+                        </li>`
+                    )}
+                </ul>
+                <p>
+                    ${i18n.t('start-pay-action-info')}
+                </p>
+                <div class="btn-row-left">
+                    <dbp-button class='button next-btn'
+                                title='${i18n.t('start-pay-action-btn-title')}'
+                                @click='${this.startPayAction}'
+                                ?disabled='${!this.selectedPaymentMethod}'>
+                        ${i18n.t('start-pay-action-btn-title')}
+                        <dbp-icon name='chevron-right'></dbp-icon>
+                    </dbp-button>
+                </div>
+            </div>
+
+            <div class="${classMap({hidden: !this.showWidget})}">
+                <iframe class="widget" .src="${this.widgetUrl}"></iframe>
             </div>
         `;
     }

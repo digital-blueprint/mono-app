@@ -58,7 +58,7 @@ export default (async () => {
     return {
         input:
             appEnv != 'test'
-                ? ['src/' + appName + '.js', 'src/dbp-mono-start.js', 'src/dbp-mono-paymentmethod.js']
+                ? ['src/' + appName + '.js', 'src/dbp-mono-start.js', 'src/dbp-mono-paymentmethod.js', 'src/dbp-mono-complete.js']
                 : glob.sync('test/**/*.js'),
         output: {
             dir: 'dist',
