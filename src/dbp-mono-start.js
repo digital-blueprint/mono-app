@@ -105,7 +105,7 @@ class DbpMonoStart extends ScopedElementsMixin(DBPMonoLitElement) {
             returnUrl: returnUrl,
             notifyUrl: notifyUrl,
             localIdentifier: localIdentifier
-        }
+        };
 
         const options = {
             method: 'POST',

@@ -124,11 +124,12 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPMonoLitElement) {
         let data = await responseData.clone().json();
 
         switch (status) {
-            case 200:
+            case 200: {
                 let paymentMethods = JSON.parse(data.paymentMethod);
                 this.paymentMethods = paymentMethods;
                 this.showPaymentMethods = true;
                 break;
+            }
             case 401:
                 send({
                     summary: i18n.t('common.login-required-title'),
@@ -180,13 +181,15 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPMonoLitElement) {
 
     async getStartPayActionResponse(responseData)
     {
+        const i18n = this._i18n;
+
         let status = responseData.status;
         let data = await responseData.clone().json();
 
         let returnUrl = new URL(document.location);
         returnUrl.pathname = '/dist/de/mono-complete/' + this.identifier + '/';
         returnUrl.hash = '';
-        returnUrl.search = ''
+        returnUrl.search = '';
 
         let widgetUrl = new URL(data.widgetUrl);
         let params = widgetUrl.searchParams;

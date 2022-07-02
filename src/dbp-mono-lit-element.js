@@ -30,7 +30,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this._loginStatus = this.auth['login-status'];
         this._requestHeaders = {
             'Content-Type': 'application/ld+json',
-        }
+        };
 
         if (this._loginStatus === 'logged-in') {
             this._requestHeaders.Authorization = 'Bearer ' + this.auth.token;

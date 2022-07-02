@@ -70,7 +70,7 @@ class DbpMonoComplete extends ScopedElementsMixin(DBPMonoLitElement) {
         let baseUrl = new URL(document.location);
         baseUrl.pathname = '/dist/de/mono-complete/';
         baseUrl.hash = '';
-        baseUrl.search = ''
+        baseUrl.search = '';
 
         let regexp = new RegExp('^' + baseUrl.toString());
         let pspData = document.location.toString().replace(regexp, '');
@@ -102,7 +102,7 @@ class DbpMonoComplete extends ScopedElementsMixin(DBPMonoLitElement) {
         let body = {
             routing: '',
             pspData: pspData,
-        }
+        };
 
         const options = {
             method: 'POST',
