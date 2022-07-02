@@ -1,6 +1,7 @@
 import {createInstance} from './i18n.js';
 import {css, html} from 'lit';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
+import {send} from '@dbp-toolkit/common/notification';
 import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
@@ -140,28 +141,23 @@ class DbpMonoStart extends ScopedElementsMixin(DBPLitElement) {
     async createPaymentResponse(
         responseData
     ) {
+        const i18n = this._i18n;
+
         let status = responseData.status;
         let data = await responseData.clone().json();
 
-        // todo
-        console.log(data);
-        window.location.href = '/dist/de/mono-paymentmethod?identifier=' + data.identifier;
-    }
-
-
-    async onClick(event) {
-        let response = await fetch(this.entryPointUrl + '/base/people/' + this.auth['user-id'], {
-            headers: {
-                'Content-Type': 'application/ld+json',
-                Authorization: 'Bearer ' + this.auth.token,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(response);
+        switch (status) {
+            case 201:
+                window.location.href = '/dist/de/mono-paymentmethod?identifier=' + data.identifier;
+                break;
+            case 401:
+                send({
+                    summary: i18n.t('common.login-required-title'),
+                    body: i18n.t('common.login-required-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
         }
-
-        let data = await response.json();
-        this.name = `${data['givenName']} ${data['familyName']}`;
     }
 
     render() {

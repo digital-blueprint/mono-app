@@ -139,13 +139,26 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
     async getPaymentResponse(
         responseData
     ) {
+        const i18n = this._i18n;
+
         let status = responseData.status;
         let data = await responseData.clone().json();
 
-        // todo
-        console.log(data);
-        let paymentMethods = JSON.parse(data.paymentMethod);
-        this.paymentMethods = paymentMethods;
+        switch (status) {
+            case 200:
+                let paymentMethods = JSON.parse(data.paymentMethod);
+                this.paymentMethods = paymentMethods;
+                this.showPaymentMethods = true;
+                break;
+            case 401:
+                send({
+                    summary: i18n.t('common.login-required-title'),
+                    body: i18n.t('common.login-required-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+        }
     }
 
     // start pay action
