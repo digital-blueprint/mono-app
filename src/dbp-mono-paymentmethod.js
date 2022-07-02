@@ -1,25 +1,18 @@
-import {createInstance} from './i18n.js';
 import {css, html} from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
+import {send} from '@dbp-toolkit/common/notification';
 import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Button,Icon,LoadingButton} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
-import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
 import metadata from './dbp-mono-paymentmethod.metadata.json';
 import {Activity} from './activity.js';
+import DBPMonoLitElement from "./dbp-mono-lit-element";
 
-class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
+class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         super();
-        this._i18n = createInstance();
-        this.lang = this._i18n.language;
         this.activity = new Activity(metadata);
-        this.auth = null;
-        this.name = null;
-        this.entryPointUrl = null;
-        this.router = null;
-        this.basePath = null;
 
         let params = (new URL(document.location)).searchParams;
         this.identifier = params.get('identifier');
@@ -44,12 +37,7 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
 
     static get properties() {
         return {
-            lang: {type: String},
-            auth: {type: Object},
-            name: {type: String},
-            entryPointUrl: {type: String, attribute: 'entry-point-url'},
-            router: {type: Object},
-            basePath: {type: String, attribute: 'base-path'},
+            ...super.properties,
 
             identifier: {type: String},
 
@@ -128,9 +116,7 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
     ) {
         const options = {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/ld+json',
-            }
+            headers: this._requestHeaders,
         };
 
         return await this.httpGetAsync(this.entryPointUrl + '/mono/payment/' + identifier, options);
@@ -192,9 +178,7 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPLitElement) {
 
         const options = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/ld+json',
-            },
+            headers: this._requestHeaders,
             body: JSON.stringify(body),
         };
 

@@ -1,28 +1,20 @@
-import {createInstance} from './i18n.js';
 import {css, html} from 'lit';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
-import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
 import metadata from './dbp-mono-complete.metadata.json';
 import {Activity} from './activity.js';
+import DBPMonoLitElement from "./dbp-mono-lit-element";
 
-class DbpMonoComplete extends ScopedElementsMixin(DBPLitElement) {
+class DbpMonoComplete extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         if (window.frameElement) {
             parent.location = self.location;
         }
 
         super();
-        this._i18n = createInstance();
-        this.lang = this._i18n.language;
         this.activity = new Activity(metadata);
-        this.auth = null;
-        this.name = null;
-        this.entryPointUrl = null;
-        this.router = null;
-        this.basePath = null;
 
         let params = (new URL(document.location)).searchParams;
         this.type = params.get('type') ?? '';
@@ -41,12 +33,7 @@ class DbpMonoComplete extends ScopedElementsMixin(DBPLitElement) {
 
     static get properties() {
         return {
-            lang: {type: String},
-            auth: {type: Object},
-            name: {type: String},
-            entryPointUrl: {type: String, attribute: 'entry-point-url'},
-            router: {type: Object},
-            basePath: {type: String, attribute: 'base-path'},
+            ...super.properties,
 
             type: {type: String},
             data: {type: String},
@@ -126,9 +113,7 @@ class DbpMonoComplete extends ScopedElementsMixin(DBPLitElement) {
 
         const options = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/ld+json',
-            },
+            headers: this._requestHeaders,
             body: JSON.stringify(body),
         };
 

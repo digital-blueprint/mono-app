@@ -14,5 +14,5 @@
         "de": "Elektronische Bezahlung im Frontend abschließen.",
         "en": "Complete electronic payment in frontend."
     },
-    "subscribe": "lang,auth,entry-point-url,router,base-path"
+    "subscribe": "lang,auth,entry-point-url"
 }
