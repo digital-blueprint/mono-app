@@ -52,22 +52,15 @@ class DbpMonoPaymentmethod extends ScopedElementsMixin(DBPMonoLitElement) {
         };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    _updateAuth() {
+        super._updateAuth();
 
-        this.getPayment();
-    }
-
-    update(changedProperties) {
-        changedProperties.forEach((oldValue, propName) => {
-            switch (propName) {
-                case 'lang':
-                    this._i18n.changeLanguage(this.lang);
-                    break;
-            }
-        });
-
-        super.update(changedProperties);
+        if (
+            this._loginStatus === 'logged-in'
+            || this._loginStatus === 'logged-out'
+        ) {
+            this.getPayment();
+        }
     }
 
     static get styles() {

@@ -44,22 +44,15 @@ class DbpMonoComplete extends ScopedElementsMixin(DBPMonoLitElement) {
         };
     }
 
-    connectedCallback() {
-        super.connectedCallback();
+    _updateAuth() {
+        super._updateAuth();
 
-        this.completePayment();
-    }
-
-    update(changedProperties) {
-        changedProperties.forEach((oldValue, propName) => {
-            switch (propName) {
-                case 'lang':
-                    this._i18n.changeLanguage(this.lang);
-                    break;
-            }
-        });
-
-        super.update(changedProperties);
+        if (
+            this._loginStatus === 'logged-in'
+            || this._loginStatus === 'logged-out'
+        ) {
+            this.completePayment();
+        }
     }
 
     static get styles() {
