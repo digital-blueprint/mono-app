@@ -7,6 +7,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this._i18n = createInstance();
         this.lang = this._i18n.language;
         this.auth = {};
+        this.metadata = {};
         this.entryPointUrl = null;
     }
 
@@ -50,5 +51,56 @@ export default class DBPMonoLitElement extends DBPLitElement {
         });
 
         super.update(changedProperties);
+    }
+
+    // get base url (everything before activity)
+    getBaseUrl() {
+        let that = this;
+        let url = new URL(document.location);
+        let pathname = url.pathname;
+        let pathnameItems = pathname.split('/');
+        let baseUrl = [];
+        let reached = false;
+        pathnameItems.forEach(pathnameItem => {
+            if (pathnameItem === that.metadata['routing_name']) {
+                reached = true;
+            }
+            if (!reached) {
+                baseUrl.push(pathnameItem);
+            }
+        });
+        url.pathname = baseUrl.join('/');
+        url.search = '';
+        url.hash = '';
+        return url.toString();
+    }
+
+    // get everything after base url without leading and trailing slash
+    getActivityPath(skipPathItems) {
+        let url = new URL(document.location);
+        let baseUrl = new URL(this.getBaseUrl());
+        let pattern = '^' + baseUrl.pathname;
+        let regexp = new RegExp(pattern);
+        let activityPath = url.pathname.replace(regexp, '');
+        activityPath = activityPath.replace(/^\//, '');
+        activityPath = activityPath.replace(/\/$/, '');
+        let activityPathItems = activityPath.split('/');
+        if (skipPathItems) {
+            activityPathItems.splice(0, skipPathItems);
+        }
+        activityPath = activityPathItems.join('/');
+        return activityPath;
+    }
+
+    // activity only
+    getActivity() {
+        return this.metadata['routing_name'];
+    }
+
+    // view only
+    getView() {
+        let activityPath = this.getActivityPath(1);
+        let activityPathItems = activityPath.split('/');
+        return activityPathItems[0] ?? null;
     }
 }

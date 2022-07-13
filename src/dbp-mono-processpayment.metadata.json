@@ -1,0 +1,18 @@
+{
+    "element": "dbp-mono-processpayment",
+    "module_src": "dbp-mono-processpayment.js",
+    "routing_name": "mono-processpayment",
+    "name": {
+        "de": "Elektronische Zahlungen",
+        "en": "Electronic payment"
+    },
+    "short_name": {
+        "de": "Zahlungen",
+        "en": "Payment"
+    },
+    "description": {
+        "de": "Verarbeitung von elektronischen Zahlungen.",
+        "en": "Process of electronic payments."
+    },
+    "subscribe": "lang,auth,entry-point-url"
+}

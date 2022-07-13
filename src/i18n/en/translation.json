@@ -3,6 +3,9 @@
         "login-required-title": "Login required",
         "login-required-body": "Please log in to continue."
     },
+    "complete": {
+        "payment-status-completed": "Payment completed successfully."
+    },
     "select-payment-method": "Please select a payment method:",
     "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
     "start-pay-action-btn-title": "Start payment",

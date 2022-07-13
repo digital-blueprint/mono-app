@@ -3,6 +3,9 @@
         "login-required-title": "Anmeldung erforderlich",
         "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können."
     },
+    "complete": {
+        "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
+    },
     "select-payment-method": "Bitte wähle ein Zahlungsmittel aus:",
     "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
     "start-pay-action-btn-title": "Zahlung starten",

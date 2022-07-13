@@ -14,15 +14,7 @@
   "routing_name": "mono",
   "activities": [
     {
-      "path": "dbp-mono-start.metadata.json",
-      "visible": false
-    },
-    {
-      "path": "dbp-mono-paymentmethod.metadata.json",
-      "visible": false
-    },
-    {
-      "path": "dbp-mono-complete.metadata.json",
+      "path": "dbp-mono-processpayment.metadata.json",
       "visible": false
     }
   ],
