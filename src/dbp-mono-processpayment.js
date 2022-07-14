@@ -580,6 +580,10 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     padding-top: 7px;
                     padding-bottom: 7px;
                 }
+                .form-check-label img {
+                    max-height: 30px;
+                    max-width: 30px;
+                }
                 .widget {
                     position: fixed;
                     left: 0;
