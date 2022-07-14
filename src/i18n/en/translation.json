@@ -1,7 +1,9 @@
 {
     "common": {
         "login-required-title": "Login required",
-        "login-required-body": "Please log in to continue."
+        "login-required-body": "Please log in to continue.",
+        "other-error-title": "Error!",
+        "other-error-body": "An unknown error has occurred."
     },
     "complete": {
         "payment-status-completed": "Payment completed successfully."

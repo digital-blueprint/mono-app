@@ -275,6 +275,14 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     timeout: 5,
                 });
                 break;
+            default:
+                send({
+                    summary: i18n.t('common.other-error-title'),
+                    body: i18n.t('common.other-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
         }
     }
 
@@ -323,14 +331,27 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         let status = responseData.status;
         let data = await responseData.clone().json();
 
-        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
+        switch (status) {
+            case 201: {
+                let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
 
-        let widgetUrl = new URL(data.widgetUrl);
-        let params = widgetUrl.searchParams;
-        params.set('returnUrl', returnUrl.toString());
-        widgetUrl.search = params.toString();
-        this.widgetUrl = widgetUrl.toString();
-        this.showWidget = true;
+                let widgetUrl = new URL(data.widgetUrl);
+                let params = widgetUrl.searchParams;
+                params.set('returnUrl', returnUrl.toString());
+                widgetUrl.search = params.toString();
+                this.widgetUrl = widgetUrl.toString();
+                this.showWidget = true;
+                break;
+            }
+            default:
+                send({
+                    summary: i18n.t('common.other-error-title'),
+                    body: i18n.t('common.other-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+        }
     }
 
     // complete
@@ -373,15 +394,31 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     async completePaymentResponse(
         responseData
     ) {
+        const i18n = this._i18n;
+
         let status = responseData.status;
         let data = await responseData.clone().json();
 
-        this.returnUrl = data.returnUrl;
+        switch (status) {
+            case 201:
+                this.returnUrl = data.returnUrl;
+                break;
+            default:
+                send({
+                    summary: i18n.t('common.other-error-title'),
+                    body: i18n.t('common.other-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+        }
     }
 
     async getCompletePaymentResponse(
         responseData
     ) {
+        const i18n = this._i18n;
+
         let status = responseData.status;
         let data = await responseData.clone().json();
 
@@ -398,7 +435,16 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 this.showCompleteConfirmation = true;
+                break;
             }
+            default:
+                send({
+                    summary: i18n.t('common.other-error-title'),
+                    body: i18n.t('common.other-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
         }
     }
 

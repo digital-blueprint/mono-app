@@ -1,7 +1,9 @@
 {
     "common": {
         "login-required-title": "Anmeldung erforderlich",
-        "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können."
+        "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können.",
+        "other-error-title": "Fehler!",
+        "other-error-body": "Es ist ein unbekannter Fehler aufgetreten."
     },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
