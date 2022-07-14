@@ -6,6 +6,8 @@
         "client-ip-not-allowed-body": "You are not allowed to access this ressource from this device.",
         "timeout-exceeded-title": "Error!",
         "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
+        "backend-error-title": "Error!",
+        "backend-error-body": "An error occured during communcation with a backend system.",
         "other-error-title": "Error!",
         "other-error-body": "An unknown error has occurred."
     },

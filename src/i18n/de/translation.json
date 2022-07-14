@@ -6,6 +6,8 @@
         "client-ip-not-allowed-body": "Sie dürfen von diesem Endgerät nicht auf die Ressource zugreifen.",
         "timeout-exceeded-title": "Fehler!",
         "timeout-exceeded-body": "Die Ressource ist abgelaufen, sie dürfen nicht mehr zugreifen.",
+        "backend-error-title": "Fehler!",
+        "backend-error-body": "Bei der Kommunikation mit einem Backend-System ist ein Fehler aufgetreten.",
         "other-error-title": "Fehler!",
         "other-error-body": "Es ist ein unbekannter Fehler aufgetreten."
     },

@@ -408,6 +408,14 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     timeout: 5,
                 });
                 break;
+            case 500:
+                send({
+                    summary: i18n.t('common.backend-error-title'),
+                    body: i18n.t('common.backend-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
             default:
                 send({
                     summary: i18n.t('common.other-error-title'),
@@ -467,6 +475,14 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         switch (status) {
             case 201:
                 this.returnUrl = data.returnUrl;
+                break;
+            case 500:
+                send({
+                    summary: i18n.t('common.backend-error-title'),
+                    body: i18n.t('common.backend-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
                 break;
             default:
                 send({
