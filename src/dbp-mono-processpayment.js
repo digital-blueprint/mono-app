@@ -284,6 +284,30 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     timeout: 5,
                 });
                 break;
+            case 403:
+                send({
+                    summary: i18n.t('get.client-ip-not-allowed-title'),
+                    body: i18n.t('get.client-ip-not-allowed-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+            case 410:
+                send({
+                    summary: i18n.t('get.timeout-exceeded-title'),
+                    body: i18n.t('get.timeout-exceeded-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+            case 429:
+                send({
+                    summary: i18n.t('get.too-many-requests-title'),
+                    body: i18n.t('get.too-many-requests-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
             default:
                 send({
                     summary: i18n.t('common.other-error-title'),

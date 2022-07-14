@@ -5,6 +5,14 @@
         "other-error-title": "Fehler!",
         "other-error-body": "Es ist ein unbekannter Fehler aufgetreten."
     },
+    "get": {
+        "client-ip-not-allowed-title": "Fehler!",
+        "client-ip-not-allowed-body": "Sie dürfen von diesem Endgerät nicht auf die Ressource zugreifen.",
+        "timeout-exceeded-title": "Fehler!",
+        "timeout-exceeded-body": "Die Ressource ist abgelaufen, sie dürfen nicht mehr zugreifen.",
+        "too-many-requests-title": "Fehler!",
+        "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
+    },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
     },
