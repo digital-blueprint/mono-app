@@ -286,16 +286,16 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             case 403:
                 send({
-                    summary: i18n.t('get.client-ip-not-allowed-title'),
-                    body: i18n.t('get.client-ip-not-allowed-body'),
+                    summary: i18n.t('common.client-ip-not-allowed-title'),
+                    body: i18n.t('common.client-ip-not-allowed-body'),
                     type: 'danger',
                     timeout: 5,
                 });
                 break;
             case 410:
                 send({
-                    summary: i18n.t('get.timeout-exceeded-title'),
-                    body: i18n.t('get.timeout-exceeded-body'),
+                    summary: i18n.t('common.timeout-exceeded-title'),
+                    body: i18n.t('common.timeout-exceeded-body'),
                     type: 'danger',
                     timeout: 5,
                 });
@@ -376,6 +376,38 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.showWidget = true;
                 break;
             }
+            case 401:
+                send({
+                    summary: i18n.t('common.login-required-title'),
+                    body: i18n.t('common.login-required-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+            case 403:
+                send({
+                    summary: i18n.t('common.client-ip-not-allowed-title'),
+                    body: i18n.t('common.client-ip-not-allowed-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+            case 410:
+                send({
+                    summary: i18n.t('common.timeout-exceeded-title'),
+                    body: i18n.t('common.timeout-exceeded-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
+            case 429:
+                send({
+                    summary: i18n.t('start.too-many-requests-title'),
+                    body: i18n.t('start.too-many-requests-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
             default:
                 send({
                     summary: i18n.t('common.other-error-title'),

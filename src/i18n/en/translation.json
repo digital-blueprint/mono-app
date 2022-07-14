@@ -2,16 +2,20 @@
     "common": {
         "login-required-title": "Login required",
         "login-required-body": "Please log in to continue.",
-        "other-error-title": "Error!",
-        "other-error-body": "An unknown error has occurred."
-    },
-    "get": {
         "client-ip-not-allowed-title": "Error!",
         "client-ip-not-allowed-body": "You are not allowed to access this ressource from this device.",
         "timeout-exceeded-title": "Error!",
         "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
+        "other-error-title": "Error!",
+        "other-error-body": "An unknown error has occurred."
+    },
+    "get": {
         "too-many-requests-title": "Error!",
         "too-many-requests-body": "You made too many requests on this ressource."
+    },
+    "start": {
+        "too-many-requests-title": "Fehler!",
+        "too-many-requests-body": "You are allowed to start the payment only once."
     },
     "complete": {
         "payment-status-completed": "Payment completed successfully."
