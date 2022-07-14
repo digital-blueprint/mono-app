@@ -230,6 +230,15 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         timeout: 5,
                     });
                 }
+                break;
+            default:
+                send({
+                    summary: i18n.t('common.other-error-title'),
+                    body: i18n.t('common.other-error-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
         }
     }
 
