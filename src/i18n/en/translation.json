@@ -15,17 +15,18 @@
         "too-many-requests-title": "Error!",
         "too-many-requests-body": "You made too many requests on this ressource."
     },
+    "select": {
+        "sender": "From",
+        "recipient": "To",
+        "payment-method": "Please select a payment method:",
+        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
+        "start-pay-action-btn-title": "Start payment"
+    },
     "start": {
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "You are allowed to start the payment only once."
     },
     "complete": {
         "payment-status-completed": "Payment completed successfully."
-    },
-    "select-payment-method": "Please select a payment method:",
-    "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
-    "start-pay-action-btn-title": "Start payment",
-    "click-me": "Click me",
-    "hello": "Hello {{name}}!",
-    "please-log-in": "Please log in"
+    }
 }

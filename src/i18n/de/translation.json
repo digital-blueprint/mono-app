@@ -15,17 +15,18 @@
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
+    "select": {
+        "sender": "Von",
+        "recipient": "An",
+        "payment-method": "Bitte wähle ein Zahlungsmittel aus:",
+        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
+        "start-pay-action-btn-title": "Zahlung starten"
+    },
     "start": {
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "Die Zahlung darf nur einmalig gestartet werden."
     },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
-    },
-    "select-payment-method": "Bitte wähle ein Zahlungsmittel aus:",
-    "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
-    "start-pay-action-btn-title": "Zahlung starten",
-    "click-me": "Klick mich",
-    "hello": "Hallo {{name}}!",
-    "please-log-in": "Bitte melde dich an"
+    }
 }

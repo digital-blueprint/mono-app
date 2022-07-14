@@ -25,6 +25,18 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.localIdentifier = params.get('localIdentifier');
         this.authRequired = !!params.get('authRequired');
 
+        // get
+        this.paymentReference = null;
+        this.amount = null;
+        this.currency = null;
+        this.honoricPrefix = null;
+        this.givenName = null;
+        this.familyName = null;
+        this.companyName = null;
+        this.honoricSuffix = null;
+        this.recipient = null;
+        this.dataProtectionDeclarationUrl = null;
+
         // select
         this.identifier = null;
 
@@ -89,6 +101,18 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
             localIdentifier: {type: String},
             authRequired: {type: Boolean},
 
+            // get
+            paymentReference: {type: String, attribute: false},
+            amount: {type: String, attribute: false},
+            currency: {type: String, attribute: false},
+            honoricPrefix: {type: String, attribute: false},
+            givenName: {type: String, attribute: false},
+            familyName: {type: String, attribute: false},
+            companyName: {type: String, attribute: false},
+            honoricSuffix: {type: String, attribute: false},
+            recipient: {type: String, attribute: false},
+            dataProtectionDeclarationUrl: {type: String, attribute: false},
+
             // select
             identifier: {type: String},
 
@@ -131,26 +155,6 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     break;
             }
         }
-    }
-
-    static get styles() {
-        return [
-            commonStyles.getThemeCSS(),
-            css`
-                .hidden {
-                    display: none;
-                }
-                .widget {
-                    position: fixed;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: #fff;
-                    border: 0;
-                }
-            `,
-        ];
     }
 
     async httpGetAsync(url, options) {
@@ -271,8 +275,18 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         switch (status) {
             case 200: {
+                this.paymentReference = data.paymentReference;
+                this.amount = data.amount;
+                this.currency = data.currency;
+                this.honoricPrefix = data.honoricPrefix;
+                this.givenName = data.givenName;
+                this.familyName = data.familyName;
+                this.companyName = data.companyName;
+                this.honoricSuffix = data.honoricSuffix;
+                this.recipient = data.recipient;
                 let paymentMethods = JSON.parse(data.paymentMethod);
                 this.paymentMethods = paymentMethods;
+                this.dataProtectionDeclarationUrl = data.dataProtectionDeclarationUrl;
                 this.showPaymentMethods = true;
                 break;
             }
@@ -529,37 +543,127 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    static get styles() {
+        return [
+            commonStyles.getThemeCSS(),
+            css`
+                .hidden {
+                    display: none;
+                }
+                .details {
+                    padding: 15px;
+                    border: 1px solid lightgray;                
+                }
+                .details p {
+                    margin: 0;
+                }
+                .details p + p{
+                    margin-top: 15px;
+                }
+                .details strong {
+                    color: darkgray;
+                }
+                .amount {
+                    font-size: 2em;
+                    font-weight: bold;
+                }
+                .amount small {
+                    color: darkgray;
+                }
+                .form-check-label {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .form-check-label span {
+                    display: block;
+                    padding-top: 7px;
+                    padding-bottom: 7px;
+                }
+                .widget {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #fff;
+                    border: 0;
+                }
+                @media only screen and (min-width: 768px) {
+                    .row {
+                        display: flex;
+                        margin-left: -15px;
+                        margin-right: -15px;
+                    }
+                    .col {
+                        flex: 1 0 0%;
+                        padding: 15px;
+                    }
+                    .col:first-child {
+                        width: 25%;
+                        flex: 0 0 auto;
+                    }
+                }
+            `,
+        ];
+    }
+
     render() {
-        let loggedIn = this.auth && this.auth.token;
         let i18n = this._i18n;
 
         return html`
             <div class="${classMap({hidden: !this.showPaymentMethods})}">
-                <h3>${i18n.t('select-payment-method')}</h3>
-                <ul>
-                    ${this.paymentMethods.map((paymentMethod) =>
-                        html`<li>
-                            <label>
-                                ${paymentMethod.name}
-                                <input type="radio"
-                                       id="paymentMethod"
-                                       name="paymentMethod"
-                                       @click="${(event) => this.selectedPaymentMethod = paymentMethod.identifier}"
-                                       .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
-                                       />
-                            </label>
-                        </li>`
-                    )}
-                </ul>
+                <div class="row">
+                    <div class="col">
+                        <div class="details">
+                            <p class="amount">
+                                ${this.currency} ${this.amount}
+                                ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
+                            </p>
+                            <p class="sender">
+                                <strong>${i18n.t('select.sender')}</strong><br/>
+                                ${this.honoricPrefix} <b>${this.givenName} ${this.familyName}</b> ${this.honoricSuffix}
+                                ${this.companyName ? html`<br/>${this.companyName}` : ''}
+                            </p>
+                            ${this.recipient ? html`
+                                <p class="recipient">
+                                    <strong>${i18n.t('select.recipient')}</strong><br/>
+                                    ${this.recipient}
+                                </p>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h3>${i18n.t('select.payment-method')}</h3>
+                        ${this.paymentMethods.map((paymentMethod) =>
+                            html`
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <span>
+                                            <input class="form-check-input" 
+                                                   type="radio"
+                                                   name="paymentMethod"
+                                                   @click="${(event) => this.selectedPaymentMethod = paymentMethod.identifier}"
+                                                   .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
+                                                   />
+                                            ${paymentMethod.name}
+                                        </span>
+                                        ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''} 
+                                    </label>
+                                </div>
+                            `
+                        )}
+                    </div>
+                </div>
                 <p>
-                    ${i18n.t('start-pay-action-info')}
+                    ${i18n.t('select.start-pay-action-info')}
                 </p>
                 <div class="btn-row-left">
                     <dbp-button class='button next-btn'
-                                title='${i18n.t('start-pay-action-btn-title')}'
+                                title='${i18n.t('select.start-pay-action-btn-title')}'
                                 @click='${this.startPayAction}'
                                 ?disabled='${!this.selectedPaymentMethod}'>
-                        ${i18n.t('start-pay-action-btn-title')}
+                        ${i18n.t('select.start-pay-action-btn-title')}
                         <dbp-icon name='chevron-right'></dbp-icon>
                     </dbp-button>
                 </div>
