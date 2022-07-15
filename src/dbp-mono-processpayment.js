@@ -621,7 +621,16 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <div class="col">
                         <div class="details">
                             <p class="amount">
-                                ${this.currency} ${this.amount}
+                                ${i18n.t('{{val, currency}}',
+                                    {
+                                        val: this.amount,
+                                        formatParams: {
+                                            val: {
+                                                currency: this.currency
+                                            }
+                                        }
+                                    }
+                                )}
                                 ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
                             </p>
                             <p class="sender">
