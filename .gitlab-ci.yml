@@ -41,7 +41,6 @@ linting:
     - ssh-keyscan -t rsa "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
     # Deploy
     - cd .gitlab-ci
-    - export DO_NOT_TRACK=1
     - composer install
     - composer exec -- dep deploy "stage=${CI_ENVIRONMENT_NAME}"
     - echo "Deployed to ${CI_ENVIRONMENT_URL}"

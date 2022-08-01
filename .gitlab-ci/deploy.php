@@ -6,6 +6,7 @@ namespace Deployer;
 
 $PROJECT_ROOT = dirname(__DIR__);
 putenv('DEPLOYER_ROOT='.$PROJECT_ROOT);
+putenv('DO_NOT_TRACK=true');
 
 import('recipe/common.php');
 import('contrib/rsync.php');
