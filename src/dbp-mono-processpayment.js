@@ -673,10 +673,9 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </p>
                 <div class="btn-row-left">
                     <dbp-button class='button next-btn'
-                                title='${i18n.t('select.start-pay-action-btn-title')}'
+                                value='${i18n.t('select.start-pay-action-btn-title')}'
                                 @click='${this.startPayAction}'
                                 ?disabled='${!this.selectedPaymentMethod}'>
-                        ${i18n.t('select.start-pay-action-btn-title')}
                         <dbp-icon name='chevron-right'></dbp-icon>
                     </dbp-button>
                 </div>
