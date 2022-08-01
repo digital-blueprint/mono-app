@@ -1,9 +1,6 @@
 {
     "require": {
-        "symfony/process": " ^5.0",
-        "symfony/console": " ^5.0",
-        "symfony/yaml": " ^5.0",
-        "deployer/deployer": "^7.0.0-rc.3"
+        "deployer/deployer": "^7.0.0"
     },
     "config": {
         "platform": {

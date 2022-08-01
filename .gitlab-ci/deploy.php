@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Deployer;
 
+$PROJECT_ROOT = dirname(__DIR__);
+putenv('DEPLOYER_ROOT='.$PROJECT_ROOT);
+
 import('recipe/common.php');
 import('contrib/rsync.php');
-
-$PROJECT_ROOT = dirname(__DIR__);
 
 $RSYNC_CONFIG = [
     'exclude' => [],
