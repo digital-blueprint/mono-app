@@ -43,7 +43,7 @@ linting:
     - cd .gitlab-ci
     - export DO_NOT_TRACK=1
     - composer install
-    - composer exec -- deployer.phar deploy "stage=${CI_ENVIRONMENT_NAME}"
+    - composer exec -- dep deploy "stage=${CI_ENVIRONMENT_NAME}"
     - echo "Deployed to ${CI_ENVIRONMENT_URL}"
     # Simple health check
     - curl --max-time 10 --retry 3 --output /dev/null --silent --show-error --fail --location "${CI_ENVIRONMENT_URL}"
