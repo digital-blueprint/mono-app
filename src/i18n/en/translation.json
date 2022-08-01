@@ -8,6 +8,8 @@
         "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
         "backend-error-title": "Error!",
         "backend-error-body": "An error occured during communcation with a backend system.",
+        "psp-return-url-not-allowed-title": "Error!",
+        "psp-return-url-not-allowed-body": "The PSP return url is not allowed.",
         "other-error-title": "Error!",
         "other-error-body": "An unknown error has occurred."
     },

@@ -378,6 +378,7 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     async startPayAction() {
         this.showPaymentMethods = false;
+        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
         let responseData = await this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
@@ -424,17 +425,20 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         switch (status) {
             case 201: {
-                let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
-
                 let widgetUrl = new URL(data.widgetUrl);
-                let params = widgetUrl.searchParams;
-                params.set('returnUrl', returnUrl.toString());
-                widgetUrl.search = params.toString();
                 this.widgetUrl = widgetUrl.toString();
                 this.showWidget = true;
                 this.openModal();
                 break;
             }
+            case 400:
+                send({
+                    summary: i18n.t('common.psp-return-url-not-allowed-title'),
+                    body: i18n.t('common.psp-return-url-not-allowed-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
             case 401:
                 send({
                     summary: i18n.t('common.login-required-title'),
