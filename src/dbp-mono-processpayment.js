@@ -8,6 +8,7 @@ import * as commonStyles from '@dbp-toolkit/common/styles';
 import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
 import DBPMonoLitElement from "./dbp-mono-lit-element";
+import MicroModal from './micromodal.es';
 
 class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
@@ -335,6 +336,26 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // start pay action
 
+    openModal() {
+        const modal = this._('#payment-modal');
+        if (modal) {
+            MicroModal.show(modal, {
+                onClose: (modal, trigger) => {
+                    location.reload();
+                },
+                disableScroll: true,
+                disableFocus: false,
+            });
+        }
+    }
+
+    closeModal() {
+        const modal = this._('#payment-modal');
+        if (modal) {
+            MicroModal.close(modal);
+        }
+    }
+
     async startPayAction() {
         this.showPaymentMethods = false;
         let responseData = await this.sendPostStartPayActionRequest(
@@ -388,6 +409,7 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 widgetUrl.search = params.toString();
                 this.widgetUrl = widgetUrl.toString();
                 this.showWidget = true;
+                this.openModal();
                 break;
             }
             case 401:
@@ -546,6 +568,7 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     static get styles() {
         return [
             commonStyles.getThemeCSS(),
+            commonStyles.getModalDialogCSS(),
             css`
                 .hidden {
                     display: none;
@@ -584,10 +607,17 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     max-height: 30px;
                     max-width: 30px;
                 }
+                .modal-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .modal-header {
+                    text-align: right;
+                }
+                .modal-content {
+                    height: 100%;
+                }
                 .widget {
-                    position: fixed;
-                    left: 0;
-                    top: 0;
                     width: 100%;
                     height: 100%;
                     background: #fff;
@@ -681,15 +711,38 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </div>
             </div>
 
-            <div class="${classMap({hidden: !this.showWidget})}">
-                <iframe class="widget" .src="${this.widgetUrl}"></iframe>
-            </div>
-
             <div class="${classMap({hidden: !this.showCompleteConfirmation})}">
                 <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
                     <p>
                         ${i18n.t('complete.payment-status-completed')}
                     </p>
+                </div>
+            </div>
+
+            <div class="modal micromodal-slide" id="payment-modal" aria-hidden="true">
+                <div class="modal-overlay" tabindex="-2" data-micromodal-close>
+                    <div
+                        class="modal-container"
+                        id="payment-modal-box"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="submission-modal-title">
+                        <header class="modal-header">
+                            <button
+                                title="${i18n.t('payment-method.close-modal')}"
+                                class="modal-close"
+                                aria-label="Close modal"
+                                @click='${this.closeModal}'>
+                                <dbp-icon
+                                    title="${i18n.t('payment-mMethod.close-modal')}"
+                                    name="close"
+                                    class="close-icon"></dbp-icon>
+                            </button>
+                        </header>
+                        <main class="modal-content" id="payment-modal-content">
+                            <iframe class="widget" .src="${this.widgetUrl}"></iframe>
+                        </main>
+                    </div>
                 </div>
             </div>
         `;

@@ -26,6 +26,10 @@
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "You are allowed to start the payment only once."
     },
+    "payment-method": {
+        "close-modal": "Close",
+        "modal-title": "Payment"
+    },
     "complete": {
         "payment-status-completed": "Payment completed successfully."
     }

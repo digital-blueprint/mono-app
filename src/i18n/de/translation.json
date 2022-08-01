@@ -26,6 +26,10 @@
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "Die Zahlung darf nur einmalig gestartet werden."
     },
+    "payment-method": {
+        "close-modal": "Schließen",
+        "modal-title": "Zahlung"
+    },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
     }
