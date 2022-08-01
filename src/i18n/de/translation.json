@@ -15,6 +15,10 @@
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
+    "restart": {
+        "info": "Es wurde bereits eine Zahlung gestartet. Bitte fahren Sie nur fort, wenn Sie die zuvor gestartete Zahlung abgebrochen haben.",
+        "restart-payment": "Zahlung neu starten"
+    },
     "select": {
         "sender": "Von",
         "recipient": "An",

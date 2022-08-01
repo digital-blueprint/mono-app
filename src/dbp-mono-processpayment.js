@@ -38,6 +38,10 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.recipient = null;
         this.dataProtectionDeclarationUrl = null;
 
+        // restart
+        this.showRestart = false;
+        this.restart = false;
+
         // select
         this.identifier = null;
 
@@ -113,6 +117,10 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
             honoricSuffix: {type: String, attribute: false},
             recipient: {type: String, attribute: false},
             dataProtectionDeclarationUrl: {type: String, attribute: false},
+
+            // restart
+            showRestart: {type: Boolean, attribute: false},
+            restart: {type: Boolean, attribute: false},
 
             // select
             identifier: {type: String},
@@ -288,7 +296,13 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 let paymentMethods = JSON.parse(data.paymentMethod);
                 this.paymentMethods = paymentMethods;
                 this.dataProtectionDeclarationUrl = data.dataProtectionDeclarationUrl;
-                this.showPaymentMethods = true;
+                if (data.paymentStatus === 'prepared') {
+                    this.showRestart = false;
+                    this.showPaymentMethods = true;
+                } else {
+                    this.showRestart = true;
+                    this.showPaymentMethods = false;
+                }
                 break;
             }
             case 401:
@@ -356,13 +370,20 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    restartPayAction() {
+        this.showRestart = false;
+        this.showPaymentMethods = true;
+        this.restart = true;
+    }
+
     async startPayAction() {
         this.showPaymentMethods = false;
         let responseData = await this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
-            window.location.href,
-            this.consent
+            returnUrl,
+            this.consent,
+            this.restart
         );
         await this.getStartPayActionResponse(
             responseData
@@ -372,15 +393,17 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     async sendPostStartPayActionRequest(
         identifier,
         paymentMethod,
-        returnBaseUrl,
-        consent
+        pspReturnUrl,
+        consent,
+        restart
     )
     {
         let body = {
             identifier: identifier,
             paymentMethod: paymentMethod,
-            returnBaseUrl: returnBaseUrl,
-            consent: consent
+            pspReturnUrl: pspReturnUrl,
+            consent: consent,
+            restart: restart
         };
 
         const options = {
@@ -569,6 +592,7 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         return [
             commonStyles.getThemeCSS(),
             commonStyles.getModalDialogCSS(),
+            commonStyles.getNotificationCSS(),
             css`
                 .hidden {
                     display: none;
@@ -646,6 +670,18 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
         let i18n = this._i18n;
 
         return html`
+            <div class="${classMap({hidden: !this.showRestart})}">
+                <div class="notification is-info">
+                    ${i18n.t('restart.info')}
+                </div>
+                <br/>
+                <dbp-button class='button next-btn'
+                            value='${i18n.t('restart.restart-payment')}'
+                            @click='${this.restartPayAction}'>
+                    <dbp-icon name='chevron-right'></dbp-icon>
+                </dbp-button>
+            </div>
+
             <div class="${classMap({hidden: !this.showPaymentMethods})}">
                 <div class="row">
                     <div class="col">
