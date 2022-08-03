@@ -10,7 +10,7 @@ import {Activity} from './activity.js';
 import DBPMonoLitElement from "./dbp-mono-lit-element";
 import MicroModal from './micromodal.es';
 
-class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
+class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         super();
         this.metadata = metadata;
@@ -87,9 +87,8 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     static get scopedElements() {
         return {
-            'dbp-button': Button,
-            'dbp-icon': Icon,
             'dbp-loading-button': LoadingButton,
+            'dbp-icon': Icon,
         };
     }
 
@@ -671,22 +670,58 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     render() {
-        let i18n = this._i18n;
+        const i18n = this._i18n;
 
         return html`
+
+            <!-- <div
+                class="notification is-warning ${classMap({
+                    hidden: this.isLoggedIn() || this.isLoading(),
+                })}">
+                ${i18n.t('error-login-message')}
+            </div>
+
+            <div
+                class="notification is-danger ${classMap({
+                    hidden: this.hasPermissions() || !this.isLoggedIn() || this.isLoading(),
+                })}">
+                ${i18n.t('error-permission-message')}
+            </div>
+
+            <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
+                <span class="loading">
+                    <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
+                </span>
+            </div> -->
+
+
+        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() })}">
+            <h2>${this.activity.getName(this.lang)}</h2>
+            <p class="subheadline">
+                <slot name="description">${this.activity.getDescription(this.lang)}</slot>
+            </p>
+            <!-- <div>
+                <slot name="additional-information">
+                    <p>${i18n.t('common.additional-information')}</p>
+                </slot>
+            </div> -->
+
             <div class="${classMap({hidden: !this.showRestart})}">
-                <div class="notification is-info">
-                    ${i18n.t('restart.info')}
-                </div>
+                <dbp-inline-notification class="inline-notification" type="warning">
+                    <div slot="body">
+                        ${i18n.t('restart.info')}
+                    </div>
+                </dbp-inline-notification>
                 <br/>
-                <dbp-button class='button next-btn'
+                <dbp-loading-button class='button next-btn'
                             value='${i18n.t('restart.restart-payment')}'
                             @click='${this.restartPayAction}'>
                     <dbp-icon name='chevron-right'></dbp-icon>
-                </dbp-button>
+                </dbp-loading-button>
             </div>
 
             <div class="${classMap({hidden: !this.showPaymentMethods})}">
+            
                 <div class="row">
                     <div class="col">
                         <div class="details">
@@ -742,22 +777,25 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     ${i18n.t('select.start-pay-action-info')}
                 </p>
                 <div class="btn-row-left">
-                    <dbp-button class='button next-btn'
+                    <dbp-loading-button type='is-primary'
                                 value='${i18n.t('select.start-pay-action-btn-title')}'
                                 @click='${this.startPayAction}'
                                 ?disabled='${!this.selectedPaymentMethod}'>
                         <dbp-icon name='chevron-right'></dbp-icon>
-                    </dbp-button>
+                    </dbp-loading-button>
                 </div>
             </div>
 
             <div class="${classMap({hidden: !this.showCompleteConfirmation})}">
                 <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
-                    <p>
-                        ${i18n.t('complete.payment-status-completed')}
-                    </p>
+                    <dbp-inline-notification class="inline-notification" type="success">
+                        <div slot="body">
+                            ${i18n.t('complete.payment-status-completed')}
+                        </div>
+                    </dbp-inline-notification>
                 </div>
             </div>
+        </div>
 
             <div class="modal micromodal-slide" id="payment-modal" aria-hidden="true">
                 <div class="modal-overlay" tabindex="-2" data-micromodal-close>
@@ -789,4 +827,4 @@ class DbpMonoProcesspayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 }
 
-commonUtils.defineCustomElement('dbp-mono-processpayment', DbpMonoProcesspayment);
+commonUtils.defineCustomElement('dbp-mono-processpayment', DbpMonoProcessPayment);

@@ -1,5 +1,6 @@
 {
     "common": {
+        "additional-information": "",
         "login-required-title": "Anmeldung erforderlich",
         "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können.",
         "client-ip-not-allowed-title": "Fehler!",
