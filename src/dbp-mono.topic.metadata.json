@@ -15,7 +15,7 @@
   "activities": [
     {
       "path": "dbp-mono-processpayment.metadata.json",
-      "visible": false
+      "visible": true
     }
   ],
   "attributes": []
