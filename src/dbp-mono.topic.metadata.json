@@ -1,14 +1,14 @@
 {
   "name": {
-    "de": "Electronic Payments",
+    "de": "Elektronisches Bezahlservice",
     "en": "Electronic Payments"
   },
   "short_name": {
-    "de": "Electronic Payments",
+    "de": "Elektronisches Bezahlservice",
     "en": "Electronic Payments"
   },
   "description": {
-    "de": "Electronic Payments",
+    "de": "Elektronisches Bezahlservice",
     "en": "Electronic Payments"
   },
   "routing_name": "mono",
