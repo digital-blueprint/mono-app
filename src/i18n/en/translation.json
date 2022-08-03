@@ -1,6 +1,6 @@
 {
     "common": {
-        "additional-information": "",
+        "additional-information": "Here you can perform a payment action.",
         "login-required-title": "Login required",
         "login-required-body": "Please log in to continue.",
         "client-ip-not-allowed-title": "Error!",
@@ -39,5 +39,10 @@
     },
     "complete": {
         "payment-status-completed": "Payment completed successfully. You can close this window now."
-    }
+    },
+    "loading": "Loading...",
+    "loading-message": "Loading...",
+    "error-login-message": "You need to be logged in to use this function!",
+    "error-title": "Wrong page call!",
+    "error-message": "You must open this page from the correct context to use it correctly."
 }

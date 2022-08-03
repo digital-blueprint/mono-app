@@ -3,7 +3,7 @@ import {classMap} from 'lit/directives/class-map.js';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import {send} from '@dbp-toolkit/common/notification';
 import * as commonUtils from '@dbp-toolkit/common/utils';
-import {Button,Icon,LoadingButton} from '@dbp-toolkit/common';
+import {Icon, LoadingButton, InlineNotification,} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
@@ -15,6 +15,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         super();
         this.metadata = metadata;
         this.activity = new Activity(metadata);
+
+        this.wrongPageCall = true;
 
         // create
         let params = (new URL(document.location)).searchParams;
@@ -48,6 +50,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.showPaymentMethods = false;
         this.paymentMethods = [];
         this.selectedPaymentMethod = {};
+
+        this.isPaymentMethodSelected = false;
 
         this.consent = false;
 
@@ -89,12 +93,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         return {
             'dbp-loading-button': LoadingButton,
             'dbp-icon': Icon,
+            'dbp-inline-notification': InlineNotification,
         };
     }
 
     static get properties() {
         return {
             ...super.properties,
+
+            wrongPageCall: {type: Boolean, attribute: false},
 
             // create
             type: {type: String},
@@ -127,6 +134,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             showPaymentMethods: {type: Boolean, attribute: false},
             paymentMethods: {type: Array, attribute: false},
             selectedPaymentMethod: {type: Object, attribute: false},
+            isPaymentMethodSelected: {type: Boolean, attribute: false},
 
             consent: {type: Boolean, attribute: false},
 
@@ -578,6 +586,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 this.showCompleteConfirmation = true;
+                this.isPaymentMethodSelected = false;
                 break;
             }
             default:
@@ -591,11 +600,22 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    clickOnPaymentMethod() {
+        this.selectedPaymentMethod = paymentMethod.identifier;
+        if (this.selectedPaymentMethod) {
+            this.isPaymentMethodSelected = true;
+        } else {
+            this.isPaymentMethodSelected = false;
+        }
+    }
+
     static get styles() {
         return [
             commonStyles.getThemeCSS(),
             commonStyles.getModalDialogCSS(),
             commonStyles.getNotificationCSS(),
+            commonStyles.getRadioAndCheckboxCss(),
+
             css`
                 .hidden {
                     display: none;
@@ -674,25 +694,22 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
-            <!-- <div
-                class="notification is-warning ${classMap({
-                    hidden: this.isLoggedIn() || this.isLoading(),
-                })}">
+            <div class="notification is-warning ${classMap({ hidden: this.isLoggedIn() || this.isLoading() })}">
                 ${i18n.t('error-login-message')}
             </div>
 
-            <div
-                class="notification is-danger ${classMap({
-                    hidden: this.hasPermissions() || !this.isLoggedIn() || this.isLoading(),
-                })}">
-                ${i18n.t('error-permission-message')}
-            </div>
+            <!-- <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
+                            summary="${i18n.t('error-title')}"
+                            type="danger"
+                            body="${i18n.t('error-message')}">
+            </dbp-inline-notification> -->
+                   
 
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
                 <span class="loading">
                     <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
                 </span>
-            </div> -->
+            </div>
 
 
         <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() })}">
@@ -707,11 +724,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div> -->
 
             <div class="${classMap({hidden: !this.showRestart})}">
-                <dbp-inline-notification class="inline-notification" type="warning">
+                <div class="notification is-warning">
                     <div slot="body">
                         ${i18n.t('restart.info')}
                     </div>
-                </dbp-inline-notification>
+                </div>
                 <br/>
                 <dbp-loading-button class='button next-btn'
                             value='${i18n.t('restart.restart-payment')}'
@@ -761,7 +778,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                             <input class="form-check-input" 
                                                    type="radio"
                                                    name="paymentMethod"
-                                                   @click="${(event) => this.selectedPaymentMethod = paymentMethod.identifier}"
+                                                   @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
                                                    .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
                                                    />
                                             ${paymentMethod.name}

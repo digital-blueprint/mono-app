@@ -1,6 +1,6 @@
 {
     "common": {
-        "additional-information": "",
+        "additional-information": "Hier können sie eine Zahlung durchführen.",
         "login-required-title": "Anmeldung erforderlich",
         "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können.",
         "client-ip-not-allowed-title": "Fehler!",
@@ -39,5 +39,10 @@
     },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen."
-    }
+    },
+    "loading": "Lädt...",
+    "loading-message": "Lädt...",
+    "error-login-message": "Sie müssen angemeldet sein um diese Funktion nutzen zu können!",
+    "error-title": "Falscher Seitenaufruf!",
+    "error-message": "Sie müssen diese Seite aus dem richtigen Kontext heraus öffnen, um sie korrekt nutzen zu können."
 }

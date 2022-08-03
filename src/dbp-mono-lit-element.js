@@ -103,4 +103,13 @@ export default class DBPMonoLitElement extends DBPLitElement {
         let activityPathItems = activityPath.split('/');
         return activityPathItems[0] ?? null;
     }
+
+    isLoggedIn() {
+        return this.auth.person !== undefined && this.auth.person !== null;
+    }
+
+    isLoading() {
+        if (this._loginStatus === 'logged-out') return false;
+        return !this.isLoggedIn() && this.auth.token !== undefined;
+    }
 }

@@ -8,8 +8,8 @@
     "en": "Electronic Payments"
   },
   "description": {
-    "de": "Elektronisches Bezahlservice",
-    "en": "Electronic Payments"
+    "de": "Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.",
+    "en": "With this application you can perform payments to the university."
   },
   "routing_name": "mono",
   "activities": [

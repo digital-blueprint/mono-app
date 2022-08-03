@@ -3,12 +3,12 @@
     "module_src": "dbp-mono-processpayment.js",
     "routing_name": "mono-processpayment",
     "name": {
-        "de": "Elektronisches Bezahlservice",
-        "en": "Electronic Payment"
+        "de": "Bezahlvorgang durchführen",
+        "en": "Process payment"
     },
     "short_name": {
-        "de": "Elektronisches Bezahlservice",
-        "en": "Electronic Payment"
+        "de": "Bezahlvorgang durchführen",
+        "en": "Process payment"
     },
     "description": {
         "de": "Verarbeitung von elektronischen Zahlungen.",
