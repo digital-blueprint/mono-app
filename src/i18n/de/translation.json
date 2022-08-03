@@ -5,7 +5,7 @@
         "client-ip-not-allowed-title": "Fehler!",
         "client-ip-not-allowed-body": "Sie dürfen von diesem Endgerät nicht auf die Ressource zugreifen.",
         "timeout-exceeded-title": "Fehler!",
-        "timeout-exceeded-body": "Die Ressource ist abgelaufen, sie dürfen nicht mehr zugreifen.",
+        "timeout-exceeded-body": "Die Ressource ist abgelaufen, Sie dürfen nicht mehr zugreifen.",
         "backend-error-title": "Fehler!",
         "backend-error-body": "Bei der Kommunikation mit einem Backend-System ist ein Fehler aufgetreten.",
         "psp-return-url-not-allowed-title": "Fehler!",
@@ -18,14 +18,14 @@
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
     "restart": {
-        "info": "Es wurde bereits eine Zahlung gestartet. Bitte fahren Sie nur fort, wenn Sie die zuvor gestartete Zahlung abgebrochen haben.",
-        "restart-payment": "Zahlung neu starten"
+        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Bitte fahren Sie nur fort, wenn Sie die zuvor gestartete Zahlung abgebrochen haben.",
+        "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
     },
     "select": {
         "sender": "Von",
         "recipient": "An",
-        "payment-method": "Bitte wähle ein Zahlungsmittel aus:",
-        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
+        "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
+        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungsdienstleister.",
         "start-pay-action-btn-title": "Zahlung starten"
     },
     "start": {
@@ -37,6 +37,6 @@
         "modal-title": "Zahlung"
     },
     "complete": {
-        "payment-status-completed": "Zahlung erfolgreich abgeschlossen."
+        "payment-status-completed": "Zahlung erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen."
     }
 }

@@ -18,14 +18,14 @@
         "too-many-requests-body": "You made too many requests on this ressource."
     },
     "restart": {
-        "info": "A payment has already been started. Please proceed only if you have canceled the previous payment.",
-        "restart-payment": "Re-start payment"
+        "info": "This payment has already been started. Please proceed only if you have canceled the previous payment.",
+        "restart-payment": "Back to payment method selection"
     },
     "select": {
         "sender": "From",
         "recipient": "To",
         "payment-method": "Please select a payment method:",
-        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungdienstleister.",
+        "start-pay-action-info": "By clicking on \"Start payment\" you will be forwarded to the respective payment service provider.",
         "start-pay-action-btn-title": "Start payment"
     },
     "start": {
@@ -37,6 +37,6 @@
         "modal-title": "Payment"
     },
     "complete": {
-        "payment-status-completed": "Payment completed successfully."
+        "payment-status-completed": "Payment completed successfully. You can close this window now."
     }
 }

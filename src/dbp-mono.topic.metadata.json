@@ -1,15 +1,15 @@
 {
   "name": {
-    "de": "Electronic payments",
-    "en": "Electronic payments"
+    "de": "Electronic Payments",
+    "en": "Electronic Payments"
   },
   "short_name": {
-    "de": "Electronic payments",
-    "en": "Electronic payments"
+    "de": "Electronic Payments",
+    "en": "Electronic Payments"
   },
   "description": {
-    "de": "Electronic payments",
-    "en": "Electronic payments"
+    "de": "Electronic Payments",
+    "en": "Electronic Payments"
   },
   "routing_name": "mono",
   "activities": [
