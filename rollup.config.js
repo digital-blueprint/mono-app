@@ -148,7 +148,7 @@ export default (async () => {
                     {src: 'assets/*.svg', dest: 'dist/' + (await getDistPath(pkg.name))},
                     {src: 'assets/icon/*', dest: 'dist/' + (await getDistPath(pkg.name, 'icon'))},
                     {
-                        src: await getPackagePath('@dbp-toolkit/font-source-sans-pro', 'files/*'),
+                        src: await getPackagePath('@tugraz/font-source-sans-pro', 'files/*'),
                         dest: 'dist/' + (await getDistPath(pkg.name, 'fonts/source-sans-pro')),
                     },
                     {
