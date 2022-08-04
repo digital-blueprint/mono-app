@@ -16,7 +16,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.metadata = metadata;
         this.activity = new Activity(metadata);
 
-        this.wrongPageCall = true;
+        this.wrongPageCall = false //TODO;
 
         // create
         let params = (new URL(document.location)).searchParams;
@@ -612,11 +612,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     static get styles() {
         return [
             commonStyles.getThemeCSS(),
+            commonStyles.getGeneralCSS(false),
             commonStyles.getModalDialogCSS(),
+            commonStyles.getButtonCSS(),
             commonStyles.getNotificationCSS(),
             commonStyles.getRadioAndCheckboxCss(),
+            commonStyles.getActivityCSS(), 
 
             css`
+
                 .hidden {
                     display: none;
                 }
@@ -694,15 +698,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
-            <div class="notification is-warning ${classMap({ hidden: this.isLoggedIn() || this.isLoading() })}">
+            <div class="notification is-warning ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || this.wrongPageCall })}">
                 ${i18n.t('error-login-message')}
             </div>
 
-            <!-- <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
+            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
                             summary="${i18n.t('error-title')}"
                             type="danger"
                             body="${i18n.t('error-message')}">
-            </dbp-inline-notification> -->
+            </dbp-inline-notification>
                    
 
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
@@ -712,7 +716,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div>
 
 
-        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() })}">
+        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
             <p class="subheadline">
                 <slot name="description">${this.activity.getDescription(this.lang)}</slot>
@@ -730,9 +734,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     </div>
                 </div>
                 <br/>
-                <dbp-loading-button class='button next-btn'
-                            value='${i18n.t('restart.restart-payment')}'
-                            @click='${this.restartPayAction}'>
+                <dbp-loading-button
+                        @click='${this.restartPayAction}'
+                        title="${i18n.t('restart.restart-payment')}">
+                    ${i18n.t('restart.restart-payment')}
                     <dbp-icon name='chevron-right'></dbp-icon>
                 </dbp-loading-button>
             </div>
@@ -795,51 +800,50 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </p>
                 <div class="btn-row-left">
                     <dbp-loading-button type='is-primary'
-                                value='${i18n.t('select.start-pay-action-btn-title')}'
                                 @click='${this.startPayAction}'
-                                ?disabled='${!this.isPaymentMethodSelected}'>
+                                ?disabled='${!this.isPaymentMethodSelected}'
+                                title="${i18n.t('select.start-pay-action-btn-title')}">
+                                ${i18n.t('select.start-pay-action-btn-title')}
                         <dbp-icon name='chevron-right'></dbp-icon>
                     </dbp-loading-button>
                 </div>
             </div>
-
-            <div class="${classMap({hidden: !this.showCompleteConfirmation})}">
-                <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
-                    <dbp-inline-notification class="inline-notification" type="success">
-                        <div slot="body">
-                            ${i18n.t('complete.payment-status-completed')}
-                        </div>
-                    </dbp-inline-notification>
+        </div>
+        <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || !this.isLoading()})}">
+            <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
+                <dbp-inline-notification
+                        type="success"
+                        body="${i18n.t('complete.payment-status-completed')}">
+                </dbp-inline-notification>
+            </div>
+        </div>
+        
+        <div class="modal micromodal-slide" id="payment-modal" aria-hidden="true">
+            <div class="modal-overlay" tabindex="-2" data-micromodal-close>
+                <div
+                    class="modal-container"
+                    id="payment-modal-box"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="submission-modal-title">
+                    <header class="modal-header">
+                        <button
+                            title="${i18n.t('payment-method.close-modal')}"
+                            class="modal-close"
+                            aria-label="Close modal"
+                            @click='${this.closeModal}'>
+                            <dbp-icon
+                                title="${i18n.t('payment-mMethod.close-modal')}"
+                                name="close"
+                                class="close-icon"></dbp-icon>
+                        </button>
+                    </header>
+                    <main class="modal-content" id="payment-modal-content">
+                        <iframe class="widget" .src="${this.widgetUrl}"></iframe>
+                    </main>
                 </div>
             </div>
         </div>
-
-            <div class="modal micromodal-slide" id="payment-modal" aria-hidden="true">
-                <div class="modal-overlay" tabindex="-2" data-micromodal-close>
-                    <div
-                        class="modal-container"
-                        id="payment-modal-box"
-                        role="dialog"
-                        aria-modal="true"
-                        aria-labelledby="submission-modal-title">
-                        <header class="modal-header">
-                            <button
-                                title="${i18n.t('payment-method.close-modal')}"
-                                class="modal-close"
-                                aria-label="Close modal"
-                                @click='${this.closeModal}'>
-                                <dbp-icon
-                                    title="${i18n.t('payment-mMethod.close-modal')}"
-                                    name="close"
-                                    class="close-icon"></dbp-icon>
-                            </button>
-                        </header>
-                        <main class="modal-content" id="payment-modal-content">
-                            <iframe class="widget" .src="${this.widgetUrl}"></iframe>
-                        </main>
-                    </div>
-                </div>
-            </div>
         `;
     }
 }

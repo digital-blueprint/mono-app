@@ -44,5 +44,5 @@
     "loading-message": "Lädt...",
     "error-login-message": "Sie müssen angemeldet sein um diese Funktion nutzen zu können!",
     "error-title": "Falscher Seitenaufruf!",
-    "error-message": "Sie müssen diese Seite aus dem richtigen Kontext heraus öffnen, um sie korrekt nutzen zu können."
+    "error-message": "Sie müssen diese Seite aus der richtigen Anwendung heraus öffnen, um sie korrekt nutzen zu können."
 }
