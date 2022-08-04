@@ -49,7 +49,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.showPaymentMethods = false;
         this.paymentMethods = [];
-        this.selectedPaymentMethod = {};
+        this.selectedPaymentMethod = '';
 
         this.isPaymentMethodSelected = false;
 
@@ -133,7 +133,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             showPaymentMethods: {type: Boolean, attribute: false},
             paymentMethods: {type: Array, attribute: false},
-            selectedPaymentMethod: {type: Object, attribute: false},
+            selectedPaymentMethod: {type: String, attribute: false},
             isPaymentMethodSelected: {type: Boolean, attribute: false},
 
             consent: {type: Boolean, attribute: false},
@@ -600,7 +600,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
-    clickOnPaymentMethod() {
+    clickOnPaymentMethod(paymentMethod) {
         this.selectedPaymentMethod = paymentMethod.identifier;
         if (this.selectedPaymentMethod) {
             this.isPaymentMethodSelected = true;
@@ -797,7 +797,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <dbp-loading-button type='is-primary'
                                 value='${i18n.t('select.start-pay-action-btn-title')}'
                                 @click='${this.startPayAction}'
-                                ?disabled='${!this.selectedPaymentMethod}'>
+                                ?disabled='${!this.isPaymentMethodSelected}'>
                         <dbp-icon name='chevron-right'></dbp-icon>
                     </dbp-loading-button>
                 </div>
