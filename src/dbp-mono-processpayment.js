@@ -707,14 +707,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             type="danger"
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
-                   
 
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
                 <span class="loading">
                     <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
                 </span>
             </div>
-
 
         <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
@@ -728,11 +726,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div> -->
 
             <div class="${classMap({hidden: !this.showRestart})}">
-                <div class="notification is-warning">
+                <!-- <div class="notification is-warning">
                     <div slot="body">
                         ${i18n.t('restart.info')}
                     </div>
-                </div>
+                </div> -->
+                <dbp-inline-notification
+                        type="warning"
+                        body="${i18n.t('restart.info')}">
+                </dbp-inline-notification>
                 <br/>
                 <dbp-loading-button
                         @click='${this.restartPayAction}'
