@@ -16,7 +16,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.metadata = metadata;
         this.activity = new Activity(metadata);
 
-        this.wrongPageCall = false //TODO;
+        this.wrongPageCall = false; //TODO;
 
         // create
         let params = (new URL(document.location)).searchParams;
