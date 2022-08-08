@@ -691,7 +691,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 @media only screen and (min-width: 768px) {
-
                     .row {
                         display: flex;
                         margin-left: -15px;
@@ -708,6 +707,53 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         flex: 0 0 auto;
                     }
                 }
+
+                @media only screen and (orientation: portrait) and (max-width: 768px) {
+                    .col > h3 {
+                        padding-top: 1em;
+                        overflow-wrap: break-word;
+                        word-wrap: break-word;
+                        -ms-word-break: break-all;
+                        word-break: break-word;
+                        -ms-hyphens: auto;
+                        -moz-hyphens: auto;
+                        -webkit-hyphens: auto;
+                        hyphens: auto;
+                    }
+
+                    .button-description-text {
+                        margin: 0;
+                        padding: 1.5em 0;
+                        overflow-wrap: break-word;
+                        word-wrap: break-word;
+                        -ms-word-break: break-all;
+                        word-break: break-word;
+                        -ms-hyphens: auto;
+                        -moz-hyphens: auto;
+                        -webkit-hyphens: auto;
+                        hyphens: auto;
+                    }
+
+                    .btn-row-left dbp-loading-button {
+                        width: 100%;
+                    }
+
+                    .btn-row-left dbp-loading-button .button {
+                        height: 40px;
+                    }
+
+                    .form-check-div {
+                        /* grid-template-columns: 150px auto;
+                        row-gap: 2em; */
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+
+                    .form-check {
+                        padding: 0.8em 0 0.8em 0;
+                    }
+                }
             `,
         ];
     }
@@ -717,9 +763,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
-            <div class="notification is-warning ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || this.wrongPageCall })}">
-                ${i18n.t('error-login-message')}
-            </div>
+            <dbp-inline-notification class=" ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || this.wrongPageCall })}" 
+                            type="warning"
+                            body="${i18n.t('error-login-message')}">
+            </dbp-inline-notification>
 
             <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
                             summary="${i18n.t('error-title')}"
@@ -810,7 +857,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         )}
                     </div>
                 </div>
-                <p>
+                <p class="button-description-text">
                     ${i18n.t('select.start-pay-action-info')}
                 </p>
                 <div class="btn-row-left">
