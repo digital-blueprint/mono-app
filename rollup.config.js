@@ -53,6 +53,8 @@ config.CSP = `default-src 'self' 'unsafe-eval' 'unsafe-inline' \
 )};\
     img-src * blob: data:`;
 
+config.FP = `payment *`;
+
 export default (async () => {
     let privatePath = await getDistPath(pkg.name);
     return {
@@ -98,6 +100,7 @@ export default (async () => {
                     keyCloakRealm: config.keyCloakRealm,
                     keyCloakClientId: config.keyCloakClientId,
                     CSP: config.CSP,
+                    FP: config.FP,
                     matomoUrl: config.matomoUrl,
                     matomoSiteId: config.matomoSiteId,
                     buildInfo: getBuildInfo(appEnv),
@@ -195,6 +198,7 @@ export default (async () => {
                       https: await generateTLSConfig(),
                       headers: {
                           'Content-Security-Policy': config.CSP,
+                          'Feature-Policy': config.FP,
                       },
                   })
                 : false,
