@@ -685,9 +685,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                 .widget {
                     width: 100%;
-                    height: 100%;
+                    height: calc(100% - 40px);
                     background: #fff;
                     border: 0;
+                }
+
+                #payment-modal-box {
+                    padding: 10px 20px 0px;
                 }
 
                 @media only screen and (min-width: 768px) {
@@ -723,7 +727,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .button-description-text {
                         margin: 0;
-                        padding: 1.5em 0;
+                        padding: 1em 0 1.5em 0;
                         overflow-wrap: break-word;
                         word-wrap: break-word;
                         -ms-word-break: break-all;
@@ -735,6 +739,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     }
 
                     .btn-row-left dbp-loading-button {
+                        width: 100%;
+                    }
+
+                    dbp-loading-button {
                         width: 100%;
                     }
 
@@ -752,6 +760,21 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .form-check {
                         padding: 0.8em 0 0.8em 0;
+                    }
+
+                    #payment-modal-box {
+                        width: 100%;
+                        height: 100%;
+                        padding: 0;
+                    }
+
+                    #payment-modal-box form > div.wpwl-group.wpwl-group-brand.wpwl-clearfix {            
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    #payment-modal-box form div.wpwl-group.wpwl-group-brand.wpwl-clearfix div select {            
+                        width: 100%;
                     }
                 }
             `,
