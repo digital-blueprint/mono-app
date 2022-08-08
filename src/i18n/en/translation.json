@@ -19,7 +19,7 @@
         "too-many-requests-body": "You made too many requests on this ressource."
     },
     "restart": {
-        "info": "This payment has already been started. Please proceed only if you have canceled the previous payment.",
+        "info": "This payment has already been started.",
         "restart-payment": "Back to payment method selection"
     },
     "select": {

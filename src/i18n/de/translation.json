@@ -19,7 +19,7 @@
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
     "restart": {
-        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Bitte fahren Sie nur fort, wenn Sie die zuvor gestartete Zahlung abgebrochen haben.",
+        "info": "Diese Zahlung wurde bereits von Ihnen gestartet.",
         "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
     },
     "select": {

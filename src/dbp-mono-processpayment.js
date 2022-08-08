@@ -624,68 +624,85 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 .hidden {
                     display: none;
                 }
+
                 .details {
                     padding: 15px;
-                    /* border: 1px solid lightgray; */
                     background: var(--dbp-override-primary);
-                    color: var(--dbp-override-on-secondary-surface);
+                    color: var(--dbp-override-secondary-surface);
                 }
+
                 .details p {
                     margin: 0;
                 }
+
                 .details p + p{
                     margin-top: 15px;
                 }
-                /* .details strong {
-                    color: darkgray;
-                } */
+
                 .amount {
                     font-size: 2em;
                     font-weight: bold;
                 }
+                
                 .amount small {
                     color: darkgray;
                 }
-                .form-check-label {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
+
+                .form-check {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
                 }
+
+                .form-check-div {
+                    display: grid;
+                    grid-template-columns: 280px auto;
+                    column-gap: 1em;
+                }
+
+                .form-check-div img {
+                    max-height: 30px;
+                    max-width: 30px;
+                }
+
                 .form-check-label span {
                     display: block;
                     padding-top: 7px;
                     padding-bottom: 7px;
                 }
-                .form-check-label img {
-                    max-height: 30px;
-                    max-width: 30px;
-                }
+
                 .modal-container {
                     display: flex;
                     flex-direction: column;
                 }
+
                 .modal-header {
                     text-align: right;
                 }
+
                 .modal-content {
                     height: 100%;
                 }
+
                 .widget {
                     width: 100%;
                     height: 100%;
                     background: #fff;
                     border: 0;
                 }
+
                 @media only screen and (min-width: 768px) {
+
                     .row {
                         display: flex;
                         margin-left: -15px;
                         margin-right: -15px;
                     }
+
                     .col {
                         flex: 1 0 0%;
                         padding: 15px;
                     }
+
                     .col:first-child {
                         width: 25%;
                         flex: 0 0 auto;
@@ -728,11 +745,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div> -->
 
             <div class="${classMap({hidden: !this.showRestart})}">
-                <!-- <div class="notification is-warning">
-                    <div slot="body">
-                        ${i18n.t('restart.info')}
-                    </div>
-                </div> -->
                 <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}">
@@ -781,17 +793,17 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         ${this.paymentMethods.map((paymentMethod) =>
                             html`
                                 <div class="form-check">
-                                    <label class="form-check-label">
-                                        <span>
-                                            <input class="form-check-input" 
-                                                   type="radio"
-                                                   name="paymentMethod"
-                                                   @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
-                                                   .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
-                                                   />
+                                    <label class="button-container">
+                                        <div class="form-check-div">
                                             ${paymentMethod.name}
-                                        </span>
-                                        ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''} 
+                                            ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''}
+                                        </div>
+                                        <input type="radio" 
+                                               name="paymentMethod"
+                                               @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
+                                               .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
+                                               >
+                                        <span class="radiobutton"></span>
                                     </label>
                                 </div>
                             `
