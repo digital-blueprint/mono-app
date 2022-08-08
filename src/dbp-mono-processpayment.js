@@ -626,7 +626,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
                 .details {
                     padding: 15px;
-                    border: 1px solid lightgray;                
+                    /* border: 1px solid lightgray; */
+                    background: var(--dbp-override-primary);
+                    color: var(--dbp-override-on-secondary-surface);
                 }
                 .details p {
                     margin: 0;
@@ -634,9 +636,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 .details p + p{
                     margin-top: 15px;
                 }
-                .details strong {
+                /* .details strong {
                     color: darkgray;
-                }
+                } */
                 .amount {
                     font-size: 2em;
                     font-weight: bold;
@@ -740,7 +742,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         @click='${this.restartPayAction}'
                         title="${i18n.t('restart.restart-payment')}">
                     ${i18n.t('restart.restart-payment')}
-                    <dbp-icon name='chevron-right'></dbp-icon>
                 </dbp-loading-button>
             </div>
 
@@ -764,7 +765,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             </p>
                             <p class="sender">
                                 <strong>${i18n.t('select.sender')}</strong><br/>
-                                ${this.honoricPrefix} <b>${this.givenName} ${this.familyName}</b> ${this.honoricSuffix}
+                                ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
                                 ${this.companyName ? html`<br/>${this.companyName}` : ''}
                             </p>
                             ${this.recipient ? html`
@@ -806,7 +807,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                 ?disabled='${!this.isPaymentMethodSelected}'
                                 title="${i18n.t('select.start-pay-action-btn-title')}">
                                 ${i18n.t('select.start-pay-action-btn-title')}
-                        <dbp-icon name='chevron-right'></dbp-icon>
                     </dbp-loading-button>
                 </div>
             </div>
