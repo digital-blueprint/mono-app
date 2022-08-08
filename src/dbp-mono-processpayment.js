@@ -923,7 +923,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         </button>
                     </header>
                     <main class="modal-content" id="payment-modal-content">
-                        <iframe class="widget" .src="${this.widgetUrl}"></iframe>
+                        <iframe class="widget" .src="${this.widgetUrl}" allow="payment"></iframe>
                     </main>
                 </div>
             </div>
