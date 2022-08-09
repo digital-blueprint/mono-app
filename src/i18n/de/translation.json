@@ -35,7 +35,11 @@
     },
     "payment-method": {
         "close-modal": "Schließen",
-        "modal-title": "Zahlung"
+        "modal-title": "Zahlung",
+        "method-started": "Bezahlvorgang gestartet",
+        "method-started-text": "Der Bezahlvorgang wurde in einem neuen Fenster gestartet.",
+        "method-started-hint": "Sie sehen das Popup-Fenster nicht?",
+        "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden."
     },
     "complete": {
         "payment-status-completed": "Zahlung erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen."

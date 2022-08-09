@@ -35,7 +35,11 @@
     },
     "payment-method": {
         "close-modal": "Close",
-        "modal-title": "Payment"
+        "modal-title": "Payment",
+        "method-started": "Payment process started",
+        "method-started-text": "The payment process started in a new window.",
+        "method-started-hint": "Don't see the popup window?",
+        "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\""
     },
     "complete": {
         "payment-status-completed": "Payment completed successfully. You can close this window now."

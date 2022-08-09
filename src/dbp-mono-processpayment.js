@@ -693,6 +693,25 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 #payment-modal-box {
                     padding: 10px 20px 0px;
                 }
+                
+                .payment-hint{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    flex-direction: column;
+                    text-align:center;
+                    padding-bottom: 20px;
+                    box-sizing: border-box;
+                }
+                
+                .payment-hint div{
+                    flex-grow: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
 
                 @media only screen and (min-width: 768px) {
                     .row {
@@ -917,13 +936,21 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             aria-label="Close modal"
                             @click='${this.closeModal}'>
                             <dbp-icon
-                                title="${i18n.t('payment-mMethod.close-modal')}"
+                                title="${i18n.t('payment-method.close-modal')}"
                                 name="close"
                                 class="close-icon"></dbp-icon>
                         </button>
                     </header>
                     <main class="modal-content" id="payment-modal-content">
                         <iframe class="widget" .src="${this.widgetUrl}" allow="payment"></iframe>
+                            <!-- <<div class='payment-hint'>
+                        <div>
+                            <h2>${i18n.t('payment-method.method-started')}</h2>
+                            <p>${i18n.t('payment-method.method-started-text')}</p>
+                        </div>
+                            <p class='hint'><strong>${i18n.t('payment-method.method-started-hint')}</strong>
+                            <br>${i18n.t('payment-method.method-started-hint-text')}</p>
+                        </div> -->
                     </main>
                 </div>
             </div>
