@@ -11,8 +11,8 @@
         "en": "Process payment"
     },
     "description": {
-        "de": "Verarbeitung von elektronischen Zahlungen.",
-        "en": "Process of electronic payments."
+        "de": "Hier können elektronische Zahlungen an die Universität getätigt werden.",
+        "en": "Here electronic payments can be transacted to the university."
     },
     "subscribe": "lang,auth,entry-point-url"
 }
