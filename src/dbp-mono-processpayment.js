@@ -40,6 +40,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.recipient = null;
         this.dataProtectionDeclarationUrl = null;
 
+        // not found
+        this.showNotFound = false;
+
         // restart
         this.showRestart = false;
         this.restart = false;
@@ -123,6 +126,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             honoricSuffix: {type: String, attribute: false},
             recipient: {type: String, attribute: false},
             dataProtectionDeclarationUrl: {type: String, attribute: false},
+
+            // not found
+            showNotFound: {type: Boolean, attribute: false},
 
             // restart
             showRestart: {type: Boolean, attribute: false},
@@ -328,6 +334,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     timeout: 5,
                 });
                 break;
+            case 404:
+                this.showNotFound = true;
+                this.showRestart = false;
+                this.showPaymentMethods = false;
+                this.showWidget = false;
+                this.showCompleteConfirmation = false;
+                break;
             case 410:
                 send({
                     summary: i18n.t('common.timeout-exceeded-title'),
@@ -462,6 +475,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     timeout: 5,
                 });
                 break;
+            case 404:
+                this.showNotFound = true;
+                this.showRestart = false;
+                this.showPaymentMethods = false;
+                this.showWidget = false;
+                this.showCompleteConfirmation = false;
+                break;
             case 410:
                 send({
                     summary: i18n.t('common.timeout-exceeded-title'),
@@ -546,6 +566,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             case 201:
                 this.returnUrl = data.returnUrl;
                 break;
+            case 404:
+                this.showNotFound = true;
+                this.showRestart = false;
+                this.showPaymentMethods = false;
+                this.showWidget = false;
+                this.showCompleteConfirmation = false;
+                break;
             case 500:
                 send({
                     summary: i18n.t('common.backend-error-title'),
@@ -589,6 +616,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.isPaymentMethodSelected = false;
                 break;
             }
+            case 404:
+                this.showNotFound = true;
+                this.showRestart = false;
+                this.showPaymentMethods = false;
+                this.showWidget = false;
+                this.showCompleteConfirmation = false;
+                break;
             default:
                 send({
                     summary: i18n.t('common.other-error-title'),
@@ -816,6 +850,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
 
+            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
+                            type="danger"
+                            body="${i18n.t('not-found.info')}">
+            </dbp-inline-notification>
+
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
                 <span class="loading">
                     <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
@@ -832,6 +871,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <p>${i18n.t('common.additional-information')}</p>
                 </slot>
             </div> -->
+
+            <div class="${classMap({hidden: !this.showNotFound})}">
+                <div class="notification is-danger">
+                    <div slot="body">
+                        ${i18n.t('not-found.info')}
+                    </div>
+                </div>
+            </div>
 
             <div class="${classMap({hidden: !this.showRestart})}">
                 <dbp-inline-notification

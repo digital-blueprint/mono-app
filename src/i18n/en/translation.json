@@ -18,6 +18,9 @@
         "too-many-requests-title": "Error!",
         "too-many-requests-body": "You made too many requests on this ressource."
     },
+    "not-found": {
+        "info": "The requested resource was not found."
+    },
     "restart": {
         "info": "This payment has already been started.",
         "restart-payment": "Back to payment method selection"

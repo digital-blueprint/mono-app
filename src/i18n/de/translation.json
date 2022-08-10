@@ -18,6 +18,9 @@
         "too-many-requests-title": "Fehler!",
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
+    "not-found": {
+        "info": "Die angeforderte Ressource wurde nicht gefunden."
+    },
     "restart": {
         "info": "Diese Zahlung wurde bereits von Ihnen gestartet.",
         "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
