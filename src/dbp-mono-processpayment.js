@@ -925,38 +925,48 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         </div>
                     </div>
                     <div class="col">
-                        <h3>${i18n.t('select.payment-method')}</h3>
-                        ${this.paymentMethods.map((paymentMethod) =>
-                            html`
-                                <div class="form-check">
-                                    <label class="button-container">
-                                        <div class="form-check-div">
-                                            ${paymentMethod.name}
-                                            ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''}
-                                        </div>
-                                        <input type="radio" 
-                                               name="paymentMethod"
-                                               @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
-                                               .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
-                                               >
-                                        <span class="radiobutton"></span>
-                                    </label>
+                        ${this.amount <= 0 ? html`
+                            <dbp-inline-notification class="inline-notification" type="danger">
+                                <div slot="body">
+                                    ${i18n.t('select.amount-too-low')}
                                 </div>
-                            `
-                        )}
+                            </dbp-inline-notification>
+                        ` : html `
+                            <h3>${i18n.t('select.payment-method')}</h3>
+                            ${this.paymentMethods.map((paymentMethod) =>
+                                html`
+                                    <div class="form-check">
+                                        <label class="button-container">
+                                            <div class="form-check-div">
+                                                ${paymentMethod.name}
+                                                ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''}
+                                            </div>
+                                            <input type="radio"
+                                                   name="paymentMethod"
+                                                   @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
+                                                   .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
+                                                   >
+                                            <span class="radiobutton"></span>
+                                        </label>
+                                    </div>
+                                `
+                            )}
+                        `}
                     </div>
                 </div>
-                <p class="button-description-text">
-                    ${i18n.t('select.start-pay-action-info')}
-                </p>
-                <div class="btn-row-left">
-                    <dbp-loading-button type='is-primary'
-                                @click='${this.startPayAction}'
-                                ?disabled='${!this.isPaymentMethodSelected}'
-                                title="${i18n.t('select.start-pay-action-btn-title')}">
-                                ${i18n.t('select.start-pay-action-btn-title')}
-                    </dbp-loading-button>
-                </div>
+                ${this.amount > 0 ? html`
+                    <p class="button-description-text">
+                        ${i18n.t('select.start-pay-action-info')}
+                    </p>
+                    <div class="btn-row-left">
+                        <dbp-loading-button type='is-primary'
+                                    @click='${this.startPayAction}'
+                                    ?disabled='${!this.isPaymentMethodSelected}'
+                                    title="${i18n.t('select.start-pay-action-btn-title')}">
+                                    ${i18n.t('select.start-pay-action-btn-title')}
+                        </dbp-loading-button>
+                    </div>
+                ` : html``}
             </div>
         </div>
         <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || !this.isLoading()})}">

@@ -28,6 +28,7 @@
     "select": {
         "sender": "Von",
         "recipient": "An",
+        "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
         "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
         "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungsdienstleister.",
         "start-pay-action-btn-title": "Zahlung starten"

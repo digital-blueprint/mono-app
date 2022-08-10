@@ -28,6 +28,7 @@
     "select": {
         "sender": "From",
         "recipient": "To",
+        "amount-too-low": "Amount is too low.",
         "payment-method": "Please select a payment method:",
         "start-pay-action-info": "By clicking on \"Start payment\" you will be forwarded to the respective payment service provider.",
         "start-pay-action-btn-title": "Start payment"
