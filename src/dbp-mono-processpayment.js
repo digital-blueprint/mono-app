@@ -314,7 +314,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     this.showPaymentMethods = true;
                 } else {
                     this.showRestart = true;
-                    this.showPaymentMethods = false;
+                    this.showPaymentMethods = true;
                 }
                 break;
             }
@@ -390,14 +390,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
-    restartPayAction() {
-        this.showRestart = false;
-        this.showPaymentMethods = true;
-        this.restart = true;
-    }
-
     async startPayAction() {
-        this.showPaymentMethods = false;
+        this.showPaymentMethods = false; //TODO
         let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
         let responseData = await this.sendPostStartPayActionRequest(
             this.identifier,
@@ -491,6 +485,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 });
                 break;
             case 429:
+                this.showPaymentMethods = true;
                 send({
                     summary: i18n.t('start.too-many-requests-title'),
                     body: i18n.t('start.too-many-requests-body'),
@@ -663,6 +658,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     margin-bottom: 2em;
                 }
 
+                .restart {
+                    padding-bottom: 1.2em;
+                }
+
                 .col {
                     border: 1px solid var(--dbp-override-muted);
                     padding: 25px 15px 15px 20px;
@@ -767,7 +766,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .row {
                         display: flex;
                         margin-left: -15px;
-                        margin-right: -15px;
                     }
 
                     .col:first-child {
@@ -876,10 +874,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
 
-            <!-- <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
+            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
                             type="danger"
                             body="${i18n.t('not-found.info')}">
-            </dbp-inline-notification> -->
+            </dbp-inline-notification>
 
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
                 <span class="loading">
@@ -887,7 +885,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </span>
             </div>
 
-        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || (this.paymentStatus === 'completed')})}">
+        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || this.showNotFound || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
             <p class="subheadline">
                 <slot name="description">${this.activity.getDescription(this.lang)}</slot>
@@ -898,24 +896,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </slot>
             </div> -->
 
-            <div class="${classMap({hidden: !this.showNotFound})}">
-                <dbp-inline-notification
-                        type="danger"
-                        body="${i18n.t('not-found.info')}">
-                </dbp-inline-notification>
-            </div>
-
-            <div class="${classMap({hidden: !this.showRestart})}">
+            <div class="restart ${classMap({hidden: !this.showRestart})}">
                 <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}">
                 </dbp-inline-notification>
-                <br/>
-                <dbp-loading-button
-                        @click='${this.restartPayAction}'
-                        title="${i18n.t('restart.restart-payment')}">
-                    ${i18n.t('restart.restart-payment')}
-                </dbp-loading-button>
             </div>
 
             <div class="${classMap({hidden: !this.showPaymentMethods})}">
