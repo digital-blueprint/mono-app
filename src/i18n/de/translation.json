@@ -50,8 +50,9 @@
     "complete": {
         "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen.",
         "summary": "Zusammenfassung der Zahlung",
-        "amount": "Betrag:",
-        "status": "Status:",
+        "reference": "Zahlungsreferenz",
+        "amount": "Betrag",
+        "status": "Status",
         "payed": "bezahlt"
     },
     "loading": "Lädt...",

@@ -50,6 +50,7 @@
     "complete": {
         "payment-status-completed": "The payment completed successfully. You can close this window now.",
         "summary": "Payment summary",
+        "reference": "Payment reference",
         "amount": "Amount:",
         "status": "Status:",
         "payed": "payed"

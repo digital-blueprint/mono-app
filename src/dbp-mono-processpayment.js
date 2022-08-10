@@ -762,6 +762,48 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     flex-direction: column;
                 }
 
+                .print-content-wrapper {
+                    display: grid;
+                    grid-template-columns: min-content auto;
+                    grid-template-rows: auto;
+                }
+
+                .element-left.first, .element-right.first {
+                    padding-top: 12px;
+                }
+
+                .element-right.first {
+                    border-top: 1px solid var(--dbp-override-muted);
+                }
+
+                .element-right.last {
+                    border-bottom: 1px solid var(--dbp-override-muted);
+                }
+
+                .element-left {
+                    background-color: var(--dbp-primary-surface);
+                    color: var(--dbp-on-primary-surface);
+                    padding: 0px 20px 15px 40px;
+                    text-align: right;
+                    width: 300px;
+                }
+
+                .element-right {
+                    text-align: left;
+                    padding-left: 15px;
+                    border-right: 1px solid var(--dbp-override-muted);
+                }
+
+                .print-title {
+                    padding-top: 1.5em;
+                    padding-bottom: 1em;
+                }
+
+                .print-title h2:first-child {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -988,13 +1030,17 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         type="success"
                         body="${i18n.t('complete.payment-status-completed')}">
                 </dbp-inline-notification>
-                <!-- <div class="print">
-                    <div class="">
+                <div class="print">
+                        <div class="print-title">
                         <h2>
                             ${i18n.t('complete.summary')} 
                         </h2>
-                        <p class="">
-                            ${i18n.t('complete.amount')} 
+                    </div>
+                    <div class="print-content-wrapper">
+                        <div class="element-left first">${i18n.t('complete.reference')}</div>
+                        <div class="element-right first">${this.paymentReference ? this.paymentReference : i18n.t('select.default-reference')}</div>
+                        <div class="element-left">${i18n.t('complete.amount')}</div>
+                        <div class="element-right">
                             ${i18n.t('{{val, currency}}',
                                 {
                                     val: this.amount,
@@ -1006,24 +1052,26 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                 }
                             )}
                             ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
-                        </p>
-                        <p class="sender">
-                            ${i18n.t('select.sender')}<br/>
+                        </div>
+            
+                        <div class="element-left">${i18n.t('select.sender')}</div>
+                        <div class="element-right">
                             ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
                             ${this.companyName ? html`<br/>${this.companyName}` : ''}
-                        </p>
+                        </div>
+        
                         ${this.recipient ? html`
-                            <p class="recipient">
-                                ${i18n.t('select.recipient')}<br/>
+                            <div class="element-left">
+                                    ${i18n.t('select.recipient')}
+                            </div>
+                            <div class="element-right">
                                 ${this.recipient}
-                            </p>
+                            </div>
                         ` : ''}
-                        <p>
-                            ${i18n.t('complete.status')} <br/>
-                            ${i18n.t('complete.payed')} 
-                        </p>
-                    </div>
-                </div> -->
+                
+                        <div class="element-left">${i18n.t('complete.status')}</div>
+                        <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
+                </div>
             </div>
         </div>
         
