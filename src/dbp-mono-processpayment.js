@@ -804,6 +804,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     margin-bottom: 0;
                 }
 
+                .print-button {
+                    padding-top: 1em;
+                }
+
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -821,7 +825,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .details {
                         padding: 0;
                         width: 100%;
-                        min-height: 180px;
+                        min-height: 100px;
                         margin-left: 0;
                         border: none;
                     }
@@ -879,6 +883,40 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .form-check {
                         padding: 0.8em 0 0.8em 0;
+                    }
+
+                    .print-content-wrapper {
+                        grid-template-columns: auto;
+                    }
+
+                    .element-left.first {
+                        margin-top: 10px;
+                        border-top: 0px;
+                    }
+
+                    .element-right.first {
+                        padding-top: 0px;
+                        border-top: none;
+                    }
+
+                    .element-right.last{
+                        border-bottom: none;
+                    }
+
+                    .element-right {
+                        margin-left: 12px;
+                        padding: 0px 0px 12px;
+                        border-right: none;
+                    }
+
+                    .element-left {
+                        text-align: left;
+                        padding: 10px 5px;
+                        background-color: inherit;
+                        color: inherit;
+                        font-weight: 400;
+                        border-top: 1px solid rgba(51, 51, 51, 0.2);
+                        width: unset;
                     }
 
                     #payment-modal-box {
@@ -1054,7 +1092,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
                         </div>
             
-                        <div class="element-left">${i18n.t('select.sender')}</div>
+                        <div class="element-left">${i18n.t('complete.sender')}</div>
                         <div class="element-right">
                             ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
                             ${this.companyName ? html`<br/>${this.companyName}` : ''}
@@ -1062,7 +1100,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         
                         ${this.recipient ? html`
                             <div class="element-left">
-                                    ${i18n.t('select.recipient')}
+                                    ${i18n.t('complete.recipient')}
                             </div>
                             <div class="element-right">
                                 ${this.recipient}
@@ -1071,6 +1109,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 
                         <div class="element-left">${i18n.t('complete.status')}</div>
                         <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
+                </div>
+                <div class="print-button">
+                    <dbp-loading-button @click='${this.printSummary}'
+                                        title="${i18n.t('complete.button-text')}">
+                                        ${i18n.t('complete.button-text')}
+                    </dbp-loading-button>
                 </div>
             </div>
         </div>

@@ -50,10 +50,13 @@
     "complete": {
         "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen.",
         "summary": "Zusammenfassung der Zahlung",
-        "reference": "Zahlungsreferenz",
-        "amount": "Betrag",
-        "status": "Status",
-        "payed": "bezahlt"
+        "reference": "Zahlungsreferenz:",
+        "amount": "Betrag:",
+        "sender": "Von:",
+        "recipient": "An:",
+        "status": "Status:",
+        "payed": "bezahlt",
+        "button-text": "Ansicht drucken"
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
