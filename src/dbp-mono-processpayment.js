@@ -689,13 +689,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                 .form-check-div {
                     display: grid;
-                    grid-template-columns: 280px auto;
+                    grid-template-columns: 280px 100px;
                     column-gap: 1em;
                 }
 
                 .form-check-div img {
                     max-height: 30px;
-                    max-width: 30px;
+                    place-self: center;
                 }
 
                 .form-check-label span {
@@ -804,7 +804,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     }
 
                     .form-check-div {
-                        /* grid-template-columns: 150px auto;
+                        /* grid-template-columns: 150px 100px;
                         row-gap: 2em; */
                         display: flex;
                         flex-direction: row;
