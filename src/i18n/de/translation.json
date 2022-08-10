@@ -26,6 +26,8 @@
         "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
     },
     "select": {
+        "default-reference": "Zahlung",
+        "amount": "Betrag",
         "sender": "Von",
         "recipient": "An",
         "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
@@ -46,7 +48,11 @@
         "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden."
     },
     "complete": {
-        "payment-status-completed": "Zahlung erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen."
+        "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen.",
+        "summary": "Zusammenfassung der Zahlung",
+        "amount": "Betrag:",
+        "status": "Status:",
+        "payed": "bezahlt"
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",

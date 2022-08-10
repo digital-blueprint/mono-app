@@ -26,6 +26,8 @@
         "restart-payment": "Back to payment method selection"
     },
     "select": {
+        "default-reference": "Payment",
+        "amount": "Amount",
         "sender": "From",
         "recipient": "To",
         "amount-too-low": "Amount is too low.",
@@ -46,7 +48,11 @@
         "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\""
     },
     "complete": {
-        "payment-status-completed": "Payment completed successfully. You can close this window now."
+        "payment-status-completed": "The payment completed successfully. You can close this window now.",
+        "summary": "Payment summary",
+        "amount": "Amount:",
+        "status": "Status:",
+        "payed": "payed"
     },
     "loading": "Loading...",
     "loading-message": "Loading...",

@@ -659,27 +659,43 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     display: none;
                 }
 
+                .subheadline { 
+                    margin-bottom: 2em;
+                }
+
+                .col {
+                    border: 1px solid var(--dbp-override-muted);
+                    padding: 25px 15px 15px 20px;
+                    flex: 1 0 0%;
+                }
+
                 .details {
-                    padding: 15px;
+                    padding: 15px 20px 15px 15px;
                     background: var(--dbp-override-primary);
                     color: var(--dbp-override-secondary-surface);
+                    border: 1px solid var(--dbp-override-primary);
+                    width: 300px;
+                    margin-left: 15px;
                 }
 
-                .details p {
-                    margin: 0;
+                .details .reference {
+                    font-size: 2em;
+                    font-weight: bold;
+                    text-align: right;
                 }
 
-                .details p + p{
+                .details p + p {
                     margin-top: 15px;
                 }
 
                 .amount {
                     font-size: 2em;
                     font-weight: bold;
+                    margin-top: 0;
                 }
-                
-                .amount small {
-                    color: darkgray;
+
+                .payment-methods {
+                    padding-top: 1.5em;
                 }
 
                 .form-check {
@@ -754,11 +770,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         margin-right: -15px;
                     }
 
-                    .col {
-                        flex: 1 0 0%;
-                        padding: 15px;
-                    }
-
                     .col:first-child {
                         width: 25%;
                         flex: 0 0 auto;
@@ -766,6 +777,20 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 @media only screen and (orientation: portrait) and (max-width: 768px) {
+
+                    .details {
+                        padding: 0;
+                        width: 100%;
+                        min-height: 180px;
+                        margin-left: 0;
+                        border: none;
+                    }
+
+                    .details .reference {
+                        padding: 20px 20px 60px 20px;
+                        text-align: left;
+                    }
+
                     .col > h3 {
                         padding-top: 1em;
                         overflow-wrap: break-word;
@@ -799,16 +824,17 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         width: 100%;
                     }
 
-                    .btn-row-left dbp-loading-button .button {
-                        height: 40px;
-                    }
-
                     .form-check-div {
                         /* grid-template-columns: 150px 100px;
                         row-gap: 2em; */
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
+                        padding-top: 3px;
+                    }
+
+                    .form-check-div img {
+                        margin-top: -6px;
                     }
 
                     .form-check {
@@ -850,10 +876,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
 
-            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
+            <!-- <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
                             type="danger"
                             body="${i18n.t('not-found.info')}">
-            </dbp-inline-notification>
+            </dbp-inline-notification> -->
 
             <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
                 <span class="loading">
@@ -873,11 +899,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div> -->
 
             <div class="${classMap({hidden: !this.showNotFound})}">
-                <div class="notification is-danger">
-                    <div slot="body">
-                        ${i18n.t('not-found.info')}
-                    </div>
-                </div>
+                <dbp-inline-notification
+                        type="danger"
+                        body="${i18n.t('not-found.info')}">
+                </dbp-inline-notification>
             </div>
 
             <div class="${classMap({hidden: !this.showRestart})}">
@@ -896,63 +921,66 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             <div class="${classMap({hidden: !this.showPaymentMethods})}">
             
                 <div class="row">
-                    <div class="col">
-                        <div class="details">
-                            <p class="amount">
-                                ${i18n.t('{{val, currency}}',
-                                    {
-                                        val: this.amount,
-                                        formatParams: {
-                                            val: {
-                                                currency: this.currency
-                                            }
-                                        }
-                                    }
-                                )}
-                                ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
-                            </p>
-                            <p class="sender">
-                                <strong>${i18n.t('select.sender')}</strong><br/>
-                                ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
-                                ${this.companyName ? html`<br/>${this.companyName}` : ''}
-                            </p>
-                            ${this.recipient ? html`
-                                <p class="recipient">
-                                    <strong>${i18n.t('select.recipient')}</strong><br/>
-                                    ${this.recipient}
-                                </p>
-                            ` : ''}
+                    <div class="details">
+                        <div class="reference">
+                            ${ this.alternateName ? this.alternateName : i18n.t('select.default-reference') }
                         </div>
                     </div>
                     <div class="col">
-                        ${this.amount <= 0 ? html`
-                            <dbp-inline-notification class="inline-notification" type="danger">
-                                <div slot="body">
-                                    ${i18n.t('select.amount-too-low')}
-                                </div>
-                            </dbp-inline-notification>
-                        ` : html `
-                            <h3>${i18n.t('select.payment-method')}</h3>
-                            ${this.paymentMethods.map((paymentMethod) =>
-                                html`
-                                    <div class="form-check">
-                                        <label class="button-container">
-                                            <div class="form-check-div">
-                                                ${paymentMethod.name}
-                                                ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''}
-                                            </div>
-                                            <input type="radio"
-                                                   name="paymentMethod"
-                                                   @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
-                                                   .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
-                                                   >
-                                            <span class="radiobutton"></span>
-                                        </label>
-                                    </div>
-                                `
+                        <strong>${i18n.t('select.amount')}</strong>
+                        <p class="amount">
+                            ${i18n.t('{{val, currency}}',
+                                {
+                                    val: this.amount,
+                                    formatParams: {
+                                        val: {
+                                            currency: this.currency
+                                        }
+                                    }
+                                }
                             )}
-                        `}
+                            ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
+                        </p>
+                        <p class="sender">
+                            <strong>${i18n.t('select.sender')}</strong><br/>
+                            ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
+                            ${this.companyName ? html`<br/>${this.companyName}` : ''}
+                        </p>
+                        ${this.recipient ? html`
+                            <p class="recipient">
+                                <strong>${i18n.t('select.recipient')}</strong><br/>
+                                ${this.recipient}
+                            </p>
+                        ` : ''}
                     </div>
+                </div>
+                <div class="payment-methods">
+                    ${this.amount <= 0 ? html`
+                        <dbp-inline-notification
+                            type="danger"
+                            body="${i18n.t('select.amount-too-low')}">
+                        </dbp-inline-notification>
+                    ` : html `
+                        <h3>${i18n.t('select.payment-method')}</h3>
+                        ${this.paymentMethods.map((paymentMethod) =>
+                            html`
+                                <div class="form-check">
+                                    <label class="button-container">
+                                        <div class="form-check-div">
+                                            ${paymentMethod.name}
+                                            ${paymentMethod.image ? html`<img src="${paymentMethod.image}" alt="${paymentMethod.name}"/>` : ''}
+                                        </div>
+                                        <input type="radio"
+                                                name="paymentMethod"
+                                                @click="${(event) => this.clickOnPaymentMethod(paymentMethod)}"
+                                                .checked="${this.selectedPaymentMethod === paymentMethod.identifier}"
+                                                >
+                                        <span class="radiobutton"></span>
+                                    </label>
+                                </div>
+                            `
+                        )}
+                    `}
                 </div>
                 ${this.amount > 0 ? html`
                     <p class="button-description-text">
@@ -975,6 +1003,42 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         type="success"
                         body="${i18n.t('complete.payment-status-completed')}">
                 </dbp-inline-notification>
+                <!-- <div class="print">
+                    <div class="">
+                        <h2>
+                            ${i18n.t('complete.summary')} 
+                        </h2>
+                        <p class="">
+                            ${i18n.t('complete.amount')} 
+                            ${i18n.t('{{val, currency}}',
+                                {
+                                    val: this.amount,
+                                    formatParams: {
+                                        val: {
+                                            currency: this.currency
+                                        }
+                                    }
+                                }
+                            )}
+                            ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
+                        </p>
+                        <p class="sender">
+                            ${i18n.t('select.sender')}<br/>
+                            ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
+                            ${this.companyName ? html`<br/>${this.companyName}` : ''}
+                        </p>
+                        ${this.recipient ? html`
+                            <p class="recipient">
+                                ${i18n.t('select.recipient')}<br/>
+                                ${this.recipient}
+                            </p>
+                        ` : ''}
+                        <p>
+                            ${i18n.t('complete.status')} <br/>
+                            ${i18n.t('complete.payed')} 
+                        </p>
+                    </div>
+                </div> -->
             </div>
         </div>
         
