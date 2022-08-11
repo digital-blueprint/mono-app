@@ -19,10 +19,10 @@
         "too-many-requests-body": "You made too many requests on this ressource."
     },
     "not-found": {
-        "info": "The requested resource was not found."
+        "info": "The selected payment is no longer active. You can close this window now and start the payment again."
     },
     "restart": {
-        "info": "This payment has already been started.",
+        "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again.",
         "restart-payment": "Back to payment method selection"
     },
     "select": {
@@ -33,7 +33,8 @@
         "amount-too-low": "Amount is too low.",
         "payment-method": "Please select a payment method:",
         "start-pay-action-info": "By clicking on \"Start payment\" you will be forwarded to the respective payment service provider.",
-        "start-pay-action-btn-title": "Start payment"
+        "start-pay-action-btn-title": "Start payment",
+        "tooltip-content": "tooltip content"
     },
     "start": {
         "too-many-requests-title": "Fehler!",
@@ -50,7 +51,7 @@
     "complete": {
         "payment-status-completed": "The payment completed successfully. You can close this window now.",
         "summary": "Payment summary",
-        "reference": "Payment reference",
+        "reference": "Purpose of payment ",
         "amount": "Amount:",
         "status": "Status:",
         "payed": "payed",
@@ -60,5 +61,5 @@
     "loading-message": "Loading...",
     "error-login-message": "You need to be logged in to use this function!",
     "error-title": "Wrong page call!",
-    "error-message": "You must open this page from the correct context to use it correctly."
+    "error-message": "No active payment process found."
 }

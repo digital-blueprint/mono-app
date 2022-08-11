@@ -9,6 +9,7 @@ import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
 import DBPMonoLitElement from "./dbp-mono-lit-element";
 import MicroModal from './micromodal.es';
+// import {InfoTooltip} from '@dbp-toolkit/tooltip';
 
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
@@ -97,6 +98,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             'dbp-loading-button': LoadingButton,
             'dbp-icon': Icon,
             'dbp-inline-notification': InlineNotification,
+            // 'dbp-info-tooltip': InfoTooltip,
         };
     }
 
@@ -244,26 +246,17 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         switch (status) {
             case 201:
                 window.location.href = this.getBaseUrl() + '/' + this.getActivity() + '/select/' + data.identifier;
+                this.wrongPageCall = false;
                 break;
             case 401:
                 if (this._loginStatus === 'logged-out') {
                     this.sendSetPropertyEvent('requested-login-status', 'logged-in');
                 } else {
-                    send({
-                        summary: i18n.t('common.login-required-title'),
-                        body: i18n.t('common.login-required-body'),
-                        type: 'danger',
-                        timeout: 5,
-                    });
+                    //TODO
                 }
                 break;
             default:
-                send({
-                    summary: i18n.t('common.other-error-title'),
-                    body: i18n.t('common.other-error-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
+                this.wrongPageCall = true;
                 break;
         }
     }
@@ -825,13 +818,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .details {
                         padding: 0;
                         width: 100%;
-                        min-height: 100px;
                         margin-left: 0;
                         border: none;
                     }
 
                     .details .reference {
-                        padding: 20px 20px 60px 20px;
+                        padding: 20px 20px 20px 20px;
                         text-align: left;
                     }
 
@@ -949,7 +941,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </dbp-inline-notification>
 
             <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
-                            summary="${i18n.t('error-title')}"
                             type="danger"
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
@@ -965,7 +956,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </span>
             </div>
 
-        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || this.showNotFound || (this.paymentStatus === 'completed')})}">
+        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
             <p class="subheadline">
                 <slot name="description">${this.activity.getDescription(this.lang)}</slot>
@@ -1017,6 +1008,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                 ${this.recipient}
                             </p>
                         ` : ''}
+                        <!-- <div class="tooltip">
+                            <dbp-info-tooltip text-content="${i18n.t('select.tooltip-content')}"
+                                              interactive></dbp-info-tooltip>
+                        </div> -->
                     </div>
                 </div>
                 <div class="payment-methods">

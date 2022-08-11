@@ -19,10 +19,10 @@
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
     },
     "not-found": {
-        "info": "Die angeforderte Ressource wurde nicht gefunden."
+        "info": "Die ausgewähle Zahlung ist nicht mehr aktiv. Sie können dieses Fenster jetzt schließen und die Zahlung erneut starten."
     },
     "restart": {
-        "info": "Diese Zahlung wurde bereits von Ihnen gestartet.",
+        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut.",
         "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
     },
     "select": {
@@ -33,7 +33,8 @@
         "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
         "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
         "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungsdienstleister.",
-        "start-pay-action-btn-title": "Zahlung starten"
+        "start-pay-action-btn-title": "Zahlung starten",
+        "tooltip-content": "tooltip content"
     },
     "start": {
         "too-many-requests-title": "Fehler!",
@@ -50,7 +51,7 @@
     "complete": {
         "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen.",
         "summary": "Zusammenfassung der Zahlung",
-        "reference": "Zahlungsreferenz:",
+        "reference": "Zahlungsgrund:",
         "amount": "Betrag:",
         "sender": "Von:",
         "recipient": "An:",
@@ -62,5 +63,5 @@
     "loading-message": "Lädt...",
     "error-login-message": "Sie müssen angemeldet sein um diese Funktion nutzen zu können!",
     "error-title": "Falscher Seitenaufruf!",
-    "error-message": "Sie müssen diese Seite aus der richtigen Anwendung heraus öffnen, um sie korrekt nutzen zu können."
+    "error-message": "Kein aktiver Zahlungsvorgang gefunden."
 }
