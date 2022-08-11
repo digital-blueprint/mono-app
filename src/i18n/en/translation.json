@@ -54,12 +54,14 @@
         "reference": "Purpose of payment ",
         "amount": "Amount:",
         "status": "Status:",
-        "payed": "payed",
-        "button-text": "Print summary"
+        "payed": "completed",
+        "button-text": "Print summary",
+        "payment-id": "Payment identification"
     },
     "loading": "Loading...",
     "loading-message": "Loading...",
     "error-login-message": "You need to be logged in to use this function!",
     "error-title": "Wrong page call!",
-    "error-message": "No active payment process found."
+    "error-message": "No active payment process found.",
+    "data-protection": "Privacy statement"
 }

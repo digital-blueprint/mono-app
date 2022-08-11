@@ -631,6 +631,18 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    printSummary() {
+        // var divContents = this._("#print-view-wrapper").innerHTML;
+        // var a = window.open('', '', 'height=500, width=500');
+        // a.document.write('<html>');
+        // a.document.write('<body>');
+        // a.document.write(divContents);
+        // a.document.write('</body></html>');
+        // a.document.close();
+        // a.print();
+        window.print();
+    }
+
     static get styles() {
         return [
             commonStyles.getThemeCSS(),
@@ -640,6 +652,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             commonStyles.getNotificationCSS(),
             commonStyles.getRadioAndCheckboxCss(),
             commonStyles.getActivityCSS(), 
+            commonStyles.getLinkCss(),
 
             css`
 
@@ -801,6 +814,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     padding-top: 1em;
                 }
 
+                .data-declaration {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-right: 15px;
+                }
+
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -926,6 +946,21 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         width: 100%;
                     }
                 }
+
+                @media print {
+                    #payment-modal {
+                        display: none;
+                    } 
+                    dbp-inline-notification {
+                        display: none;
+                    }
+                    .control {
+                        display: none;
+                    }
+                    dbp-loading-button {
+                        display: none;
+                    }
+                }
             `,
         ];
     }
@@ -1001,17 +1036,23 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             <strong>${i18n.t('select.sender')}</strong><br/>
                             ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
                             ${this.companyName ? html`<br/>${this.companyName}` : ''}
+                            ${!this.recipient ? html`
+                                <a href="${this.dataProtectionDeclarationUrl}" class="int-link-internal">
+                                    ${i18n.t('data-protection')}
+                                </a>
+                            ` : ``}
                         </p>
                         ${this.recipient ? html`
                             <p class="recipient">
                                 <strong>${i18n.t('select.recipient')}</strong><br/>
-                                ${this.recipient}
+                                <span class="data-declaration">
+                                    ${this.recipient}
+                                    <a href="${this.dataProtectionDeclarationUrl}" class="int-link-internal">
+                                        ${i18n.t('data-protection')}
+                                    </a>
+                                </span>
                             </p>
                         ` : ''}
-                        <!-- <div class="tooltip">
-                            <dbp-info-tooltip text-content="${i18n.t('select.tooltip-content')}"
-                                              interactive></dbp-info-tooltip>
-                        </div> -->
                     </div>
                 </div>
                 <div class="payment-methods">
@@ -1063,7 +1104,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         type="success"
                         body="${i18n.t('complete.payment-status-completed')}">
                 </dbp-inline-notification>
-                <div class="print">
+                <div class="print" id="print-view-wrapper">
                         <div class="print-title">
                         <h2>
                             ${i18n.t('complete.summary')} 
@@ -1071,7 +1112,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     </div>
                     <div class="print-content-wrapper">
                         <div class="element-left first">${i18n.t('complete.reference')}</div>
-                        <div class="element-right first">${this.paymentReference ? this.paymentReference : i18n.t('select.default-reference')}</div>
+                        <div class="element-right first">${this.alternateName ? this.alternateName : i18n.t('select.default-reference')}</div>
                         <div class="element-left">${i18n.t('complete.amount')}</div>
                         <div class="element-right">
                             ${i18n.t('{{val, currency}}',
@@ -1102,6 +1143,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             </div>
                         ` : ''}
                 
+                        <div class="element-left">${i18n.t('complete.payment-id')}</div>
+                        <div class="element-right">
+                            ${this.identifier}
+                        </div>
                         <div class="element-left">${i18n.t('complete.status')}</div>
                         <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
                 </div>

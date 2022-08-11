@@ -56,12 +56,14 @@
         "sender": "Von:",
         "recipient": "An:",
         "status": "Status:",
-        "payed": "bezahlt",
-        "button-text": "Ansicht drucken"
+        "payed": "abgeschlossen",
+        "button-text": "Ansicht drucken",
+        "payment-id": "Zahlungsidentifikator"
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
     "error-login-message": "Sie müssen angemeldet sein um diese Funktion nutzen zu können!",
     "error-title": "Falscher Seitenaufruf!",
-    "error-message": "Kein aktiver Zahlungsvorgang gefunden."
+    "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
+    "data-protection": "Datenschutzerklärung"
 }
