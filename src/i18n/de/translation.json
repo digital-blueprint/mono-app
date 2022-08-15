@@ -49,7 +49,7 @@
         "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden."
     },
     "complete": {
-        "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können dieses Fenster jetzt schließen.",
+        "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können dieses Fenster jetzt schließen.",
         "summary": "Zusammenfassung der Zahlung",
         "reference": "Zahlungsgrund:",
         "amount": "Betrag:",
@@ -62,6 +62,7 @@
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
+    "transaction-text": "Die Zahlung wird verarbeitet. Das kann einige Minuten dauern.",
     "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
     "error-title": "Falscher Seitenaufruf!",
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",

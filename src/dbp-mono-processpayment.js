@@ -59,6 +59,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.consent = false;
 
+        this.showTransactionSpinner = false;
+
         // select (widget)
         this.showWidget = false;
         this.widgetUrl = 'about:blank';
@@ -145,6 +147,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             isPaymentMethodSelected: {type: Boolean, attribute: false},
 
             consent: {type: Boolean, attribute: false},
+
+            showTransactionSpinner: {type: Boolean, attribute: false},
 
             // select (widget)
             showWidget: {type: Boolean, attribute: false},
@@ -288,6 +292,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         let status = responseData.status;
         let data = await responseData.clone().json();
 
+        this.showTransactionSpinner = false;
+
         switch (status) {
             case 200: {
                 this.paymentReference = data.paymentReference;
@@ -384,7 +390,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     async startPayAction() {
-        this.showPaymentMethods = false; //TODO
+        this.showPaymentMethods = false; //TODO we do not want to hide this
         let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
         let responseData = await this.sendPostStartPayActionRequest(
             this.identifier,
@@ -515,6 +521,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             pspData
         );
 
+        this.showTransactionSpinner = true;
+
         await this.completePaymentResponse(
             responseData
         );
@@ -549,6 +557,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         let status = responseData.status;
         let data = await responseData.clone().json();
+
+        this.showTransactionSpinner = false;
 
         switch (status) {
             case 201:
@@ -587,6 +597,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         let status = responseData.status;
         let data = await responseData.clone().json();
+
+        this.showTransactionSpinner = false;
 
         switch (status) {
             case 200: {
@@ -1112,6 +1124,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     </div>
                 ` : html``}
             </div>
+        </div>
+        <div class="${classMap({hidden: !this.showTransactionSpinner})}">
+            <span class="loading">
+                <dbp-mini-spinner text=${i18n.t('transaction-text')}></dbp-mini-spinner>
+            </span>
         </div>
         <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || !this.isLoading()})}">
             <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">

@@ -49,7 +49,7 @@
         "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\""
     },
     "complete": {
-        "payment-status-completed": "The payment completed successfully. You can close this window now.",
+        "payment-status-completed": "The payment completed successfully. It may take some time for the payment to show up in the system. You can close this window now.",
         "summary": "Payment summary",
         "reference": "Purpose of payment ",
         "amount": "Amount:",
@@ -60,6 +60,7 @@
     },
     "loading": "Loading...",
     "loading-message": "Loading...",
+    "transaction-text": "The payment is being processed. This may take a few minutes.",
     "error-login-message": "You need to be logged in to process this payment!",
     "error-title": "Wrong page call!",
     "error-message": "No active payment process found.",
