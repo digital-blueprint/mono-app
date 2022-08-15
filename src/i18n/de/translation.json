@@ -62,8 +62,10 @@
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
-    "error-login-message": "Sie müssen angemeldet sein um diese Funktion nutzen zu können!",
+    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
     "error-title": "Falscher Seitenaufruf!",
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
-    "data-protection": "Datenschutzerklärung"
+    "data-protection": "Datenschutzerklärung",
+    "warning": "Achtung",
+    "warning-text": "Diese Übersicht dient nicht als Nachweis einer durchgeführten Zahlung."
 }

@@ -252,7 +252,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 if (this._loginStatus === 'logged-out') {
                     this.sendSetPropertyEvent('requested-login-status', 'logged-in');
                 } else {
-                    //TODO
+                    this.authRequired = true;
                 }
                 break;
             default:
@@ -353,7 +353,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             default:
                 send({
                     summary: i18n.t('common.other-error-title'),
-                    body: i18n.t('common.other-error-body'),
+                    body: i18n.t('error-message'),
                     type: 'danger',
                     timeout: 5,
                 });
@@ -821,6 +821,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     padding-right: 15px;
                 }
 
+                .print-warning {
+                    padding-top: 1em;
+                }
+
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -945,6 +949,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     #payment-modal-box form div.wpwl-group.wpwl-group-brand.wpwl-clearfix div select {            
                         width: 100%;
                     }
+
+                    .print-warning {
+                        padding-top: 1em;
+                    }
+
+                    .data-declaration {
+                        display: inline-grid;
+                        gap: 1.5em;
+                    }
                 }
 
                 @media print {
@@ -970,7 +983,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
-            <dbp-inline-notification class=" ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || this.wrongPageCall })}" 
+            <dbp-inline-notification class=" ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || !this.authRequired || this.wrongPageCall })}" 
                             type="warning"
                             body="${i18n.t('error-login-message')}">
             </dbp-inline-notification>
@@ -991,7 +1004,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </span>
             </div>
 
-        <div class="${classMap({ hidden: !this.isLoggedIn() || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
+        <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
             <p class="subheadline">
                 <slot name="description">${this.activity.getDescription(this.lang)}</slot>
@@ -1149,6 +1162,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         </div>
                         <div class="element-left">${i18n.t('complete.status')}</div>
                         <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
+                </div>
+                <div class="print-warning">
+                    <dbp-icon title="${i18n.t('warning')}"
+                              name="warning-high"
+                              class="warning-high"></dbp-icon>
+                    <span>${i18n.t('warning-text')}</span>
                 </div>
                 <div class="print-button">
                     <dbp-loading-button @click='${this.printSummary}'

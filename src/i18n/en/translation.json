@@ -60,8 +60,10 @@
     },
     "loading": "Loading...",
     "loading-message": "Loading...",
-    "error-login-message": "You need to be logged in to use this function!",
+    "error-login-message": "You need to be logged in to process this payment!",
     "error-title": "Wrong page call!",
     "error-message": "No active payment process found.",
-    "data-protection": "Privacy statement"
+    "data-protection": "Privacy statement",
+    "warning": "Warning",
+    "warning-text": "This overview does not serve as proof of an executed payment.."
 }
