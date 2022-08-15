@@ -710,8 +710,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                 .form-check-div {
                     display: grid;
-                    grid-template-columns: 280px 100px;
-                    column-gap: 1em;
+                    /* grid-template-columns: 280px 100px; */
+                    /* column-gap: 1em; */
+                    grid-template-columns: max-content 100px;
+                    column-gap: 0.5em;
                 }
 
                 .form-check-div img {
