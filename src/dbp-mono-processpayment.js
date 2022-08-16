@@ -254,7 +254,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     async createPaymentResponse(
         responseData
     ) {
-        const i18n = this._i18n;
 
         let status = responseData.status;
         let data = await responseData.clone().json();
@@ -473,7 +472,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 // popup.addEventListener('onbeforeunload', (e) => {}) is not working cross origin, therefore check periodically
                 let popupInterval = setInterval(() => {
                     if (popup.closed) {
-                        clearInterval(popupInterval)
+                        clearInterval(popupInterval);
                         window.location.reload();
                     }
                 }, 250);
@@ -1178,7 +1177,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 ` : html``}
             </div>
         </div>
-<<<<<<< Updated upstream
+
         <div class="${classMap({hidden: !this.showTransactionSpinner})}">
             <span class="loading">
                 <dbp-mini-spinner text=${i18n.t('transaction-text')}></dbp-mini-spinner>
