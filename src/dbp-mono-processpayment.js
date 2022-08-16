@@ -330,17 +330,20 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     case 'cancelled':
                     case 'failed':
                         this.showRestart = false;
+                        this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'started':
                     case 'pending':
                         this.showRestart = true;
+                        this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'completed':
                         this.showRestart = false;
+                        this.restart = false;
                         this.showPaymentMethods = false;
                         this.showCompleteConfirmation = true;
                         break;
@@ -404,8 +407,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         if (modal) {
             MicroModal.show(modal, {
                 onClose: (modal, trigger) => {
-                    this.popUp.close();
-                    this.restart = true;
+                    location.reload();
                 },
                 disableScroll: true,
                 disableFocus: false,
@@ -450,6 +452,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.openModal();
 
         let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
+
         this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
@@ -669,7 +672,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     async completePayment() {
         let regexp = new RegExp('^' + this.getBaseUrl() + '/' + this.getActivity() + '/complete/');
         let pspData = document.location.toString().replace(regexp, '');
-
         let responseData = await this.sendCompletePaymentRequest(
             pspData
         );
