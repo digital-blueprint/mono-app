@@ -680,15 +680,37 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     printSummary() {
-        // var divContents = this._("#print-view-wrapper").innerHTML;
-        // var a = window.open('', '', 'height=500, width=500');
-        // a.document.write('<html>');
-        // a.document.write('<body>');
-        // a.document.write(divContents);
-        // a.document.write('</body></html>');
-        // a.document.close();
-        // a.print();
+        /*let divContents = this._("#print-view-wrapper").innerHTML;
+        let a = window.open('', '', 'height=500, width=500');
+        a.document.write('<html>');
+        a.document.write('<body>');
+        a.document.write(divContents);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();*/
+
+        const header = this.shadowRoot.host.getRootNode().querySelector('#root header');
+        const footer = this.shadowRoot.host.getRootNode().querySelector('#root footer');
+        const aside = this.shadowRoot.host.getRootNode().querySelector('#root aside');
+        const main = this.shadowRoot.host.getRootNode().querySelector('#root main');
+
+
+        if (header !== null || footer !== null) {
+           footer.classList.add('hidden');
+           header.classList.add('hidden');
+            aside.classList.add('hidden');
+            main.style.position = 'absolute';
+            main.style.marginTop = '100px';
+        }
+
         window.print();
+
+        if (header !== null || footer !== null) {
+            footer.classList.remove('hidden');
+            header.classList.remove('hidden');
+            aside.classList.remove('hidden');
+            main.style = null;
+        }
     }
 
     openReturnUrl() {
@@ -1015,16 +1037,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 @media print {
-                    #payment-modal {
-                        display: none;
-                    } 
-                    dbp-inline-notification {
-                        display: none;
-                    }
-                    .control {
-                        display: none;
-                    }
-                    dbp-loading-button {
+                    #payment-modal, dbp-inline-notification, .control, dbp-loading-button, h2, .subheadline{
                         display: none;
                     }
                 }
@@ -1179,9 +1192,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </dbp-inline-notification>
                 <div class="print" id="print-view-wrapper">
                         <div class="print-title">
-                        <h2>
+                        <h3>
                             ${i18n.t('complete.summary')} 
-                        </h2>
+                        </h3>
                     </div>
                     <div class="print-content-wrapper">
                         <div class="element-left first">${i18n.t('complete.reference')}</div>
