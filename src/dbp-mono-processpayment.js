@@ -40,6 +40,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.honoricSuffix = null;
         this.recipient = null;
         this.dataProtectionDeclarationUrl = null;
+        this.alternateName = null;
 
         // not found
         this.showNotFound = false;
@@ -310,6 +311,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.paymentStatus = data.paymentStatus;
                 this.paymentReference = data.paymentReference;
                 this.amount = data.amount;
+                this.alternateName = data.alternateName;
                 this.currency = data.currency;
                 this.honoricPrefix = data.honoricPrefix;
                 this.givenName = data.givenName;
@@ -400,7 +402,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         if (modal) {
             MicroModal.show(modal, {
                 onClose: (modal, trigger) => {
-                    location.reload();
+                    //location.reload();
                 },
                 disableScroll: true,
                 disableFocus: false,
@@ -428,6 +430,121 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         await this.getStartPayActionResponse(
             responseData
         );
+    }
+
+    startPayAction2(){
+        const i18n = this._i18n;
+
+        let popup = window.open(this.widgetUrl, 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
+        try {
+            popup.focus();
+        }catch (e) {
+            alert("Pop-up Blocker is enabled! Please disable your pop-up blocker.");
+            return;
+        }
+
+        this.openModal();
+
+
+        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
+        this.sendPostStartPayActionRequest(
+            this.identifier,
+            this.selectedPaymentMethod,
+            returnUrl,
+            this.consent,
+            this.restart
+        ).then(responseData => {
+            responseData.clone().json().then(data => {
+
+                let status = responseData.status;
+
+                switch (status) {
+                    case 201: {
+                        let widgetUrl = new URL(data.widgetUrl);
+                        this.widgetUrl = widgetUrl.toString();
+                        this.showWidget = true;
+                        popup.location = this.widgetUrl;
+                        popup.title = this.alternateName;
+                        let popupInterval = setInterval(() => {
+                            if (popup.closed) {
+                                clearInterval(popupInterval);
+                                window.location.reload();
+                            }
+                        }, 250);
+
+                        break;
+                    }
+                    case 400:
+                        send({
+                            summary: i18n.t('common.psp-return-url-not-allowed-title'),
+                            body: i18n.t('common.psp-return-url-not-allowed-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                    case 401:
+                        send({
+                            summary: i18n.t('common.login-required-title'),
+                            body: i18n.t('common.login-required-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                    case 403:
+                        send({
+                            summary: i18n.t('common.client-ip-not-allowed-title'),
+                            body: i18n.t('common.client-ip-not-allowed-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                    case 404:
+                        this.showNotFound = true;
+                        this.showRestart = false;
+                        this.showPaymentMethods = false;
+                        this.showWidget = false;
+                        this.showCompleteConfirmation = false;
+                        break;
+                    case 410:
+                        send({
+                            summary: i18n.t('common.timeout-exceeded-title'),
+                            body: i18n.t('common.timeout-exceeded-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                    case 429:
+                        this.showPaymentMethods = true;
+                        popup.close();
+                        this.closeModal();
+                        send({
+                            summary: i18n.t('start.too-many-requests-title'),
+                            body: i18n.t('start.too-many-requests-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+
+
+                        break;
+                    case 500:
+                        send({
+                            summary: i18n.t('common.backend-error-title'),
+                            body: i18n.t('common.backend-error-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                    default:
+                        send({
+                            summary: i18n.t('common.other-error-title'),
+                            body: i18n.t('common.other-error-body'),
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                        break;
+                }
+            });
+        });
     }
 
     async sendPostStartPayActionRequest(
@@ -1168,7 +1285,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     </p>
                     <div class="btn-row-left">
                         <dbp-loading-button type='is-primary'
-                                    @click='${this.startPayAction}'
+                                    @click='${this.startPayAction2}'
                                     ?disabled='${!this.isPaymentMethodSelected}'
                                     title="${i18n.t('select.start-pay-action-btn-title')}">
                                     ${i18n.t('select.start-pay-action-btn-title')}
@@ -1191,68 +1308,69 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </dbp-inline-notification>
                 <div class="print" id="print-view-wrapper">
                         <div class="print-title">
-                        <h3>
-                            ${i18n.t('complete.summary')} 
-                        </h3>
-                    </div>
-                    <div class="print-content-wrapper">
-                        <div class="element-left first">${i18n.t('complete.reference')}</div>
-                        <div class="element-right first">${this.alternateName ? this.alternateName : i18n.t('select.default-reference')}</div>
-                        <div class="element-left">${i18n.t('complete.amount')}</div>
-                        <div class="element-right">
-                            ${i18n.t('{{val, currency}}',
-                                {
-                                    val: this.amount,
-                                    formatParams: {
-                                        val: {
-                                            currency: this.currency
+                            <h3>
+                                ${i18n.t('complete.summary')} 
+                            </h3>
+                        </div>
+                        <div class="print-content-wrapper">
+                            <div class="element-left first">${i18n.t('complete.reference')}</div>
+                            <div class="element-right first">${this.alternateName ? this.alternateName : i18n.t('select.default-reference')}</div>
+                            <div class="element-left">${i18n.t('complete.amount')}</div>
+                            <div class="element-right">
+                                ${i18n.t('{{val, currency}}',
+                                    {
+                                        val: this.amount,
+                                        formatParams: {
+                                            val: {
+                                                currency: this.currency
+                                            }
                                         }
                                     }
-                                }
-                            )}
-                            ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
-                        </div>
+                                )}
+                                ${this.paymentReference ? html`<br/><small>${this.paymentReference}</small>` : ''}
+                            </div>
             
-                        <div class="element-left">${i18n.t('complete.sender')}</div>
-                        <div class="element-right">
-                            ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
-                            ${this.companyName ? html`<br/>${this.companyName}` : ''}
-                        </div>
-        
-                        ${this.recipient ? html`
-                            <div class="element-left">
-                                    ${i18n.t('complete.recipient')}
-                            </div>
+                            <div class="element-left">${i18n.t('complete.sender')}</div>
                             <div class="element-right">
-                                ${this.recipient}
+                                ${this.honoricPrefix} ${this.givenName} ${this.familyName} ${this.honoricSuffix}
+                                ${this.companyName ? html`<br/>${this.companyName}` : ''}
                             </div>
-                        ` : ''}
+        
+                            ${this.recipient ? html`
+                                <div class="element-left">
+                                        ${i18n.t('complete.recipient')}
+                                </div>
+                                <div class="element-right">
+                                    ${this.recipient}
+                                </div>
+                            ` : ''}
                 
-                        <div class="element-left">${i18n.t('complete.payment-id')}</div>
-                        <div class="element-right">
-                            ${this.identifier}
+                            <div class="element-left">${i18n.t('complete.payment-id')}</div>
+                            <div class="element-right">
+                                ${this.identifier}
+                            </div>
+                            <div class="element-left">${i18n.t('complete.status')}</div>
+                            <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
                         </div>
-                        <div class="element-left">${i18n.t('complete.status')}</div>
-                        <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
-                </div>
-                <div class="print-warning">
-                    <dbp-icon title="${i18n.t('warning')}"
-                              name="warning-high"
-                              class="warning-high"></dbp-icon>
-                    <span>${i18n.t('warning-text')}</span>
-                </div>
-                <div class="buttons">
-                    <dbp-loading-button @click='${this.printSummary}'
-                                        title="${i18n.t('complete.print-button-text')}">
-                                        ${i18n.t('complete.print-button-text')}
-                    </dbp-loading-button>
-                    ${this.returnUrl ? html`
-                        <dbp-loading-button @click='${this.openReturnUrl}'
-                                            title="${i18n.t('complete.return-button-text')}">
-                                            ${i18n.t('complete.return-button-text')}
+                    <div class="print-warning">
+                        <dbp-icon title="${i18n.t('warning')}"
+                                  name="warning-high"
+                                  class="warning-high"></dbp-icon>
+                        <span>${i18n.t('warning-text')}</span>
+                    </div>
+                    <div class="buttons">
+                        <dbp-loading-button @click='${this.printSummary}'
+                                            title="${i18n.t('complete.print-button-text')}">
+                                            ${i18n.t('complete.print-button-text')}
                         </dbp-loading-button>
-                    ` : html`
-                    `}
+                        ${this.returnUrl ? html`
+                            <dbp-loading-button @click='${this.openReturnUrl}'
+                                                title="${i18n.t('complete.return-button-text')}">
+                                                ${i18n.t('complete.return-button-text')}
+                            </dbp-loading-button>
+                        ` : html`
+                        `}
+                    </div>
                 </div>
             </div>
         </div>
