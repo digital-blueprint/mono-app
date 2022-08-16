@@ -72,6 +72,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // completed (confirmation)
         this.showCompleteConfirmation = false;
 
+        this.popUp = null;
+
         // view
         let view = this.getView();
         switch (view) {
@@ -402,7 +404,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         if (modal) {
             MicroModal.show(modal, {
                 onClose: (modal, trigger) => {
-                    //location.reload();
+                    this.popUp.close();
+                    this.restart = true;
                 },
                 disableScroll: true,
                 disableFocus: false,
@@ -414,6 +417,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         const modal = this._('#payment-modal');
         if (modal) {
             MicroModal.close(modal);
+
         }
     }
 
@@ -435,16 +439,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     startPayAction2(){
         const i18n = this._i18n;
 
-        let popup = window.open(this.widgetUrl, 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
+        this.popUp = window.open('', 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
         try {
-            popup.focus();
+            this.popUp.focus();
         }catch (e) {
             alert("Pop-up Blocker is enabled! Please disable your pop-up blocker.");
             return;
         }
 
         this.openModal();
-
 
         let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
         this.sendPostStartPayActionRequest(
@@ -463,10 +466,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         let widgetUrl = new URL(data.widgetUrl);
                         this.widgetUrl = widgetUrl.toString();
                         this.showWidget = true;
-                        popup.location = this.widgetUrl;
-                        popup.title = this.alternateName;
+                        this.popUp.location = this.widgetUrl;
                         let popupInterval = setInterval(() => {
-                            if (popup.closed) {
+                            if (this.popUp.closed) {
                                 clearInterval(popupInterval);
                                 window.location.reload();
                             }
@@ -515,7 +517,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         break;
                     case 429:
                         this.showPaymentMethods = true;
-                        popup.close();
+                        this.popUp.close();
                         this.closeModal();
                         send({
                             summary: i18n.t('start.too-many-requests-title'),
