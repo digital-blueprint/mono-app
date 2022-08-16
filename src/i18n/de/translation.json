@@ -50,6 +50,7 @@
     },
     "complete": {
         "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können dieses Fenster jetzt schließen.",
+        "payment-status-completed-return": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können jetzt zur initiierenden Applikation zurückkehren.",
         "summary": "Zusammenfassung der Zahlung",
         "reference": "Zahlungsgrund:",
         "amount": "Betrag:",
@@ -57,7 +58,8 @@
         "recipient": "An:",
         "status": "Status:",
         "payed": "abgeschlossen",
-        "button-text": "Ansicht drucken",
+        "print-button-text": "Ansicht drucken",
+        "return-button-text": "Zur initiierenden Applikation zurückkehren",
         "payment-id": "Zahlungsidentifikator"
     },
     "loading": "Lädt...",

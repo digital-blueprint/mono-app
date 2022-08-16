@@ -65,8 +65,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.showWidget = false;
         this.widgetUrl = 'about:blank';
 
-        // complete (confirmation)
+        // complete
         this.paymentStatus = null;
+
+        // completed (confirmation)
         this.showCompleteConfirmation = false;
 
         // view
@@ -83,6 +85,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 if (window.frameElement) {
                     parent.location = self.location;
                 }
+                this.view = view;
+                let activityPath = this.getActivityPath(1);
+                let activityPathItems = activityPath.split('/');
+                this.identifier = activityPathItems[1] ?? null;
+                break;
+            }
+            case 'completed': {
                 this.view = view;
                 let activityPath = this.getActivityPath(1);
                 let activityPathItems = activityPath.split('/');
@@ -180,6 +189,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     break;
                 case 'complete':
                     this.completePayment();
+                    break;
+                case 'completed':
+                    this.getPayment();
                     break;
             }
         }
@@ -296,6 +308,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         switch (status) {
             case 200: {
+                this.paymentStatus = data.paymentStatus;
                 this.paymentReference = data.paymentReference;
                 this.amount = data.amount;
                 this.currency = data.currency;
@@ -308,12 +321,26 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 let paymentMethods = JSON.parse(data.paymentMethod);
                 this.paymentMethods = paymentMethods;
                 this.dataProtectionDeclarationUrl = data.dataProtectionDeclarationUrl;
-                if (data.paymentStatus === 'prepared') {
-                    this.showRestart = false;
-                    this.showPaymentMethods = true;
-                } else {
-                    this.showRestart = true;
-                    this.showPaymentMethods = true;
+                this.returnUrl = data.returnUrl;
+                switch (data.paymentStatus) {
+                    case 'prepared':
+                    case 'cancelled':
+                    case 'failed':
+                        this.showRestart = false;
+                        this.showPaymentMethods = true;
+                        this.showCompleteConfirmation = false;
+                        break;
+                    case 'started':
+                    case 'pending':
+                        this.showRestart = true;
+                        this.showPaymentMethods = true;
+                        this.showCompleteConfirmation = false;
+                        break;
+                    case 'completed':
+                        this.showRestart = false;
+                        this.showPaymentMethods = false;
+                        this.showCompleteConfirmation = true;
+                        break;
                 }
                 break;
             }
@@ -442,6 +469,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.widgetUrl = widgetUrl.toString();
                 this.showWidget = true;
                 this.openModal();
+                let popup = window.open(this.widgetUrl, 'dbp-mono-processpayment', 'popup');
+                // popup.addEventListener('onbeforeunload', (e) => {}) is not working cross origin, therefore check periodically
+                let popupInterval = setInterval(() => {
+                    if (popup.closed) {
+                        clearInterval(popupInterval)
+                        window.location.reload();
+                    }
+                }, 250);
                 break;
             }
             case 400:
@@ -605,11 +640,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 let paymentStatus = data.paymentStatus;
                 this.paymentStatus = paymentStatus;
 
-                if (this.returnUrl) {
-                    let that = this;
-                    setTimeout(() => {
-                        window.location.href = that.returnUrl;
-                    }, 5000);
+                let completedUrl = this.getBaseUrl() + '/' + this.getActivity() + '/completed/' + this.identifier + '/';
+                if (window.opener && !window.opener.closed) {
+                    window.opener.location = completedUrl;
+                    window.close();
+                } else {
+                    window.location = completedUrl;
                 }
 
                 this.showCompleteConfirmation = true;
@@ -653,6 +689,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // a.document.close();
         // a.print();
         window.print();
+    }
+
+    openReturnUrl() {
+        window.location.href = this.returnUrl;
     }
 
     static get styles() {
@@ -824,7 +864,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     margin-bottom: 0;
                 }
 
-                .print-button {
+                .buttons {
                     padding-top: 1em;
                 }
 
@@ -1125,16 +1165,17 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 ` : html``}
             </div>
         </div>
+<<<<<<< Updated upstream
         <div class="${classMap({hidden: !this.showTransactionSpinner})}">
             <span class="loading">
                 <dbp-mini-spinner text=${i18n.t('transaction-text')}></dbp-mini-spinner>
             </span>
         </div>
-        <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || !this.isLoading()})}">
+        <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || this.isLoading()})}">
             <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
                 <dbp-inline-notification
                         type="success"
-                        body="${i18n.t('complete.payment-status-completed')}">
+                        body="${this.returnUrl ? i18n.t('complete.payment-status-completed-return') : i18n.t('complete.payment-status-completed')}">
                 </dbp-inline-notification>
                 <div class="print" id="print-view-wrapper">
                         <div class="print-title">
@@ -1188,11 +1229,18 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                               class="warning-high"></dbp-icon>
                     <span>${i18n.t('warning-text')}</span>
                 </div>
-                <div class="print-button">
+                <div class="buttons">
                     <dbp-loading-button @click='${this.printSummary}'
-                                        title="${i18n.t('complete.button-text')}">
-                                        ${i18n.t('complete.button-text')}
+                                        title="${i18n.t('complete.print-button-text')}">
+                                        ${i18n.t('complete.print-button-text')}
                     </dbp-loading-button>
+                    ${this.returnUrl ? html`
+                        <dbp-loading-button @click='${this.openReturnUrl}'
+                                            title="${i18n.t('complete.return-button-text')}">
+                                            ${i18n.t('complete.return-button-text')}
+                        </dbp-loading-button>
+                    ` : html`
+                    `}
                 </div>
             </div>
         </div>
@@ -1218,15 +1266,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         </button>
                     </header>
                     <main class="modal-content" id="payment-modal-content">
-                        <iframe class="widget" .src="${this.widgetUrl}" allow="payment"></iframe>
-                            <!-- <<div class='payment-hint'>
-                        <div>
+                        <div class='payment-hint'>
                             <h2>${i18n.t('payment-method.method-started')}</h2>
                             <p>${i18n.t('payment-method.method-started-text')}</p>
-                        </div>
                             <p class='hint'><strong>${i18n.t('payment-method.method-started-hint')}</strong>
                             <br>${i18n.t('payment-method.method-started-hint-text')}</p>
-                        </div> -->
+                        </div>
                     </main>
                 </div>
             </div>

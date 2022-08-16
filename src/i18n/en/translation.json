@@ -50,12 +50,14 @@
     },
     "complete": {
         "payment-status-completed": "The payment completed successfully. It may take some time for the payment to show up in the system. You can close this window now.",
+        "payment-status-completed-return": "The payment completed successfully. You can return to the initiating application now.",
         "summary": "Payment summary",
         "reference": "Purpose of payment ",
         "amount": "Amount:",
         "status": "Status:",
         "payed": "completed",
-        "button-text": "Print summary",
+        "print-button-text": "Print summary",
+        "return-button-text": "Return to the initiating application",
         "payment-id": "Payment identification"
     },
     "loading": "Loading...",
