@@ -815,7 +815,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         const main = this.shadowRoot.host.getRootNode().querySelector('#root main');
 
 
-        if (header !== null || footer !== null) {
+        if (header !== null || footer !== null || aside !== null || main !== null) {
            footer.classList.add('hidden');
            header.classList.add('hidden');
             aside.classList.add('hidden');
@@ -825,7 +825,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         window.print();
 
-        if (header !== null || footer !== null) {
+        if (header !== null || footer !== null || aside !== null || main !== null) {
             footer.classList.remove('hidden');
             header.classList.remove('hidden');
             aside.classList.remove('hidden');
