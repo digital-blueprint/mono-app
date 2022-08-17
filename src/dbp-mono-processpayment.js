@@ -436,10 +436,39 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    popupCenter({url, title, w, h}) {
+        // Fixes dual-screen position                             Most browsers      Firefox
+        const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
+        const dualScreenTop = window.screenTop !==  undefined   ? window.screenTop  : window.screenY;
+
+        const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+        const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+        const systemZoom = width / window.screen.availWidth;
+        const left = (width - w) / 2 / systemZoom + dualScreenLeft
+        const top = (height - h) / 2 / systemZoom + dualScreenTop
+        const newWindow = window.open(url, title,
+            `
+              toolbar=no,
+              location=no,
+              status=no,
+              menubar=no,
+              scrollbars=yes,
+              width=${w / systemZoom}, 
+              height=${h / systemZoom}, 
+              top=${top}, 
+              left=${left}
+                `);
+
+        return newWindow;
+    }
+
     startPayAction(){
         const i18n = this._i18n;
 
-        this.popUp = window.open('', 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
+        this.popUp = this.popupCenter({url: '', title: 'xtf', w: 500, h: 768});
+
+        //this.popUp = window.open('', 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
         try {
             this.popUp.focus();
         }catch (e) {
