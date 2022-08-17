@@ -520,16 +520,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         break;
                     case 429:
                         this.showPaymentMethods = true;
-                        this.popUp.close();
-                        this.closeModal();
                         send({
                             summary: i18n.t('start.too-many-requests-title'),
                             body: i18n.t('start.too-many-requests-body'),
                             type: 'danger',
                             timeout: 5,
                         });
-
-
                         break;
                     case 500:
                         send({
