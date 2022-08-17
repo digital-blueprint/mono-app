@@ -19,6 +19,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.wrongPageCall = false; //TODO;
 
+        this.fullSizeLoading = false;
+
         // create
         let params = (new URL(document.location)).searchParams;
         this.type = params.get('type') ?? '';
@@ -78,6 +80,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         let view = this.getView();
         switch (view) {
             case 'select': {
+                this.fullSizeLoading = false;
                 this.view = view;
                 let activityPath = this.getActivityPath(1);
                 let activityPathItems = activityPath.split('/');
@@ -85,6 +88,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             }
             case 'complete': {
+                this.fullSizeLoading = true;
                 if (window.frameElement) {
                     parent.location = self.location;
                 }
@@ -95,6 +99,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             }
             case 'completed': {
+                this.fullSizeLoading = false;
                 this.view = view;
                 let activityPath = this.getActivityPath(1);
                 let activityPathItems = activityPath.split('/');
@@ -103,6 +108,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             }
             default:
                 this.view = 'create';
+                this.fullSizeLoading = true;
                 break;
         }
     }
@@ -121,6 +127,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             ...super.properties,
 
             wrongPageCall: {type: Boolean, attribute: false},
+
+            fullSizeLoading: {type: Boolean, attribute: false},
 
             // create
             type: {type: String},
@@ -254,24 +262,29 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         return await this.httpGetAsync(this.entryPointUrl + '/mono/payment', options);
     }
 
-    async createPaymentResponse(
-        responseData
-    ) {
+    async createPaymentResponse(responseData) {
+
+        const i18n = this._i18n;
 
         let status = responseData.status;
         let data = await responseData.clone().json();
-
+        this.fullSizeLoading = false;
         switch (status) {
             case 201:
                 window.location.href = this.getBaseUrl() + '/' + this.getActivity() + '/select/' + data.identifier;
                 this.wrongPageCall = false;
                 break;
             case 401:
-                if (this._loginStatus === 'logged-out') {
+                if (this._loginStatus === 'logged-in') {
                     this.sendSetPropertyEvent('requested-login-status', 'logged-in');
-                } else {
-                    this.authRequired = true;
+                    send({
+                        summary: i18n.t('common.other-error-title'),
+                        body: i18n.t('error-message'),
+                        type: 'danger',
+                        timeout: 5,
+                    });
                 }
+                this.authRequired = true;
                 break;
             default:
                 this.wrongPageCall = true;
@@ -423,22 +436,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
-    async startPayAction() {
-        this.showPaymentMethods = false; //TODO we do not want to hide this
-        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
-        let responseData = await this.sendPostStartPayActionRequest(
-            this.identifier,
-            this.selectedPaymentMethod,
-            returnUrl,
-            this.consent,
-            this.restart
-        );
-        await this.getStartPayActionResponse(
-            responseData
-        );
-    }
-
-    startPayAction2(){
+    startPayAction(){
         const i18n = this._i18n;
 
         this.popUp = window.open('', 'dbp-mono-processpayment', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=768');
@@ -571,96 +569,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         };
 
         return await this.httpGetAsync(this.entryPointUrl + '/mono/start-pay-actions', options);
-    }
-
-    async getStartPayActionResponse(responseData)
-    {
-        const i18n = this._i18n;
-
-        let status = responseData.status;
-        let data = await responseData.clone().json();
-
-        switch (status) {
-            case 201: {
-                let widgetUrl = new URL(data.widgetUrl);
-                this.widgetUrl = widgetUrl.toString();
-                this.showWidget = true;
-                this.openModal();
-                let popup = window.open(this.widgetUrl, 'dbp-mono-processpayment', 'popup');
-                // popup.addEventListener('onbeforeunload', (e) => {}) is not working cross origin, therefore check periodically
-                let popupInterval = setInterval(() => {
-                    if (popup.closed) {
-                        clearInterval(popupInterval);
-                        window.location.reload();
-                    }
-                }, 250);
-                break;
-            }
-            case 400:
-                send({
-                    summary: i18n.t('common.psp-return-url-not-allowed-title'),
-                    body: i18n.t('common.psp-return-url-not-allowed-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            case 401:
-                send({
-                    summary: i18n.t('common.login-required-title'),
-                    body: i18n.t('common.login-required-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            case 403:
-                send({
-                    summary: i18n.t('common.client-ip-not-allowed-title'),
-                    body: i18n.t('common.client-ip-not-allowed-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            case 404:
-                this.showNotFound = true;
-                this.showRestart = false;
-                this.showPaymentMethods = false;
-                this.showWidget = false;
-                this.showCompleteConfirmation = false;
-                break;
-            case 410:
-                send({
-                    summary: i18n.t('common.timeout-exceeded-title'),
-                    body: i18n.t('common.timeout-exceeded-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            case 429:
-                this.showPaymentMethods = true;
-                send({
-                    summary: i18n.t('start.too-many-requests-title'),
-                    body: i18n.t('start.too-many-requests-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            case 500:
-                send({
-                    summary: i18n.t('common.backend-error-title'),
-                    body: i18n.t('common.backend-error-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-            default:
-                send({
-                    summary: i18n.t('common.other-error-title'),
-                    body: i18n.t('common.other-error-body'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-                break;
-        }
     }
 
     // complete
@@ -846,6 +754,20 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             css`
 
+                .full-size-spinner{
+                    background-color: white;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
+                    z-index: 100;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 30px;
+                }
+
                 .hidden {
                     display: none;
                 }
@@ -1016,7 +938,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 .print-warning {
                     padding-top: 1em;
                 }
-
+               
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -1166,7 +1088,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
-            <dbp-inline-notification class=" ${classMap({ hidden: this.isLoggedIn() || this.isLoading() || !this.authRequired || this.wrongPageCall })}" 
+            <dbp-inline-notification class=" ${classMap({ hidden: (this.isLoggedIn() && this.authRequired) || this.isLoading() || !this.authRequired || this.wrongPageCall })}" 
                             type="warning"
                             body="${i18n.t('error-login-message')}">
             </dbp-inline-notification>
@@ -1180,12 +1102,19 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             type="danger"
                             body="${i18n.t('not-found.info')}">
             </dbp-inline-notification>
-
-            <div class="control ${classMap({hidden: this.isLoggedIn() || !this.isLoading()})}">
+            
+            <div class="control ${classMap({hidden: !this.isLoading()})}">
                 <span class="loading">
                     <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
                 </span>
             </div>
+
+            <div class="control full-size-spinner ${classMap({hidden: !this.fullSizeLoading})}">
+                <span class="loading">
+                    <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
+                </span>
+            </div>
+            
 
         <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
             <h2>${this.activity.getName(this.lang)}</h2>
@@ -1285,7 +1214,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     </p>
                     <div class="btn-row-left">
                         <dbp-loading-button type='is-primary'
-                                    @click='${this.startPayAction2}'
+                                    @click='${this.startPayAction}'
                                     ?disabled='${!this.isPaymentMethodSelected}'
                                     title="${i18n.t('select.start-pay-action-btn-title')}">
                                     ${i18n.t('select.start-pay-action-btn-title')}
@@ -1300,7 +1229,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 <dbp-mini-spinner text=${i18n.t('transaction-text')}></dbp-mini-spinner>
             </span>
         </div>
-        <div class="${classMap({hidden: !this.showCompleteConfirmation || !this.isLoggedIn() || this.isLoading()})}">
+        <div class="${classMap({hidden: !this.showCompleteConfirmation || (!this.isLoggedIn() && this.authRequired) || this.isLoading()})}">
             <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
                 <dbp-inline-notification
                         type="success"
