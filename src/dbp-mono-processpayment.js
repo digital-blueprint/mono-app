@@ -504,6 +504,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         let widgetUrl = new URL(data.widgetUrl);
                         this.widgetUrl = widgetUrl.toString();
                         this.showWidget = true;
+                        this.showWidget = true;
                         this.popUp.location = this.widgetUrl;
                         let popupInterval = setInterval(() => {
                             if (this.popUp.closed) {
@@ -861,7 +862,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     display: grid;
                     /* grid-template-columns: 280px 100px; */
                     /* column-gap: 1em; */
-                    grid-template-columns: max-content 100px;
+                    grid-template-columns: 206px 100px;
                     column-gap: 0.5em;
                 }
 
