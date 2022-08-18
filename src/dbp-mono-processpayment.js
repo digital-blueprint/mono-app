@@ -19,6 +19,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.wrongPageCall = false; //TODO;
 
+        this.loading = false;
         this.fullSizeLoading = false;
 
         // create
@@ -108,7 +109,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             }
             default:
                 this.view = 'create';
-                this.fullSizeLoading = true;
+                this.fullSizeLoading = false;
                 break;
         }
     }
@@ -128,6 +129,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             wrongPageCall: {type: Boolean, attribute: false},
 
+            loading: {type: Boolean, attribute: false},
             fullSizeLoading: {type: Boolean, attribute: false},
 
             // create
@@ -223,6 +225,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // create payment
     async createPayment() {
+        this.loading = true;
         let responseData = await this.sendCreatePaymentRequest(
             this.type,
             this.data,
@@ -234,6 +237,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         await this.createPaymentResponse(
             responseData
         );
+        this.loading = false;
     }
 
     async sendCreatePaymentRequest(
@@ -294,10 +298,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // get payment
     async getPayment() {
+        this.loading = this.amount === null;
         let responseData = await this.sendGetPaymentRequest(this.identifier);
         await this.getPaymentResponse(
             responseData
         );
+        this.loading = false;
     }
 
     async sendGetPaymentRequest(
@@ -420,6 +426,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         if (modal) {
             MicroModal.show(modal, {
                 onClose: (modal, trigger) => {
+                    if (this.popUp)
+                        this.popUp.close();
                     location.reload();
                 },
                 disableScroll: true,
@@ -1117,6 +1125,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         return html`
 
+            <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
+                <h2>${this.activity.getName(this.lang)}</h2>
+                <p class="subheadline">
+                    <slot name="description">${this.activity.getDescription(this.lang)}</slot>
+                </p>
+            </div>
+            
             <dbp-inline-notification class=" ${classMap({ hidden: (this.isLoggedIn() && this.authRequired) || this.isLoading() || !this.authRequired || this.wrongPageCall })}" 
                             type="warning"
                             body="${i18n.t('error-login-message')}">
@@ -1132,7 +1147,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             body="${i18n.t('not-found.info')}">
             </dbp-inline-notification>
             
-            <div class="control ${classMap({hidden: !this.isLoading()})}">
+            <div class="control ${classMap({hidden: !this.isLoading() && !this.loading})}">
                 <span class="loading">
                     <dbp-mini-spinner text=${i18n.t('loading-message')}></dbp-mini-spinner>
                 </span>
@@ -1145,11 +1160,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div>
             
 
-        <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
-            <h2>${this.activity.getName(this.lang)}</h2>
-            <p class="subheadline">
-                <slot name="description">${this.activity.getDescription(this.lang)}</slot>
-            </p>
+        <div class="${classMap({ hidden: this.loading || (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
+            
             <!-- <div>
                 <slot name="additional-information">
                     <p>${i18n.t('common.additional-information')}</p>
