@@ -24,13 +24,16 @@ export default class DBPMonoLitElement extends DBPLitElement {
         super.connectedCallback();
 
         this._loginStatus = '';
-        this._requestHeaders = {};
+        this._requestHeaders = {
+            'Accept-Language': this.lang
+        };
     }
 
     _updateAuth() {
         this._loginStatus = this.auth['login-status'];
         this._requestHeaders = {
             'Content-Type': 'application/ld+json',
+            'Accept-Language': this.lang
         };
 
         if (this._loginStatus === 'logged-in') {
@@ -43,6 +46,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
             switch (propName) {
                 case 'lang':
                     this._i18n.changeLanguage(this.lang);
+                    this._requestHeaders['Accept-Language'] = this.lang;
                     break;
                 case 'auth':
                     this._updateAuth();
