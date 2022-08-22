@@ -1113,7 +1113,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .data-declaration {
                         display: inline-grid;
-                        gap: 1.5em;
+                        gap: 2em;
+                    }
+                    
+                    .int-link-internal{
+                        width: fit-content;
                     }
                 }
 
