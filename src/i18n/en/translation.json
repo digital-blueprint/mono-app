@@ -58,6 +58,7 @@
         "payed": "completed",
         "print-button-text": "Print summary",
         "return-button-text": "Return to the initiating application",
+        "return-button-text-name": "Zurück zu {{name}}",
         "payment-id": "Payment identification"
     },
     "loading": "Loading...",

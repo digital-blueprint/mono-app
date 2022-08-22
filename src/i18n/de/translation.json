@@ -60,6 +60,7 @@
         "payed": "abgeschlossen",
         "print-button-text": "Ansicht drucken",
         "return-button-text": "Zurück zur initiierenden Applikation",
+        "return-button-text-name": "Zurück zu {{name}}",
         "payment-id": "Zahlungsidentifikator"
     },
     "loading": "Lädt...",

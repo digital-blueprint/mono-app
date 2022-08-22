@@ -767,6 +767,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
            header.classList.add('hidden');
             aside.classList.add('hidden');
             main.style.position = 'absolute';
+            main.style.width = '100vw';
             main.style.marginTop = '100px';
         }
 
@@ -782,6 +783,23 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     openReturnUrl() {
         window.location.href = this.returnUrl;
+    }
+
+    getReturnButtonString(){
+        const i18n = this._i18n;
+
+
+        let str = this.returnUrl;
+        if(!str) {
+            return i18n.t('complete.return-button-text');
+        }
+        str = str.replace("https://", "");
+        str = str.split("/");
+        if(!str)
+            return i18n.t('complete.return-button-text');
+
+        return i18n.t('complete.return-button-text-name', {name: str[0]});
+
     }
 
     static get styles() {
@@ -946,14 +964,28 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 .element-left {
                     background-color: var(--dbp-primary-surface);
                     color: var(--dbp-on-primary-surface);
+                    border-left: var(--dbp-border);
+                    border-right: var(--dbp-border);
+                    border-color: var(--dbp-primary-surface-border-color);
                     padding: 0px 20px 15px 40px;
                     text-align: right;
                     width: 300px;
+                }
+                
+                .element-left.first{
+                    border-top: var(--dbp-border);
+                    border-color: var(--dbp-primary-surface-border-color);
+                }
+
+                .element-left.last{
+                    border-bottom: var(--dbp-border);
+                    border-color: var(--dbp-primary-surface-border-color);
                 }
 
                 .element-right {
                     text-align: left;
                     padding-left: 15px;
+                    padding-right: 15px;
                     border-right: 1px solid var(--dbp-override-muted);
                 }
 
@@ -1063,6 +1095,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .print-content-wrapper {
                         grid-template-columns: auto;
                     }
+                    
+                    .element-left{
+                        border-left: none;
+                        border-right: none;
+                    }
 
                     .element-left.first {
                         margin-top: 10px;
@@ -1129,8 +1166,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 @media print {
-                    #payment-modal, dbp-inline-notification, .control, dbp-loading-button, h2, .subheadline{
+                    #payment-modal, dbp-inline-notification, .control, dbp-loading-button, h2, .subheadline, .print-warning .warning-high{
                         display: none;
+                    }
+                    
+                    .element-left{
+                        width: unset;
                     }
                 }
             `,
@@ -1336,7 +1377,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             <div class="element-right">
                                 ${this.identifier}
                             </div>
-                            <div class="element-left">${i18n.t('complete.status')}</div>
+                            <div class="element-left last">${i18n.t('complete.status')}</div>
                             <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
                         </div>
                     <div class="print-warning">
@@ -1351,9 +1392,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                             ${i18n.t('complete.print-button-text')}
                         </dbp-loading-button>
                         ${this.returnUrl ? html`
-                            <dbp-loading-button @click='${this.openReturnUrl}'
-                                                title="${i18n.t('complete.return-button-text')}">
-                                                ${i18n.t('complete.return-button-text')}
+                            <dbp-loading-button type='is-primary' @click='${this.openReturnUrl}'
+                                                title="${this.getReturnButtonString()}">
+                                                ${this.getReturnButtonString()}
                             </dbp-loading-button>
                         ` : html`
                         `}
