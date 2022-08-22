@@ -59,7 +59,7 @@
         "status": "Status:",
         "payed": "abgeschlossen",
         "print-button-text": "Ansicht drucken",
-        "return-button-text": "Zur initiierenden Applikation zurückkehren",
+        "return-button-text": "Zurück zur initiierenden Applikation",
         "payment-id": "Zahlungsidentifikator"
     },
     "loading": "Lädt...",

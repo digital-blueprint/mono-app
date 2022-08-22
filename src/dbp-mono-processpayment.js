@@ -969,6 +969,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                 .buttons {
                     padding-top: 1em;
+                    display: flex;
+                    justify-content: space-between;
                 }
 
                 .data-declaration {
@@ -1118,6 +1120,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     
                     .int-link-internal{
                         width: fit-content;
+                    }
+                    
+                    .buttons{
+                        flex-direction: column;
+                        gap: 5px;
                     }
                 }
 
