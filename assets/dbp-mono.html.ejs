@@ -37,7 +37,7 @@
     <!-- Loading spinner -->
     <script type="module">
         import {Spinner} from '<%= getPrivateUrl('spinner.js') %>';
-        customElements.define('dbp-loading-spinner', Spinner);
+        customElements.define('tug-spinner', Spinner);
     </script>
 
     <!-- App bundles-->
@@ -57,6 +57,14 @@
             font-weight: 300;
             font-size: 16px;
             margin: 0;
+        }
+
+        #spinner{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* TU-Graz style override */
@@ -109,7 +117,7 @@
     env='<%= buildInfo.env %>'
     html-overrides='global-override'
     themes='[{"class": "light-theme", "icon": "sun", "name": "Light Mode"}]'
-><dbp-loading-spinner></dbp-loading-spinner>
+><tug-spinner id='spinner'></tug-spinner>
 </<%= name %>>
 
 <template id="global-override">
