@@ -271,7 +271,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         const i18n = this._i18n;
 
         let status = responseData.status;
-        let data = await responseData.clone().json();
+        let data = "";
+        try {
+            data = await responseData.clone().json();
+        }catch(e){
+            console.log(e);
+        }
         this.fullSizeLoading = false;
         switch (status) {
             case 201:
