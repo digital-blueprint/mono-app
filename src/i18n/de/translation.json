@@ -62,7 +62,7 @@
         "return-button-text": "Zurück zur initiierenden Applikation",
         "return-button-text-name": "Zurück zu {{name}}",
         "payment-id": "Zahlungsidentifikator",
-        "close": "Sie können diese Seite jetzt verlassen."
+        "close": "Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können diese Seite jetzt verlassen."
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
