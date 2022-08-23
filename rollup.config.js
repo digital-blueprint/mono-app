@@ -161,7 +161,6 @@ export default (async () => {
                     {
                         src: await getPackagePath('@tugraz/web-components', 'src/spinner.js'),
                         dest: 'dist/' + (await getDistPath(pkg.name)),
-
                     },
                     {
                         src: await getPackagePath('@dbp-toolkit/common', 'misc/browser-check.js'),

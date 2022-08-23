@@ -1,22 +1,22 @@
 {
-  "name": {
-    "de": "Elektronisches Bezahlservice",
-    "en": "Electronic Payments"
-  },
-  "short_name": {
-    "de": "Elektronisches Bezahlservice",
-    "en": "Electronic Payments"
-  },
-  "description": {
-    "de": "Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.",
-    "en": "With this application you can perform payments to the university."
-  },
-  "routing_name": "mono",
-  "activities": [
-    {
-      "path": "dbp-mono-processpayment.metadata.json",
-      "visible": true
-    }
-  ],
-  "attributes": []
+    "name": {
+        "de": "Elektronisches Bezahlservice",
+        "en": "Electronic Payments"
+    },
+    "short_name": {
+        "de": "Elektronisches Bezahlservice",
+        "en": "Electronic Payments"
+    },
+    "description": {
+        "de": "Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.",
+        "en": "With this application you can perform payments to the university."
+    },
+    "routing_name": "mono",
+    "activities": [
+        {
+            "path": "dbp-mono-processpayment.metadata.json",
+            "visible": true
+        }
+    ],
+    "attributes": []
 }

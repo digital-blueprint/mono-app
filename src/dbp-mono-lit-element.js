@@ -1,5 +1,5 @@
 import DBPLitElement from '@dbp-toolkit/common/dbp-lit-element';
-import {createInstance} from "./i18n";
+import {createInstance} from './i18n';
 
 export default class DBPMonoLitElement extends DBPLitElement {
     constructor() {
@@ -25,7 +25,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
 
         this._loginStatus = '';
         this._requestHeaders = {
-            'Accept-Language': this.lang
+            'Accept-Language': this.lang,
         };
     }
 
@@ -33,7 +33,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this._loginStatus = this.auth['login-status'];
         this._requestHeaders = {
             'Content-Type': 'application/ld+json',
-            'Accept-Language': this.lang
+            'Accept-Language': this.lang,
         };
 
         if (this._loginStatus === 'logged-in') {
@@ -65,7 +65,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         let pathnameItems = pathname.split('/');
         let baseUrl = [];
         let reached = false;
-        pathnameItems.forEach(pathnameItem => {
+        pathnameItems.forEach((pathnameItem) => {
             if (pathnameItem === that.metadata['routing_name']) {
                 reached = true;
             }
