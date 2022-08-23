@@ -1,8 +1,8 @@
 {
     "common": {
-        "backend-error-body": "An error occured during communcation with a backend system.",
+        "backend-error-body": "An error occurred during communication with a backend system.",
         "backend-error-title": "Error!",
-        "client-ip-not-allowed-body": "You are not allowed to access this ressource from this device.",
+        "client-ip-not-allowed-body": "You are not allowed to access this resource from this device.",
         "client-ip-not-allowed-title": "Error!",
         "login-required-body": "Please log in to continue.",
         "login-required-title": "Login required",
@@ -10,20 +10,20 @@
         "other-error-title": "Error!",
         "psp-return-url-not-allowed-body": "The PSP return url is not allowed.",
         "psp-return-url-not-allowed-title": "Error!",
-        "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
+        "timeout-exceeded-body": "Timeout exceeded for this resource, you are no longer allowed to access it.",
         "timeout-exceeded-title": "Error!"
     },
     "complete": {
         "amount": "Amount:",
-        "close": "",
+        "close": "It may take some time for the payment to appear in the system. You can now leave this page.",
         "payed": "Successfully completed",
         "payment-id": "Payment identification",
         "print-button-text": "Print summary",
-        "recipient": "",
+        "recipient": "To:",
         "reference": "Purpose of payment ",
         "return-button-text": "Return to the initiating application",
-        "return-button-text-name": "Zurück zu {{name}}",
-        "sender": "",
+        "return-button-text-name": "Back to {{name}}",
+        "sender": "From:",
         "status": "Status:",
         "summary": "Summary"
     },
@@ -31,7 +31,7 @@
     "error-login-message": "You need to be logged in to process this payment!",
     "error-message": "No active payment process found.",
     "get": {
-        "too-many-requests-body": "You made too many requests on this ressource.",
+        "too-many-requests-body": "You made too many requests on this resource.",
         "too-many-requests-title": "Error!"
     },
     "loading-message": "Loading...",
@@ -64,5 +64,5 @@
     },
     "transaction-text": "The payment is being processed. This may take a few minutes.",
     "warning": "Warning",
-    "warning-text": "This summary does not serve as proof of an executed payment.."
+    "warning-text": "This summary does not serve as proof of an executed payment."
 }

@@ -12,7 +12,7 @@
     },
     "description": {
         "de": "Hier können elektronische Zahlungen an die Universität getätigt werden.",
-        "en": "Here electronic payments can be transacted to the university."
+        "en": "Here electronic payments can be made to the university."
     },
     "subscribe": "lang,auth,entry-point-url"
 }

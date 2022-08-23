@@ -36,7 +36,7 @@
     },
     "loading-message": "Lädt...",
     "not-found": {
-        "info": "Die ausgewähle Zahlung ist nicht mehr aktiv. Sie können dieses Fenster jetzt schließen und die Zahlung erneut starten."
+        "info": "Die ausgewählte Zahlung ist nicht mehr aktiv. Sie können dieses Fenster jetzt schließen und die Zahlung erneut starten."
     },
     "payment-method": {
         "close-modal": "Schließen",
