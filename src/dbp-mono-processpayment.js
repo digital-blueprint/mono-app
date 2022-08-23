@@ -736,7 +736,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             header.classList.add('hidden');
             aside.classList.add('hidden');
             main.style.position = 'absolute';
-            main.style.width = '100vw';
+            main.style.width = '97vw';
             main.style.marginTop = '100px';
         }
 

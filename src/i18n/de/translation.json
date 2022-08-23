@@ -8,7 +8,7 @@
         "login-required-title": "Anmeldung erforderlich",
         "other-error-body": "Es ist ein unbekannter Fehler aufgetreten.",
         "other-error-title": "Fehler!",
-        "psp-return-url-not-allowed-body": "Die PSP-Rückleitungs-URL ist nicht erlaubt.",
+        "psp-return-url-not-allowed-body": "Die PSP-RETURN-URL ist nicht erlaubt.",
         "psp-return-url-not-allowed-title": "Fehler!",
         "timeout-exceeded-body": "Die Ressource ist abgelaufen, Sie dürfen nicht mehr zugreifen.",
         "timeout-exceeded-title": "Fehler!"
