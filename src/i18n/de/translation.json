@@ -1,76 +1,68 @@
 {
     "common": {
-        "additional-information": "Hier können sie eine Zahlung durchführen.",
-        "login-required-title": "Anmeldung erforderlich",
-        "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können.",
-        "client-ip-not-allowed-title": "Fehler!",
-        "client-ip-not-allowed-body": "Sie dürfen von diesem Endgerät nicht auf die Ressource zugreifen.",
-        "timeout-exceeded-title": "Fehler!",
-        "timeout-exceeded-body": "Die Ressource ist abgelaufen, Sie dürfen nicht mehr zugreifen.",
-        "backend-error-title": "Fehler!",
         "backend-error-body": "Bei der Kommunikation mit einem Backend-System ist ein Fehler aufgetreten.",
-        "psp-return-url-not-allowed-title": "Fehler!",
-        "psp-return-url-not-allowed-body": "Die PSP-Rückleitungs-URL ist nicht erlaubt.",
+        "backend-error-title": "Fehler!",
+        "client-ip-not-allowed-body": "Sie dürfen von diesem Endgerät nicht auf die Ressource zugreifen.",
+        "client-ip-not-allowed-title": "Fehler!",
+        "login-required-body": "Bitte melden Sie sich an, um fortfahren zu können.",
+        "login-required-title": "Anmeldung erforderlich",
+        "other-error-body": "Es ist ein unbekannter Fehler aufgetreten.",
         "other-error-title": "Fehler!",
-        "other-error-body": "Es ist ein unbekannter Fehler aufgetreten."
+        "psp-return-url-not-allowed-body": "Die PSP-Rückleitungs-URL ist nicht erlaubt.",
+        "psp-return-url-not-allowed-title": "Fehler!",
+        "timeout-exceeded-body": "Die Ressource ist abgelaufen, Sie dürfen nicht mehr zugreifen.",
+        "timeout-exceeded-title": "Fehler!"
     },
+    "complete": {
+        "amount": "Betrag:",
+        "close": "Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können diese Seite jetzt verlassen.",
+        "payed": "Erfolgreich abgeschlossen",
+        "payment-id": "Zahlungsidentifikator",
+        "print-button-text": "Zusammenfassung drucken",
+        "recipient": "An:",
+        "reference": "Zahlungsgrund:",
+        "return-button-text": "Zurück zur initiierenden Applikation",
+        "return-button-text-name": "Zurück zu {{name}}",
+        "sender": "Von:",
+        "status": "Status:",
+        "summary": "Zusammenfassung"
+    },
+    "data-protection": "Datenschutzerklärung",
+    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
+    "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
     "get": {
-        "too-many-requests-title": "Fehler!",
-        "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen."
+        "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen.",
+        "too-many-requests-title": "Fehler!"
     },
+    "loading-message": "Lädt...",
     "not-found": {
         "info": "Die ausgewähle Zahlung ist nicht mehr aktiv. Sie können dieses Fenster jetzt schließen und die Zahlung erneut starten."
     },
-    "restart": {
-        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut.",
-        "restart-payment": "Zurück zur Zahlungsmethodenauswahl"
-    },
-    "select": {
-        "default-reference": "Zahlung",
-        "amount": "Betrag",
-        "sender": "Von",
-        "recipient": "An",
-        "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
-        "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
-        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungsdienstleister.",
-        "start-pay-action-btn-title": "Zahlung starten",
-        "tooltip-content": "tooltip content"
-    },
-    "start": {
-        "too-many-requests-title": "Fehler!",
-        "too-many-requests-body": "Die Zahlung darf nur einmalig gestartet werden."
-    },
     "payment-method": {
         "close-modal": "Schließen",
-        "modal-title": "Zahlung",
         "method-started": "Bezahlvorgang gestartet",
-        "method-started-text": "Der Bezahlvorgang wurde in einem neuen Fenster gestartet.",
         "method-started-hint": "Sie sehen das Popup-Fenster nicht?",
-        "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden."
+        "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden.",
+        "method-started-text": "Der Bezahlvorgang wurde in einem neuen Fenster gestartet."
     },
-    "complete": {
-        "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können dieses Fenster jetzt schließen.",
-        "payment-status-completed-return": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können jetzt zur initiierenden Applikation zurückkehren.",
-        "summary": "Zusammenfassung",
-        "reference": "Zahlungsgrund:",
-        "amount": "Betrag:",
-        "sender": "Von:",
-        "recipient": "An:",
-        "status": "Status:",
-        "payed": "Erfolgreich abgeschlossen",
-        "print-button-text": "Zusammenfassung drucken",
-        "return-button-text": "Zurück zur initiierenden Applikation",
-        "return-button-text-name": "Zurück zu {{name}}",
-        "payment-id": "Zahlungsidentifikator",
-        "close": "Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können diese Seite jetzt verlassen."
+    "restart": {
+        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut."
     },
-    "loading": "Lädt...",
-    "loading-message": "Lädt...",
+    "select": {
+        "amount": "Betrag",
+        "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
+        "default-reference": "Zahlung",
+        "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
+        "recipient": "An",
+        "sender": "Von",
+        "start-pay-action-btn-title": "Zahlung starten",
+        "start-pay-action-info": "Mit dem Klick auf \"Zahlung starten\" erfolgt eine Weiterleitung an den jeweiligen Zahlungsdienstleister."
+    },
+    "start": {
+        "too-many-requests-body": "Die Zahlung darf nur einmalig gestartet werden.",
+        "too-many-requests-title": "Fehler!"
+    },
     "transaction-text": "Die Zahlung wird verarbeitet. Das kann einige Minuten dauern.",
-    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
-    "error-title": "Falscher Seitenaufruf!",
-    "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
-    "data-protection": "Datenschutzerklärung",
     "warning": "Achtung",
     "warning-text": "Diese Zusammenfassung dient nicht als Nachweis einer durchgeführten Zahlung."
 }

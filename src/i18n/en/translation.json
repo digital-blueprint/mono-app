@@ -1,73 +1,68 @@
 {
     "common": {
-        "additional-information": "Here you can perform a payment action.",
-        "login-required-title": "Login required",
-        "login-required-body": "Please log in to continue.",
-        "client-ip-not-allowed-title": "Error!",
-        "client-ip-not-allowed-body": "You are not allowed to access this ressource from this device.",
-        "timeout-exceeded-title": "Error!",
-        "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
-        "backend-error-title": "Error!",
         "backend-error-body": "An error occured during communcation with a backend system.",
-        "psp-return-url-not-allowed-title": "Error!",
-        "psp-return-url-not-allowed-body": "The PSP return url is not allowed.",
+        "backend-error-title": "Error!",
+        "client-ip-not-allowed-body": "You are not allowed to access this ressource from this device.",
+        "client-ip-not-allowed-title": "Error!",
+        "login-required-body": "Please log in to continue.",
+        "login-required-title": "Login required",
+        "other-error-body": "An unknown error has occurred.",
         "other-error-title": "Error!",
-        "other-error-body": "An unknown error has occurred."
+        "psp-return-url-not-allowed-body": "The PSP return url is not allowed.",
+        "psp-return-url-not-allowed-title": "Error!",
+        "timeout-exceeded-body": "Timeout exceeded for this ressource, you are no longer allowed to access it.",
+        "timeout-exceeded-title": "Error!"
     },
+    "complete": {
+        "amount": "Amount:",
+        "close": "",
+        "payed": "Successfully completed",
+        "payment-id": "Payment identification",
+        "print-button-text": "Print summary",
+        "recipient": "",
+        "reference": "Purpose of payment ",
+        "return-button-text": "Return to the initiating application",
+        "return-button-text-name": "Zurück zu {{name}}",
+        "sender": "",
+        "status": "Status:",
+        "summary": "Summary"
+    },
+    "data-protection": "Privacy statement",
+    "error-login-message": "You need to be logged in to process this payment!",
+    "error-message": "No active payment process found.",
     "get": {
-        "too-many-requests-title": "Error!",
-        "too-many-requests-body": "You made too many requests on this ressource."
+        "too-many-requests-body": "You made too many requests on this ressource.",
+        "too-many-requests-title": "Error!"
     },
+    "loading-message": "Loading...",
     "not-found": {
         "info": "The selected payment is no longer active. You can close this window now and start the payment again."
     },
-    "restart": {
-        "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again.",
-        "restart-payment": "Back to payment method selection"
-    },
-    "select": {
-        "default-reference": "Payment",
-        "amount": "Amount",
-        "sender": "From",
-        "recipient": "To",
-        "amount-too-low": "Amount is too low.",
-        "payment-method": "Please select a payment method:",
-        "start-pay-action-info": "By clicking on \"Start payment\" you will be forwarded to the respective payment service provider.",
-        "start-pay-action-btn-title": "Start payment",
-        "tooltip-content": "tooltip content"
-    },
-    "start": {
-        "too-many-requests-title": "Fehler!",
-        "too-many-requests-body": "You are allowed to start the payment only once."
-    },
     "payment-method": {
         "close-modal": "Close",
-        "modal-title": "Payment",
         "method-started": "Payment process started",
-        "method-started-text": "The payment process started in a new window.",
         "method-started-hint": "Don't see the popup window?",
-        "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\""
+        "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\"",
+        "method-started-text": "The payment process started in a new window."
     },
-    "complete": {
-        "payment-status-completed": "The payment completed successfully. It may take some time for the payment to show up in the system. You can close this window now.",
-        "payment-status-completed-return": "The payment completed successfully. You can return to the initiating application now.",
-        "summary": "Summary",
-        "reference": "Purpose of payment ",
-        "amount": "Amount:",
-        "status": "Status:",
-        "payed": "Successfully completed",
-        "print-button-text": "Print summary",
-        "return-button-text": "Return to the initiating application",
-        "return-button-text-name": "Zurück zu {{name}}",
-        "payment-id": "Payment identification"
+    "restart": {
+        "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again."
     },
-    "loading": "Loading...",
-    "loading-message": "Loading...",
+    "select": {
+        "amount": "Amount",
+        "amount-too-low": "Amount is too low.",
+        "default-reference": "Payment",
+        "payment-method": "Please select a payment method:",
+        "recipient": "To",
+        "sender": "From",
+        "start-pay-action-btn-title": "Start payment",
+        "start-pay-action-info": "By clicking on \"Start payment\" you will be forwarded to the respective payment service provider."
+    },
+    "start": {
+        "too-many-requests-body": "You are allowed to start the payment only once.",
+        "too-many-requests-title": "Fehler!"
+    },
     "transaction-text": "The payment is being processed. This may take a few minutes.",
-    "error-login-message": "You need to be logged in to process this payment!",
-    "error-title": "Wrong page call!",
-    "error-message": "No active payment process found.",
-    "data-protection": "Privacy statement",
     "warning": "Warning",
     "warning-text": "This summary does not serve as proof of an executed payment.."
 }
