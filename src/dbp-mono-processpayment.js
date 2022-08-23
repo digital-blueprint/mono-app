@@ -114,6 +114,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    updated(changedProperties) {
+        if (changedProperties.has('lang')) {
+            if (this._loginStatus === 'logged-in') {
+                this.getPayment();
+            }
+        }
+        super.updated(changedProperties);
+    }
+
     static get scopedElements() {
         return {
             'dbp-loading-button': LoadingButton,
