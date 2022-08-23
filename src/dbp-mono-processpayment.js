@@ -116,7 +116,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     updated(changedProperties) {
         if (changedProperties.has('lang')) {
-            if (this._loginStatus === 'logged-in') {
+            if (this._loginStatus === 'logged-in' && this.view === 'select') {
                 this.getPayment();
             }
         }
