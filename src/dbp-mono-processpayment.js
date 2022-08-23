@@ -423,6 +423,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 });
                 break;
             default:
+                this.wrongPageCall = true;
                 send({
                     summary: i18n.t('common.other-error-title'),
                     body: i18n.t('error-message'),
@@ -1103,6 +1104,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .print-content-wrapper {
                         grid-template-columns: auto;
+                        border-bottom: 1px solid rgba(51, 51, 51, 0.2);
                     }
                     
                     .element-left{
@@ -1113,6 +1115,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .element-left.first {
                         margin-top: 10px;
                         border-top: 0px;
+                    }
+                    
+                    .elemetńt-left.last{
+                         border-color: rgba(51, 51, 51, 0.2);
                     }
 
                     .element-right.first {
@@ -1137,6 +1143,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         color: inherit;
                         font-weight: 400;
                         border-top: 1px solid rgba(51, 51, 51, 0.2);
+                        border-color: rgba(51, 51, 51, 0.2);
                         width: unset;
                     }
 
@@ -1182,6 +1189,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .element-left{
                         width: unset;
                     }
+                    
+                    * {
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                    }
                 }
             `,
         ];
@@ -1189,27 +1201,26 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     render() {
         const i18n = this._i18n;
-
         return html`
 
-            <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')})}">
+            <div class="${classMap({ hidden: (!this.isLoggedIn() && this.authRequired) || this.isLoading() || this.showNotFound || this.wrongPageCall || (this.paymentStatus === 'completed')  || this.loading})}">
                 <h2>${this.activity.getName(this.lang)}</h2>
                 <p class="subheadline">
                     <slot name="description">${this.activity.getDescription(this.lang)}</slot>
                 </p>
             </div>
             
-            <dbp-inline-notification class=" ${classMap({ hidden: (this.isLoggedIn() && this.authRequired) || this.isLoading() || !this.authRequired || this.wrongPageCall })}" 
+            <dbp-inline-notification class=" ${classMap({ hidden: (this.isLoggedIn() && this.authRequired) || this.isLoading() || !this.authRequired || this.wrongPageCall || this.loading})}" 
                             type="warning"
                             body="${i18n.t('error-login-message')}">
             </dbp-inline-notification>
 
-            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall })}" 
+            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.wrongPageCall || this.loading })}" 
                             type="danger"
                             body="${i18n.t('error-message')}">
             </dbp-inline-notification>
 
-            <dbp-inline-notification class="${classMap({ hidden: this.isLoading() || !this.showNotFound })}"
+            <dbp-inline-notification class="${classMap({ hidden: !this.showNotFound || this.loading})}"
                             type="danger"
                             body="${i18n.t('not-found.info')}">
             </dbp-inline-notification>
