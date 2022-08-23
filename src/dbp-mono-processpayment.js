@@ -791,10 +791,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
-    openReturnUrl() {
-        window.location.href = this.returnUrl;
-    }
-
     getReturnButtonString(){
         const i18n = this._i18n;
 
@@ -1000,7 +996,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 .print-title {
-                    padding-top: 1.5em;
                     padding-bottom: 1em;
                 }
 
@@ -1023,7 +1018,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 .print-warning {
-                    padding-top: 1em;
+                    display: flex;
+                    justify-content: space-between;
+                    padding-top: 0.5em;
+                }
+                
+                .success{
+                    color: var(--dbp-success);
                 }
                
                 @media only screen and (min-width: 768px) {
@@ -1182,17 +1183,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 @media print {
-                    #payment-modal, dbp-inline-notification, .control, dbp-loading-button, h2, .subheadline, .print-warning .warning-high{
+                    #payment-modal, dbp-inline-notification, .control, dbp-loading-button, .subheadline, .print-warning .warning-high, .complete-redirect-notice{
                         display: none;
                     }
                     
                     .element-left{
                         width: unset;
-                    }
-                    
-                    * {
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
                     }
                 }
             `,
@@ -1350,15 +1346,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         </div>
         <div class="${classMap({hidden: !this.showCompleteConfirmation || (!this.isLoggedIn() && this.authRequired) || this.isLoading()})}">
             <div class="${classMap({hidden: !(this.paymentStatus === 'completed')})}">
-                <dbp-inline-notification
-                        type="success"
-                        body="${this.returnUrl ? i18n.t('complete.payment-status-completed-return') : i18n.t('complete.payment-status-completed')}">
-                </dbp-inline-notification>
                 <div class="print" id="print-view-wrapper">
                         <div class="print-title">
-                            <h3>
+                            <h2>
                                 ${i18n.t('complete.summary')} 
-                            </h3>
+                            </h2>
                         </div>
                         <div class="print-content-wrapper">
                             <div class="element-left first">${i18n.t('complete.reference')}</div>
@@ -1398,27 +1390,29 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                 ${this.identifier}
                             </div>
                             <div class="element-left last">${i18n.t('complete.status')}</div>
-                            <div class="element-right last"><strong>${i18n.t('complete.payed')}</strong></div>
+                            <div class="element-right last"><span class='success'><strong>${i18n.t('complete.payed')}</strong></span></div>
                         </div>
                     <div class="print-warning">
+                        <div>
                         <dbp-icon title="${i18n.t('warning')}"
                                   name="warning-high"
                                   class="warning-high"></dbp-icon>
                         <span>${i18n.t('warning-text')}</span>
-                    </div>
-                    <div class="buttons">
+                        </div>
                         <dbp-loading-button @click='${this.printSummary}'
                                             title="${i18n.t('complete.print-button-text')}">
-                                            ${i18n.t('complete.print-button-text')}
+                            ${i18n.t('complete.print-button-text')}
                         </dbp-loading-button>
-                        ${this.returnUrl ? html`
-                            <dbp-loading-button type='is-primary' @click='${this.openReturnUrl}'
-                                                title="${this.getReturnButtonString()}">
-                                                ${this.getReturnButtonString()}
-                            </dbp-loading-button>
-                        ` : html`
-                        `}
                     </div>
+                    <div class='complete-redirect-notice'>
+                        <p>${i18n.t('complete.close')} <br>
+                            ${this.returnUrl ? html`
+                                <a target="_self" rel="noopener" class="link" href="${this.returnUrl}">
+                                    ${this.getReturnButtonString()}
+                                </a>
+                            ` : html`
+                            `}
+                        </p>
                 </div>
             </div>
         </div>

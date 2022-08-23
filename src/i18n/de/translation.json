@@ -51,17 +51,18 @@
     "complete": {
         "payment-status-completed": "Die Zahlung wurde erfolgreich abgeschlossen. Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können dieses Fenster jetzt schließen.",
         "payment-status-completed-return": "Die Zahlung wurde erfolgreich abgeschlossen. Sie können jetzt zur initiierenden Applikation zurückkehren.",
-        "summary": "Zusammenfassung der Zahlung",
+        "summary": "Zusammenfassung",
         "reference": "Zahlungsgrund:",
         "amount": "Betrag:",
         "sender": "Von:",
         "recipient": "An:",
         "status": "Status:",
-        "payed": "abgeschlossen",
-        "print-button-text": "Ansicht drucken",
+        "payed": "Erfolgreich abgeschlossen",
+        "print-button-text": "Zusammenfassung drucken",
         "return-button-text": "Zurück zur initiierenden Applikation",
         "return-button-text-name": "Zurück zu {{name}}",
-        "payment-id": "Zahlungsidentifikator"
+        "payment-id": "Zahlungsidentifikator",
+        "close": "Sie können diese Seite jetzt verlassen."
     },
     "loading": "Lädt...",
     "loading-message": "Lädt...",
@@ -71,5 +72,5 @@
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
     "data-protection": "Datenschutzerklärung",
     "warning": "Achtung",
-    "warning-text": "Diese Übersicht dient nicht als Nachweis einer durchgeführten Zahlung."
+    "warning-text": "Diese Zusammenfassung dient nicht als Nachweis einer durchgeführten Zahlung."
 }
