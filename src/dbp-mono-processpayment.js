@@ -289,7 +289,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.fullSizeLoading = false;
         switch (status) {
             case 201:
-                window.location.href = this.getBaseUrl() + '/' + this.getActivity() + '/select/' + data.identifier;
+                this.identifier = data.identifier;
+                this.reloadSelect();
                 this.wrongPageCall = false;
                 break;
             case 401:
@@ -434,6 +435,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         }
     }
 
+    reloadSelect() {
+        window.location.replace(this.getBaseUrl() + '/' + this.getActivity() + '/select/' + this.identifier);
+    }
+
     // start pay action
 
     openModal() {
@@ -443,7 +448,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 onClose: (modal, trigger) => {
                     if (this.popUp)
                         this.popUp.close();
-                    location.reload();
+                    this.reloadSelect();
                 },
                 disableScroll: true,
                 disableFocus: false,
@@ -524,7 +529,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         let popupInterval = setInterval(() => {
                             if (this.popUp.closed) {
                                 clearInterval(popupInterval);
-                                window.location.reload();
+                                this.reloadSelect();
                             }
                         }, 250);
 
