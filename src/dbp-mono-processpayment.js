@@ -1041,6 +1041,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     }
 
                     .element-left.last {
+                        border-bottom: none;
                         border-color: rgba(51, 51, 51, 0.2);
                     }
 
@@ -1078,6 +1079,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .print-warning {
                         padding-top: 1em;
+                        flex-direction: column;
+                        gap: 1em;
                     }
 
                     .data-declaration {
@@ -1087,6 +1090,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .int-link-internal {
                         width: fit-content;
+                    }
+                    
+                    .complete-redirect-notice {
+                        margin-top: 2em;
                     }
                 }
 
