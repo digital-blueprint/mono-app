@@ -1244,7 +1244,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                               ${this.recipient}
                                               <a
                                                   href="${this.dataProtectionDeclarationUrl}"
-                                                  class="int-link-internal">
+                                                  class="int-link-internal"
+                                                  target='_blank'>
                                                   ${i18n.t('data-protection')}
                                               </a>
                                           </span>
