@@ -166,7 +166,7 @@ export default (async () => {
                         src: await getPackagePath('@dbp-toolkit/common', 'misc/browser-check.js'),
                         dest: 'dist/' + (await getDistPath(pkg.name)),
                     },
-                    {src: 'assets/manifest.json', dest: 'dist', rename: appName + '.manifest.json'},
+                    {src: 'assets/manifest.json', dest: 'dist', rename: pkg.name + '.webmanifest'},
                     {src: 'src/*.metadata.json', dest: 'dist'},
                     {
                         src: await getPackagePath('@dbp-toolkit/common', 'assets/icons/*.svg'),
