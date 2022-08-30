@@ -37,6 +37,7 @@ deploy:
     refs:
       - main
       - demo
+      - production
   inherit:
     variables: false
   variables:
