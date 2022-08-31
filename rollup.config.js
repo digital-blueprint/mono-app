@@ -147,7 +147,6 @@ export default (async () => {
                     {src: 'assets/silent-check-sso.html', dest: 'dist'},
                     {src: 'assets/htaccess-shared', dest: 'dist/shared/', rename: '.htaccess'},
                     {src: 'assets/*.css', dest: 'dist/' + (await getDistPath(pkg.name))},
-                    {src: 'assets/*.ico', dest: 'dist/' + (await getDistPath(pkg.name))},
                     {src: 'assets/*.svg', dest: 'dist/' + (await getDistPath(pkg.name))},
                     {src: 'assets/icon/*', dest: 'dist/' + (await getDistPath(pkg.name, 'icon'))},
                     {src: 'assets/site.webmanifest', dest: 'dist', rename: pkg.internalName + '.webmanifest'},
