@@ -4320,9 +4320,9 @@ pkg-dir@^4.1.0:
     find-up "^4.0.0"
 
 playwright-core@^1.20.2, playwright-core@^1.21.1:
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.25.1.tgz#abe56aec8bef645fba988320d9f9328fafab0446"
-  integrity sha512-lSvPCmA2n7LawD2Hw7gSCLScZ+vYRkhU8xH0AapMyzwN+ojoDqhkH/KIEUxwNu2PjPoE/fcE0wLAksdOhJ2O5g==
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.25.2.tgz#ea4baa398a4d45fcdfe48799482b599e3d0f033f"
+  integrity sha512-0yTbUE9lIddkEpLHL3u8PoCL+pWiZtj5A/j3U7YoNjcmKKDGBnCrgHJMzwd2J5vy6l28q4ki3JIuz7McLHhl1A==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
