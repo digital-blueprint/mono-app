@@ -37,7 +37,7 @@ export default {
     },
     production: {
         basePath: '/',
-        entryPointURL: 'https://pay.tugraz.at',
+        entryPointURL: 'https://api.tugraz.at',
         keyCloakBaseURL: 'https://auth.tugraz.at/auth',
         keyCloakRealm: 'tugraz',
         keyCloakClientId: 'pay_tugraz_at-PAY',
