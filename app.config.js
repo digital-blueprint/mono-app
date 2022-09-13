@@ -40,7 +40,7 @@ export default {
         entryPointURL: 'https://pay.tugraz.at',
         keyCloakBaseURL: 'https://auth.tugraz.at/auth',
         keyCloakRealm: 'tugraz',
-        keyCloakClientId: 'dbp-mono',
+        keyCloakClientId: 'pay_tugraz_at-PAY',
         matomoUrl: 'https://analytics.tugraz.at/',
         matomoSiteId: 131,
     },
