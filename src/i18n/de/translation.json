@@ -30,6 +30,10 @@
     "data-protection": "Datenschutzerklärung",
     "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
+    "create": {
+        "too-many-requests-body": "Zu viele aktive Zahlungen. Bitte versuchen Sie es später erneut.",
+        "too-many-requests-title": "Fehler!"
+    },
     "get": {
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen.",
         "too-many-requests-title": "Fehler!"

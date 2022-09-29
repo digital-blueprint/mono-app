@@ -287,6 +287,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
                 this.authRequired = true;
                 break;
+            case 429:
+                send({
+                    summary: i18n.t('create.too-many-requests-title'),
+                    body: i18n.t('create.too-many-requests-body'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+                break;
             default:
                 this.wrongPageCall = true;
                 break;

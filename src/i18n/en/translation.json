@@ -30,6 +30,10 @@
     "data-protection": "Privacy statement",
     "error-login-message": "You need to be logged in to process this payment!",
     "error-message": "No active payment process found.",
+    "create": {
+        "too-many-requests-body": "Too many active payments. Please try again later.",
+        "too-many-requests-title": "Error!"
+    },
     "get": {
         "too-many-requests-body": "You made too many requests on this resource.",
         "too-many-requests-title": "Error!"
