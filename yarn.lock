@@ -859,7 +859,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.15.4", "@babel/runtime@^7.17.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.15.4", "@babel/runtime@^7.17.2", "@babel/runtime@^7.20.6", "@babel/runtime@^7.8.4":
   version "7.20.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.6.tgz#facf4879bfed9b5326326273a64220f099b0fce3"
   integrity sha512-Q+8MqP7TiHMWzSfwiJwXCjyf4GYA4Dgw3emg/7xmwsdLJOZUp+nMqcOwOzzYheuM1rhDu8FSj2l0aoMygEuXuA==
@@ -1079,9 +1079,9 @@
     "@rollup/pluginutils" "^5.0.1"
 
 "@rollup/plugin-commonjs@^23.0.0":
-  version "23.0.3"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-23.0.3.tgz#442cd8ccca1b7563a503da86fc84a1a7112b54bb"
-  integrity sha512-31HxrT5emGfTyIfAs1lDQHj6EfYxTXcwtX5pIIhq+B/xZBNIqQ179d/CkYxlpYmFCxT78AeU4M8aL8Iv/IBxFA==
+  version "23.0.4"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-23.0.4.tgz#854e9b1a83f0a715ded70a2ae411bebc11141de2"
+  integrity sha512-bOPJeTZg56D2MCm+TT4psP8e8Jmf1Jsi7pFUMl8BN5kOADNzofNHe47+84WVCt7D095xPghC235/YKuNDEhczg==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     commondir "^1.0.1"
@@ -3289,11 +3289,11 @@ i18next@^21.4.2:
     "@babel/runtime" "^7.17.2"
 
 i18next@^22.0.0, i18next@^22.0.4:
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.0.6.tgz#d7029912f8aa74ff295c0d9afd1b7dea45859b49"
-  integrity sha512-RlreNGoPIdDP4QG+qSA9PxZKGwlzmcozbI9ObI6+OyUa/Rp0EjZZA9ubyBjw887zVNZsC+7FI3sXX8oiTzAfig==
+  version "22.3.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.3.0.tgz#77578a4ef566e0e20e9d4f319d7fd0f4bebb26f7"
+  integrity sha512-V8ODNVavs8Sp6UvURwajQ/6CytW0GWkv384Rz16AaKNrU3L47lGz1Yv79hPNmM8IqV0eS8AOixy5Qaw1De7bcA==
   dependencies:
-    "@babel/runtime" "^7.17.2"
+    "@babel/runtime" "^7.20.6"
 
 iconv-lite@0.4.24:
   version "0.4.24"
@@ -4479,9 +4479,9 @@ prelude-ls@^1.2.1:
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
 prettier@^2.5.1:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.0.tgz#c7df58393c9ba77d6fba3921ae01faf994fb9dc9"
-  integrity sha512-9Lmg8hTFZKG0Asr/kW9Bp8tJjRVluO8EJQVfY2T7FMw9T5jy4I/Uvx0Rca/XWf50QQ1/SS48+6IJWnrb+2yemA==
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.1.tgz#4e1fd11c34e2421bc1da9aea9bd8127cd0a35efc"
+  integrity sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==
 
 process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
   version "2.0.1"
