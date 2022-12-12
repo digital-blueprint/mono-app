@@ -1124,6 +1124,15 @@
   dependencies:
     terser "^5.15.1"
 
+"@rollup/plugin-terser@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-terser/-/plugin-terser-0.2.0.tgz#07994c6ca48fcbf352efbdb01d0273557d7a3991"
+  integrity sha512-UBr4WNXBFipKW2C2db9JIzIdq9bFZsaTZwKeAd9Y0N9Pv9G2XgRhaimGdotx1+Wf/2XTuTJ+FVS2SO+y2WyiUQ==
+  dependencies:
+    serialize-javascript "^6.0.0"
+    smob "^0.0.6"
+    terser "^5.15.1"
+
 "@rollup/plugin-url@^8.0.0":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-8.0.1.tgz#8da005d4be8cb4439357c929c73c85ceb5d979a4"
@@ -4931,7 +4940,7 @@ semver@^7.3.7, semver@^7.3.8:
   dependencies:
     lru-cache "^6.0.0"
 
-serialize-javascript@6.0.0:
+serialize-javascript@6.0.0, serialize-javascript@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-6.0.0.tgz#efae5d88f45d7924141da8b5c3a7a7e663fefeb8"
   integrity sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==
@@ -4988,6 +4997,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+
+smob@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/smob/-/smob-0.0.6.tgz#09b268fea916158a2781c152044c6155adbb8aa1"
+  integrity sha512-V21+XeNni+tTyiST1MHsa84AQhT1aFZipzPpOFAVB8DkHzwJyjjAmt9bgwnuZiZWnIbMo2duE29wybxv/7HWUw==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
