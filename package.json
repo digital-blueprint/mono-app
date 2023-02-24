@@ -1,5 +1,5 @@
 {
-    "name": "@dbp-topics/mono",
+    "name": "@digital-blueprint/mono-app",
     "internalName": "dbp-mono",
     "version": "0.0.0",
     "main": "src/dbp-mono.js",
