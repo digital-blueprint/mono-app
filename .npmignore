@@ -5,5 +5,5 @@ vendor
 rollup.config.js
 _cypress_cache
 scripts
-docker
+docker-dev
 .github
