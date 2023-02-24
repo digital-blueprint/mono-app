@@ -18,8 +18,8 @@ This is an application for allowing payments with various payment gateways.
 
 ```bash
 # get the source
-git clone git@gitlab.tugraz.at:dbp//web-components/dbp-template-app.git
-cd dbp-template-app
+git clone git@github.com:digital-blueprint/mono-app.git
+cd mono-app
 git submodule update --init
 
 # install dependencies
