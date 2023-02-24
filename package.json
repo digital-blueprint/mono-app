@@ -1,12 +1,12 @@
 {
     "name": "@digital-blueprint/mono-app",
     "internalName": "dbp-mono",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "main": "src/dbp-mono.js",
     "license": "LGPL-2.1-or-later",
     "repository": {
         "type": "git",
-        "url": "https://gitlab.tugraz.at/dbp/mono/mono.git"
+        "url": "https://github.com/digital-blueprint/mono-app.git"
     },
     "private": true,
     "workspaces": [
