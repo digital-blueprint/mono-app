@@ -66,6 +66,7 @@
         "watch-full": "rollup --bundleConfigAsCjs -c --watch --environment FORCE_FULL",
         "test": "rollup --bundleConfigAsCjs -c --environment APP_ENV:test && karma start --singleRun",
         "test-full": "rollup --bundleConfigAsCjs -c --environment FORCE_FULL,APP_ENV:test && karma start --singleRun",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "publish": "sed -i 's/\"private\": true/\"private\": false/' package.json && can-npm-publish --verbose 2>&1 && npm publish --access public 2>&1; sed -i 's/\"private\": false/\"private\": true/' package.json"
     }
 }
