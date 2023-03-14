@@ -92,9 +92,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     parent.location = self.location;
                 }
                 this.view = view;
-                let activityPath = this.getActivityPath(1);
-                let activityPathItems = activityPath.split('/');
-                this.identifier = activityPathItems[1] ?? null;
+                // complete is special in that we don't control the URL after '/complete/' and
+                // send the remaineder to the API to get back the payment ID
                 break;
             }
             case 'completed': {
@@ -496,7 +495,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.openModal();
 
         let returnUrl =
-            this.getBaseUrl() + '/' + this.getActivity() + '/complete/' + this.identifier + '/';
+            this.getBaseUrl() + '/' + this.getActivity() + '/complete/';
 
         this.sendPostStartPayActionRequest(
             this.identifier,
@@ -627,7 +626,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     async sendCompletePaymentRequest(pspData) {
         let body = {
-            routing: '',
             pspData: pspData,
         };
 
@@ -651,6 +649,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         switch (status) {
             case 201:
                 this.returnUrl = data.returnUrl;
+                this.identifier = data.identifier;
                 break;
             case 404:
                 this.showNotFound = true;
