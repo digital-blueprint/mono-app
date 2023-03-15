@@ -11,6 +11,8 @@ import DBPMonoLitElement from './dbp-mono-lit-element';
 import MicroModal from './micromodal.es';
 
 const VIEW_RETURN = 'return';
+const VIEW_SELECT = 'select';
+const VIEW_CREATE = 'create';
 
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
@@ -81,7 +83,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // view
         let view = this.getView();
         switch (view) {
-            case 'select': {
+            case VIEW_SELECT: {
                 this.fullSizeLoading = false;
                 this.view = view;
                 let activityPath = this.getActivityPath(1);
@@ -95,7 +97,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             }
             default:
-                this.view = 'create';
+                this.view = VIEW_CREATE;
                 this.fullSizeLoading = false;
                 break;
         }
@@ -103,7 +105,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     updated(changedProperties) {
         if (changedProperties.has('lang')) {
-            if (this._loginStatus === 'logged-in' && this.view === 'select') {
+            if (this._loginStatus === 'logged-in' && this.view === VIEW_SELECT) {
                 this.getPayment();
             }
         }
@@ -182,14 +184,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         if (this._loginStatus === 'logged-in' || this._loginStatus === 'logged-out') {
             switch (this.view) {
-                case 'create':
+                case VIEW_CREATE:
                     if (this._loginStatus === 'logged-out' && this.authRequired) {
                         this.sendSetPropertyEvent('requested-login-status', 'logged-in');
                     } else {
                         this.createPayment();
                     }
                     break;
-                case 'select':
+                case VIEW_SELECT:
                     this.getPayment();
                     break;
                 case VIEW_RETURN:
@@ -405,7 +407,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     reloadSelect() {
         window.location.replace(
-            this.getBaseUrl() + '/' + this.getActivity() + '/select/' + this.identifier
+            this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_SELECT + '/' + this.identifier
         );
     }
 
@@ -679,7 +681,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     this.getBaseUrl() +
                     '/' +
                     this.getActivity() +
-                    '/select/' +
+                    '/' +
+                    VIEW_SELECT +
+                    '/' +
                     this.identifier +
                     '/';
                 if (window.opener && !window.opener.closed) {
