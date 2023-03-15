@@ -94,14 +94,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.view = view;
                 break;
             }
-            case 'completed': {
-                this.fullSizeLoading = false;
-                this.view = view;
-                let activityPath = this.getActivityPath(1);
-                let activityPathItems = activityPath.split('/');
-                this.identifier = activityPathItems[1] ?? null;
-                break;
-            }
             default:
                 this.view = 'create';
                 this.fullSizeLoading = false;
@@ -202,9 +194,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     break;
                 case VIEW_RETURN:
                     this.completePayment();
-                    break;
-                case 'completed':
-                    this.getPayment();
                     break;
             }
         }
@@ -690,7 +679,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     this.getBaseUrl() +
                     '/' +
                     this.getActivity() +
-                    '/completed/' +
+                    '/select/' +
                     this.identifier +
                     '/';
                 if (window.opener && !window.opener.closed) {
