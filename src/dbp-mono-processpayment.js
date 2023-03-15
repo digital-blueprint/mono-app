@@ -91,9 +91,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             }
             case VIEW_RETURN: {
                 this.fullSizeLoading = true;
-                if (window.frameElement) {
-                    parent.location = self.location;
-                }
                 this.view = view;
                 break;
             }
