@@ -10,7 +10,10 @@ import {Activity} from './activity.js';
 import DBPMonoLitElement from './dbp-mono-lit-element';
 import MicroModal from './micromodal.es';
 
+const VIEW_RETURN = 'return';
+
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
+
     constructor() {
         super();
         this.metadata = metadata;
@@ -86,14 +89,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.identifier = activityPathItems[1] ?? null;
                 break;
             }
-            case 'complete': {
+            case VIEW_RETURN: {
                 this.fullSizeLoading = true;
                 if (window.frameElement) {
                     parent.location = self.location;
                 }
                 this.view = view;
-                // complete is special in that we don't control the URL after '/complete/' and
-                // send the remaineder to the API to get back the payment ID
                 break;
             }
             case 'completed': {
@@ -202,7 +203,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 case 'select':
                     this.getPayment();
                     break;
-                case 'complete':
+                case VIEW_RETURN:
                     this.completePayment();
                     break;
                 case 'completed':
@@ -495,7 +496,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.openModal();
 
         let returnUrl =
-            this.getBaseUrl() + '/' + this.getActivity() + '/complete/';
+            this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/';
 
         this.sendPostStartPayActionRequest(
             this.identifier,
@@ -612,7 +613,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // complete
     async completePayment() {
-        let regexp = new RegExp('^' + this.getBaseUrl() + '/' + this.getActivity() + '/complete/');
+        let regexp = new RegExp('^' + this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/');
         let pspData = document.location.toString().replace(regexp, '');
         let responseData = await this.sendCompletePaymentRequest(pspData);
 
