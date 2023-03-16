@@ -43,7 +43,7 @@
         "info": "The selected payment is no longer active. You can close this window now and start the payment again."
     },
     "payment-method": {
-        "close-modal": "Close",
+        "cancel-payment-label": "Cancel payment process",
         "method-started": "Payment process started",
         "method-started-hint": "Don't see the popup window?",
         "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\"",

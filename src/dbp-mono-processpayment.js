@@ -3,7 +3,7 @@ import {classMap} from 'lit/directives/class-map.js';
 import {ScopedElementsMixin} from '@open-wc/scoped-elements';
 import {send} from '@dbp-toolkit/common/notification';
 import * as commonUtils from '@dbp-toolkit/common/utils';
-import {Icon, LoadingButton, InlineNotification} from '@dbp-toolkit/common';
+import {Icon, LoadingButton, Button, InlineNotification} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
 import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
@@ -114,6 +114,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     static get scopedElements() {
         return {
+            'dbp-button': Button,
             'dbp-loading-button': LoadingButton,
             'dbp-icon': Icon,
             'dbp-inline-notification': InlineNotification,
@@ -853,7 +854,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 .modal-header {
-                    text-align: right;
+                    text-align: center;
                 }
 
                 .modal-content {
@@ -861,7 +862,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 #payment-modal-box {
-                    padding: 10px 20px 0px;
+                    padding: 10px 20px;
                 }
 
                 .payment-hint {
@@ -1421,25 +1422,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div>
 
             <div class="modal micromodal-slide" id="payment-modal" aria-hidden="true">
-                <div class="modal-overlay" tabindex="-2" data-micromodal-close>
+                <div class="modal-overlay" tabindex="-2">
                     <div
                         class="modal-container"
                         id="payment-modal-box"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="submission-modal-title">
-                        <header class="modal-header">
-                            <button
-                                title="${i18n.t('payment-method.close-modal')}"
-                                class="modal-close"
-                                aria-label="Close modal"
-                                @click="${this.closeModal}">
-                                <dbp-icon
-                                    title="${i18n.t('payment-method.close-modal')}"
-                                    name="close"
-                                    class="close-icon"></dbp-icon>
-                            </button>
-                        </header>
                         <main class="modal-content" id="payment-modal-content">
                             <div class="payment-hint">
                                 <h2>${i18n.t('payment-method.method-started')}</h2>
@@ -1451,6 +1440,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                 </p>
                             </div>
                         </main>
+                        <header class="modal-header">
+                            <dbp-button
+                                title="${i18n.t('payment-method.cancel-payment-label')}"
+                                @click="${this.closeModal}">
+                                ${i18n.t('payment-method.cancel-payment-label')}
+                            </dbp-button>
+                        </header>
                     </div>
                 </div>
             </div>

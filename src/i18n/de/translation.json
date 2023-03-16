@@ -43,7 +43,7 @@
         "info": "Die ausgewählte Zahlung ist nicht mehr aktiv. Sie können dieses Fenster jetzt schließen und die Zahlung erneut starten."
     },
     "payment-method": {
-        "close-modal": "Schließen",
+        "cancel-payment-label": "Bezahlvorgang abbrechen",
         "method-started": "Bezahlvorgang gestartet",
         "method-started-hint": "Sie sehen das Popup-Fenster nicht?",
         "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden.",
