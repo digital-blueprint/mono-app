@@ -31,6 +31,9 @@ yarn run watch
 # same as watch, but with babel, terser, etc active -> very slow
 yarn run watch-full
 
+# constantly build dist/bundle.js and run a local web-server on port 8001 using a custom assets directory assets_custom/
+yarn run watch-custom
+
 # run tests
 yarn test
 
@@ -39,3 +42,5 @@ yarn build
 ```
 
 Jump to <https://localhost:8001>, and you should get a Single Sign On login page.
+
+By default, the application is built using the assets in `assets/`. However, custom assets can also be used to build the application. The custom assets can be added to the directory `assets_custom/dbp-mono/assets/`. This allows developers to easily develop and build the application for different environments.
