@@ -1,0 +1,46 @@
+{
+    "test": {
+        "basePath": "/",
+        "entryPointURL": "http://test",
+        "keyCloakBaseURL": "https://test",
+        "keyCloakRealm": "",
+        "keyCloakClientId": "",
+        "matomoUrl": "",
+        "matomoSiteId": 0,
+        "shortName": "",
+        "appDomain": ""
+    },
+    "local": {
+        "basePath": "/dist/",
+        "entryPointURL": "http://127.0.0.1:8000",
+        "keyCloakBaseURL": "",
+        "keyCloakRealm": "",
+        "keyCloakClientId": "",
+        "matomoUrl": "",
+        "matomoSiteId": 0,
+        "shortName": "dbp",
+        "appDomain": "https://dbp-demo.tugraz.at/apps/mono/"
+    },
+    "localCustom": {
+        "basePath": "/dist/", 
+        "entryPointURL": "http://127.0.0.1:8000",
+        "keyCloakBaseURL": "",
+        "keyCloakRealm": "",
+        "keyCloakClientId": "",
+        "matomoUrl": "",
+        "matomoSiteId": 0,
+        "shortName": "My Organization",
+        "appDomain": "https://dbp-demo.tugraz.at/tugapps/mono/"
+    },
+    "development": {
+        "basePath": "/apps/mono/",
+        "entryPointURL": "https://api-dev.tugraz.at",
+        "keyCloakBaseURL": "https://auth-dev.tugraz.at/auth",
+        "keyCloakRealm": "tugraz-vpu",
+        "keyCloakClientId": "dbp-mono",
+        "matomoUrl": "https://analytics.tugraz.at/",
+        "matomoSiteId": 131,
+        "shortName": "dbp",
+        "appDomain": "https://dbp-demo.tugraz.at/apps/mono/"
+    }
+}

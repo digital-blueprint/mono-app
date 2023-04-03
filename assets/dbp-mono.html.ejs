@@ -6,15 +6,15 @@
     <meta name="theme-color" content="white"/>
 
     <!-- Meta Data for Search Engines -->
-    <meta title="Electronic Payment | TU Graz">
+    <meta title="Electronic Payment | <%= shortName %>">
     <meta name="description" content="My app description" />
 
     <!-- Meta Data for open graph(facebook & co) -->
     <meta property="og:locale" content="de_DE" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Electronic Payment | TU Gra" />
+    <meta property="og:title" content="Electronic Payment | <%= shortName %>" />
     <meta property="og:description" content="My app description" />
-    <meta property="og:url" content="https://pay.tugraz.at/" />
+    <meta property="og:url" content="<%= appDomain %>" />
     <meta property="og:site_name" content="Electronic Payment" />
 
     <!-- Favicons -->
@@ -30,8 +30,8 @@
 
     <!-- Loading spinner -->
     <script type="module">
-        import {Spinner} from '<%= getPrivateUrl('spinner.js') %>';
-        customElements.define('tug-spinner', Spinner);
+        import {Spinner} from '<%= getPrivateUrl('org_spinner.js') %>';
+        customElements.define('org-spinner', Spinner);
     </script>
 
     <!-- App bundles-->
@@ -42,14 +42,15 @@
 
     <!-- Font related CSS -->
     <style>
-        @import "<%= getPrivateUrl('fonts/source-sans-pro/300.css') %>";
-        @import "<%= getPrivateUrl('fonts/source-sans-pro/400.css') %>";
-        @import "<%= getPrivateUrl('fonts/source-sans-pro/600.css') %>";
+        @import "<%= getPrivateUrl('fonts/nunito-sans/300.css') %>";
+        @import "<%= getPrivateUrl('fonts/nunito-sans/300-italic.css') %>";
+        @import "<%= getPrivateUrl('fonts/nunito-sans/600.css') %>";
+        @import "<%= getPrivateUrl('fonts/nunito-sans/600-italic.css') %>";
 
         body {
-            font-family: 'Source Sans Pro', 'Calibri', 'Arial', 'sans-serif';
-            font-weight: 300;
-            font-size: 16px;
+            font-family: 'Nunito Sans', 'Calibri', 'Arial', 'sans-serif';
+            line-height: 1.4em;
+            font-weight: 400;
             margin: 0;
         }
 
@@ -61,30 +62,51 @@
             align-items: center;
         }
 
-        /* TU-Graz style override */
-        .light-theme {
+        .light-theme{
             --dbp-override-background: white;
-            --dbp-override-content: black;
+            --dbp-override-content: #222120;
 
-            --dbp-override-primary: #245b78;
-            --dbp-override-secondary: black;
+            --dbp-override-primary: #3775c1;
+            --dbp-override-on-primary-surface: white;
+            --dbp-override-secondary: #222120;
             --dbp-override-secondary-surface: white;
-            --dbp-override-on-secondary-surface: black;
-            --dbp-override-secondary-surface-border-color: black;
+            --dbp-override-on-secondary-surface: #222120;
+            --dbp-override-secondary-surface-border-color: #222120;
 
-            --dbp-override-muted: #5c5856;
-            --dbp-override-accent: #e4154b;
-            --dbp-override-info: #245b78;
-            --dbp-override-success: #138800;
-            --dbp-override-warning: #af6405;
-            --dbp-override-warning-surface: #ffad4d;
-            --dbp-override-on-warning-surface: black;
-            --dbp-override-danger: #e4154b;
+            --dbp-override-muted: #767676;
+            --dbp-override-accent: #9e1e4d;
+            --dbp-override-info: #38808a;
+            --dbp-override-success: #338555;
+            --dbp-override-success-surface: #5ec189;
+            --dbp-override-on-success-surface: #222120;
+            --dbp-override-warning: #bf8808;
+            --dbp-override-warning-surface: #f9cc66;
+            --dbp-override-on-warning-surface: #222120;
+            --dbp-override-danger: #cc3232;
 
-            --dbp-override-border: 1px solid black;
-            --dbp-override-warning-surface-border-color: #ffad4d;
+            --dbp-override-border: 1px solid #222120;
+        }
 
-            --dbp-override-image-nextcloud: url(<%= getUrl('') %>images/nextcloud.svg);
+        .dark-theme{
+            --dbp-override-background: #222120;
+            --dbp-override-content: white;
+
+            --dbp-override-primary: #398BDA;
+            --dbp-override-on-primary-surface: white;
+
+            --dbp-override-secondary: white;
+            --dbp-override-secondary-surface: #222120;
+            --dbp-override-on-secondary-surface: white;
+            --dbp-override-secondary-surface-border-color: white;
+
+            --dbp-override-muted: #8D8B8B;
+            --dbp-override-accent: #bc3a62;
+            --dbp-override-info: #3793A5;
+            --dbp-override-success: #5ec189;
+            --dbp-override-warning: #f9cc66;
+            --dbp-override-danger: #EB534E;
+
+            --dbp-override-border: 1px solid white;
         }
     </style>
 
@@ -109,76 +131,39 @@
     build-time='<%= buildInfo.time %>'
     env='<%= buildInfo.env %>'
     html-overrides='global-override'
-    themes='[{"class": "light-theme", "icon": "sun", "name": "Light Mode"}]'
-><tug-spinner id='spinner'></tug-spinner>
+    themes='[{"class": "light-theme", "icon": "sun", "name": "Light Mode"},
+                {"class": "dark-theme", "icon": "night", "name": "Dark Mode"}]'
+><org-spinner id='spinner'></org-spinner>
 </<%= name %>>
 
 <template id="global-override">
     <template id="<%= name %>">
         <div slot="name">
-            TU Graz<br />
-            <dbp-translated subscribe="lang">
-                <div slot="de">
-                    Technische Universität Graz
-                </div>
-                <div slot="en">
-                    Graz University of Technology
-                </div>
-            </dbp-translated>
+            <%= shortName %><br />
+            digital blueprint
         </div>
         <div slot="logo">
             <style>
-                #main-logo {
+
+                .logo-dark, .light-theme .logo-dark, .dark-theme .logo-light{
+                    display: none;
+                }
+
+                .logo-light, .light-theme .logo-light, .dark-theme .logo-dark{
+                    display: block;
+                }
+
+                .wrapper{
+                    float: right;
                     padding: 0 50px 0 0;
                 }
-            </style>
-            <a href="https://www.tugraz.at" title="TU Graz Home" target="_blank" rel="noopener">
-                <tug-logo id="main-logo" subscribe="lang"></tug-logo>
-            </a>
-        </div>
-        <div slot="">
 
-        </div>
-        <div slot="footer-links">
-            <style>
-                .footer-links {
-                    margin-top: 0.5em;
-                }
-
-                .footer-links a {
-                    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-                    padding: 0;
-                    margin-left: 1em;
-                    transition: background-color 0.15s ease 0s, color 0.15s ease 0s;
-                    color: var(--dbp-muted);
-                    cursor: pointer;
-                    text-decoration: none;
-                }
-
-                input::-moz-focus-inner { border: 0; }
-
-                :focus-visible{
-                    outline:none !important;
-                    outline-width: 0 !important;
-                    box-shadow: none;
-                    -moz-box-shadow: none;
-                    -webkit-box-shadow: none;
-                    box-shadow: 0px 0px 4px 2px var(--dbp-accent);
-                }
 
             </style>
-            <dbp-translated subscribe="lang">
-                <div slot="de" class="footer-links">
-                    <a target="_blank" rel="noopener" href="https://www.tugraz.at/ueber-diese-seite/datenschutzerklaerung/">Datenschutz</a>
-                    <a target="_blank" rel="noopener" href="https://www.tugraz.at/ueber-diese-seite/impressum/">Impressum</a>
-                    <a rel="noopener" href="mailto:support@tugraz.at">Kontakt</a>
-                </div>
-                <div slot="en" class="footer-links">
-                    <a target="_blank" rel="noopener" href="https://www.tugraz.at/en/about-this-page/privacy-policy/">Privacy Policy</a>
-                    <a target="_blank" rel="noopener" href="https://www.tugraz.at/en/about-this-page/legal-notice/">Legal Notice</a>
-                    <a rel="noopener" href="mailto:support@tugraz.at">Contact</a>
-                </div>
-            </dbp-translated>
+            <div class="wrapper">
+                <img class="logo-light" style="height: 80px" src="<%= getPrivateUrl('dbp_logo_small_on_white.svg') %>" alt="Digital Blueprint - A University toolbox logo">
+                <img class="logo-dark" style="height: 80px" src="<%= getPrivateUrl('dbp_logo_small_on_black.svg') %>" alt="Digital Blueprint - A University toolbox logo">
+            </div>
         </div>
     </template>
 </template>

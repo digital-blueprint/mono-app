@@ -11,7 +11,6 @@ import urlPlugin from '@rollup/plugin-url';
 import license from 'rollup-plugin-license';
 import del from 'rollup-plugin-delete';
 import emitEJS from 'rollup-plugin-emit-ejs';
-import appConfig from './app.config.js';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
 import {
     getPackagePath,
@@ -30,9 +29,55 @@ let httpHost =
 let httpPort =
     process.env.ROLLUP_WATCH_PORT !== undefined ? parseInt(process.env.ROLLUP_WATCH_PORT) : 8001;
 
+// if true, app assets and configs are whitelabel
+let whitelabel;
+// path to non whitelabel assets and configs
+let customAssetsPath;
+// development path
+let devPath = 'assets_custom/dbp-mono/assets/';
+// deployment path
+let deploymentPath = '../assets/';
+
+// set whitelabel bool according to used environment
+if ((appEnv.length > 6 && appEnv.substring(appEnv.length - 6) == "Custom") || appEnv == "production") {
+    whitelabel = false;
+} else {
+    whitelabel = true;
+}
+
+// load devconfig for local development if present
+let devConfig = require("./app.config.json");
+try {
+    console.log("Loading " + "./" + devPath + "app.config.json ...");
+    devConfig = require("./" + devPath + "app.config.json");
+    customAssetsPath = devPath;
+} catch(e) {
+    if (e.code == "MODULE_NOT_FOUND") {
+        console.warn("no dev-config found, try deployment config instead ...");
+
+        // load devconfig for deployment if present
+        try {
+            console.log("Loading " + "./" + deploymentPath + "app.config.json ...");
+            devConfig = require("./" + deploymentPath + "app.config.json");
+            customAssetsPath = deploymentPath;
+        } catch(e) {
+            if (e.code == "MODULE_NOT_FOUND") {
+                console.warn("no dev-config found, use default whitelabel config instead ...");
+                devConfig = require("./app.config.json");
+                customAssetsPath = devPath;
+            } else {
+                throw e;
+            }
+        }
+    } else {
+        throw e;
+    }
+}
+
 let config;
-if (appEnv in appConfig) {
-    config = appConfig[appEnv];
+if ((devConfig != undefined && appEnv in devConfig)) {
+    // choose devConfig if available
+    config = devConfig[appEnv];
 } else {
     console.error(`Unknown build environment: '${appEnv}', use one of '${Object.keys(appConfig)}'`);
     process.exit(1);
@@ -60,7 +105,14 @@ export default (async () => {
     return {
         input:
             appEnv != 'test'
-                ? ['src/' + appName + '.js', 'src/dbp-mono-processpayment.js']
+                ? !whitelabel ?
+                    [
+                        'src/' + appName + '.js',
+                        'src/dbp-mono-processpayment.js',
+                        await getPackagePath('@tugraz/web-components', 'src/logo.js'),
+                    ]
+                    :
+                    ['src/' + appName + '.js', 'src/dbp-mono-processpayment.js']
                 : globSync('test/**/*.js'),
         output: {
             dir: 'dist',
@@ -70,7 +122,7 @@ export default (async () => {
             sourcemap: true,
         },
         treeshake: prodBuild,
-        preserveEntrySignatures: false,
+        //preserveEntrySignatures: false,
         onwarn: function (warning, warn) {
             // ignore chai warnings
             if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('chai')) {
@@ -87,6 +139,7 @@ export default (async () => {
             del({
                 targets: 'dist/*',
             }),
+            whitelabel &&
             emitEJS({
                 src: 'assets',
                 include: ['**/*.ejs', '**/.*.ejs'],
@@ -108,6 +161,34 @@ export default (async () => {
                     matomoUrl: config.matomoUrl,
                     matomoSiteId: config.matomoSiteId,
                     buildInfo: getBuildInfo(appEnv),
+                    shortName: config.shortName,
+                    appDomain: config.appDomain,
+                },
+            }),
+            !whitelabel &&
+            emitEJS({
+                src: customAssetsPath,
+                include: ['**/*.ejs', '**/.*.ejs'],
+                data: {
+                    getUrl: (p) => {
+                        return url.resolve(config.basePath, p);
+                    },
+                    getPrivateUrl: (p) => {
+                        return url.resolve(`${config.basePath}${privatePath}/`, p);
+                    },
+                    name: appName,
+                    entryPointURL: config.entryPointURL,
+                    basePath: config.basePath,
+                    keyCloakBaseURL: config.keyCloakBaseURL,
+                    keyCloakRealm: config.keyCloakRealm,
+                    keyCloakClientId: config.keyCloakClientId,
+                    CSP: config.CSP,
+                    FP: config.FP,
+                    matomoUrl: config.matomoUrl,
+                    matomoSiteId: config.matomoSiteId,
+                    buildInfo: getBuildInfo(appEnv),
+                    shortName: config.shortName,
+                    appDomain: config.appDomain,
                 },
             }),
             resolve({
@@ -144,6 +225,7 @@ export default (async () => {
                 emitFiles: true,
                 fileName: 'shared/[name].[hash][extname]',
             }),
+            whitelabel &&
             copy({
                 targets: [
                     {src: 'assets/silent-check-sso.html', dest: 'dist'},
@@ -152,6 +234,38 @@ export default (async () => {
                     {src: 'assets/*.svg', dest: 'dist/' + (await getDistPath(pkg.name))},
                     {src: 'assets/icon/*', dest: 'dist/' + (await getDistPath(pkg.name, 'icon'))},
                     {src: 'assets/site.webmanifest', dest: 'dist', rename: pkg.internalName + '.webmanifest'},
+                    {
+                        src: await getPackagePath('@fontsource/nunito-sans', '*'),
+                        dest: 'dist/' + (await getDistPath(pkg.name, 'fonts/nunito-sans')),
+                    },
+                    {
+                        src: await getPackagePath('@dbp-toolkit/common', 'src/spinner.js'),
+                        dest: 'dist/' + (await getDistPath(pkg.name)),
+                    },
+                    {
+                        src: await getPackagePath('@dbp-toolkit/common', 'src/spinner.js'),
+                        dest: 'dist/' + (await getDistPath(pkg.name)), rename: 'org_spinner.js'
+                    },
+                    {
+                        src: await getPackagePath('@dbp-toolkit/common', 'misc/browser-check.js'),
+                        dest: 'dist/' + (await getDistPath(pkg.name)),
+                    },
+                    {src: 'src/*.metadata.json', dest: 'dist'},
+                    {
+                        src: await getPackagePath('@dbp-toolkit/common', 'assets/icons/*.svg'),
+                        dest: 'dist/' + (await getDistPath('@dbp-toolkit/common', 'icons')),
+                    },
+                ],
+            }),
+            !whitelabel &&
+            copy({
+                targets: [
+                    {src: customAssetsPath + 'silent-check-sso.html', dest: 'dist'},
+                    {src: customAssetsPath + 'htaccess-shared', dest: 'dist/shared/', rename: '.htaccess'},
+                    {src: customAssetsPath + '*.css', dest: 'dist/' + (await getDistPath(pkg.name))},
+                    {src: customAssetsPath + '*.svg', dest: 'dist/' + (await getDistPath(pkg.name))},
+                    {src: customAssetsPath + 'icon/*', dest: 'dist/' + (await getDistPath(pkg.name, 'icon'))},
+                    {src: customAssetsPath + 'site.webmanifest', dest: 'dist', rename: pkg.internalName + '.webmanifest'},
                     {
                         src: await getPackagePath('@tugraz/font-source-sans-pro', 'files/*'),
                         dest: 'dist/' + (await getDistPath(pkg.name, 'fonts/source-sans-pro')),
