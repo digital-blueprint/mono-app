@@ -55,6 +55,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // restart
         this.showRestart = false;
         this.restart = false;
+        this.modalIsVisible = false;
 
         // select
         this.identifier = null;
@@ -158,6 +159,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             // restart
             showRestart: {type: Boolean, attribute: false},
             restart: {type: Boolean, attribute: false},
+            modalIsVisible: {type: Boolean, attribute: false},
 
             // select
             identifier: {type: String},
@@ -423,10 +425,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 disableScroll: true,
                 disableFocus: false,
             });
+            this.modalIsVisible = true;
         }
     }
 
     closeModal() {
+        this.modalIsVisible = false;
         const modal = this._('#payment-modal');
         if (modal) {
             MicroModal.close(modal);
@@ -1180,7 +1184,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         this.wrongPageCall ||
                         this.paymentStatus === 'completed',
                 })}">
-                <div class="restart ${classMap({hidden: !this.showRestart})}">
+                <div class="restart ${classMap({hidden: !this.showRestart || this.modalIsVisible})}">
                     <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}"></dbp-inline-notification>
