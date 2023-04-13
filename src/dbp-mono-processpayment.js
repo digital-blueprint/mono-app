@@ -335,13 +335,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.returnUrl = data.returnUrl;
                 switch (data.paymentStatus) {
                     case 'prepared':
-                    case 'cancelled':
-                    case 'failed':
                         this.showRestart = false;
                         this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
+                    case 'cancelled':
+                    case 'failed':
                     case 'started':
                     case 'pending':
                         this.showRestart = true;
