@@ -56,6 +56,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.showRestart = false;
         this.restart = false;
         this.modalIsVisible = false;
+        this.showPending = false;
 
         // select
         this.identifier = null;
@@ -160,6 +161,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             showRestart: {type: Boolean, attribute: false},
             restart: {type: Boolean, attribute: false},
             modalIsVisible: {type: Boolean, attribute: false},
+            showPending: {type: Boolean, attribute: false},
 
             // select
             identifier: {type: String},
@@ -335,6 +337,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.returnUrl = data.returnUrl;
                 switch (data.paymentStatus) {
                     case 'prepared':
+                        this.showPending = false;
                         this.showRestart = false;
                         this.restart = true;
                         this.showPaymentMethods = true;
@@ -343,13 +346,21 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     case 'cancelled':
                     case 'failed':
                     case 'started':
-                    case 'pending':
+                        this.showPending = false;
                         this.showRestart = true;
                         this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
+                    case 'pending':
+                        this.showPending = true;
+                        this.showRestart = false;
+                        this.restart = false;
+                        this.showPaymentMethods = false;
+                        this.showCompleteConfirmation = false;
+                        break;
                     case 'completed':
+                        this.showPending = false;
                         this.showRestart = false;
                         this.restart = false;
                         this.showPaymentMethods = false;
@@ -1188,6 +1199,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}"></dbp-inline-notification>
+                </div>
+
+                <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">
+                    <dbp-inline-notification
+                        type="info"
+                        body="${i18n.t('pending.info')}">
+                    </dbp-inline-notification>
                 </div>
 
                 <div class="${classMap({hidden: !this.showPaymentMethods})}">

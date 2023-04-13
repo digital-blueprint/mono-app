@@ -52,6 +52,9 @@
     "restart": {
         "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut."
     },
+    "pending": {
+        "info": "Wir warten auf die Bestätigung Ihrer Zahlung. Bitte haben Sie einen Moment Geduld."
+    },
     "select": {
         "amount": "Betrag",
         "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
