@@ -15,6 +15,7 @@
     },
     "complete": {
         "amount": "Amount:",
+        "amount-format": "{{val, currency}}",
         "close": "It may take some time for the payment to appear in the system. You can now leave this page.",
         "payed": "Successfully completed",
         "payment-id": "Payment identification",
@@ -57,6 +58,7 @@
     },
     "select": {
         "amount": "Amount",
+        "amount-format": "{{val, currency}}",
         "amount-too-low": "Amount is too low.",
         "default-reference": "Payment",
         "payment-method": "Please select a payment method:",

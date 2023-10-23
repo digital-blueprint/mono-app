@@ -15,6 +15,7 @@
     },
     "complete": {
         "amount": "Betrag:",
+        "amount-format": "{{val, currency}}",
         "close": "Es kann etwas dauern, bis die Zahlung im System aufscheint. Sie können diese Seite jetzt verlassen.",
         "payed": "Erfolgreich abgeschlossen",
         "payment-id": "Zahlungsidentifikator",
@@ -57,6 +58,7 @@
     },
     "select": {
         "amount": "Betrag",
+        "amount-format": "{{val, currency}}",
         "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
         "default-reference": "Zahlung",
         "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",

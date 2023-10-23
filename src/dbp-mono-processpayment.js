@@ -1226,11 +1226,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         <div class="col">
                             <strong>${i18n.t('select.amount')}</strong>
                             <p class="amount">
-                                ${i18n.t('{{val, currency}}', {
+                                ${i18n.t('select.amount-format', {
                                     val: this.amount,
                                     formatParams: {
                                         val: {
                                             currency: this.currency,
+                                            locale: this.lang
                                         },
                                     },
                                 })}
@@ -1365,11 +1366,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             </div>
                             <div class="element-left">${i18n.t('complete.amount')}</div>
                             <div class="element-right">
-                                ${i18n.t('{{val, currency}}', {
+                                ${i18n.t('complete.amount-format', {
                                     val: this.amount,
                                     formatParams: {
                                         val: {
                                             currency: this.currency,
+                                            locale: this.lang
                                         },
                                     },
                                 })}
