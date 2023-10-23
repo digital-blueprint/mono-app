@@ -22,7 +22,7 @@
         "appDomain": "https://dbp-demo.tugraz.at/apps/mono/"
     },
     "localCustom": {
-        "basePath": "/dist/", 
+        "basePath": "/dist/",
         "entryPointURL": "http://127.0.0.1:8000",
         "keyCloakBaseURL": "",
         "keyCloakRealm": "",

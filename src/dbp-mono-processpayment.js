@@ -15,7 +15,6 @@ const VIEW_SELECT = 'select';
 const VIEW_CREATE = 'create';
 
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
-
     constructor() {
         super();
         this.metadata = metadata;
@@ -226,7 +225,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             this.clientIp,
             this.returnUrl,
             this.notifyUrl,
-            this.localIdentifier
+            this.localIdentifier,
         );
         await this.createPaymentResponse(responseData);
         this.loading = false;
@@ -421,7 +420,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     reloadSelect() {
         window.location.replace(
-            this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_SELECT + '/' + this.identifier
+            this.getBaseUrl() +
+                '/' +
+                this.getActivity() +
+                '/' +
+                VIEW_SELECT +
+                '/' +
+                this.identifier,
         );
     }
 
@@ -480,7 +485,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
               height=${h / systemZoom}, 
               top=${top}, 
               left=${left}
-                `
+                `,
         );
     }
 
@@ -499,15 +504,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.openModal();
 
-        let returnUrl =
-            this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/';
+        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/';
 
         this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
             returnUrl,
             this.consent,
-            this.restart
+            this.restart,
         ).then((responseData) => {
             responseData
                 .clone()
@@ -617,7 +621,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // complete
     async completePayment() {
-        let regexp = new RegExp('^' + this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/');
+        let regexp = new RegExp(
+            '^' + this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/',
+        );
         let pspData = document.location.toString().replace(regexp, '');
         let responseData = await this.sendCompletePaymentRequest(pspData);
 
@@ -1105,7 +1111,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     .int-link-internal {
                         width: fit-content;
                     }
-                    
+
                     .complete-redirect-notice {
                         margin-top: 2em;
                     }
@@ -1195,7 +1201,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         this.wrongPageCall ||
                         this.paymentStatus === 'completed',
                 })}">
-                <div class="restart ${classMap({hidden: !this.showRestart || this.modalIsVisible})}">
+                <div
+                    class="restart ${classMap({hidden: !this.showRestart || this.modalIsVisible})}">
                     <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}"></dbp-inline-notification>
@@ -1204,8 +1211,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">
                     <dbp-inline-notification
                         type="info"
-                        body="${i18n.t('pending.info')}">
-                    </dbp-inline-notification>
+                        body="${i18n.t('pending.info')}"></dbp-inline-notification>
                 </div>
 
                 <div class="${classMap({hidden: !this.showPaymentMethods})}">
@@ -1266,7 +1272,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                               <a
                                                   href="${this.dataProtectionDeclarationUrl}"
                                                   class="int-link-internal"
-                                                  target='_blank'>
+                                                  target="_blank">
                                                   ${i18n.t('data-protection')}
                                               </a>
                                           </span>
@@ -1281,39 +1287,36 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                   <dbp-inline-notification
                                       type="danger"
                                       body="${i18n.t(
-                                          'select.amount-too-low'
+                                          'select.amount-too-low',
                                       )}"></dbp-inline-notification>
                               `
                             : html`
                                   <h3>${i18n.t('select.payment-method')}</h3>
                                   ${this.paymentMethods.map(
-                                      (paymentMethod) =>
-                                          html`
-                                              <div class="form-check">
-                                                  <label class="button-container">
-                                                      <div class="form-check-div">
-                                                          ${paymentMethod.name}
-                                                          ${paymentMethod.image
-                                                              ? html`
-                                                                    <img
-                                                                        src="${paymentMethod.image}"
-                                                                        alt="${paymentMethod.name}" />
-                                                                `
-                                                              : ''}
-                                                      </div>
-                                                      <input
-                                                          type="radio"
-                                                          name="paymentMethod"
-                                                          @click="${() =>
-                                                              this.clickOnPaymentMethod(
-                                                                  paymentMethod
-                                                              )}"
-                                                          .checked="${this.selectedPaymentMethod ===
-                                                          paymentMethod.identifier}" />
-                                                      <span class="radiobutton"></span>
-                                                  </label>
-                                              </div>
-                                          `
+                                      (paymentMethod) => html`
+                                          <div class="form-check">
+                                              <label class="button-container">
+                                                  <div class="form-check-div">
+                                                      ${paymentMethod.name}
+                                                      ${paymentMethod.image
+                                                          ? html`
+                                                                <img
+                                                                    src="${paymentMethod.image}"
+                                                                    alt="${paymentMethod.name}" />
+                                                            `
+                                                          : ''}
+                                                  </div>
+                                                  <input
+                                                      type="radio"
+                                                      name="paymentMethod"
+                                                      @click="${() =>
+                                                          this.clickOnPaymentMethod(paymentMethod)}"
+                                                      .checked="${this.selectedPaymentMethod ===
+                                                      paymentMethod.identifier}" />
+                                                  <span class="radiobutton"></span>
+                                              </label>
+                                          </div>
+                                      `,
                                   )}
                               `}
                     </div>
