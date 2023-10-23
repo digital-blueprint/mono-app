@@ -8,7 +8,7 @@ import * as commonStyles from '@dbp-toolkit/common/styles';
 import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
 import DBPMonoLitElement from './dbp-mono-lit-element';
-import MicroModal from './micromodal.es';
+import MicroModal from './vendor/micromodal.es';
 
 const VIEW_RETURN = 'return';
 const VIEW_SELECT = 'select';
