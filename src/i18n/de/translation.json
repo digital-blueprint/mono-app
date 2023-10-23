@@ -51,7 +51,9 @@
         "method-started-text": "Der Bezahlvorgang wurde in einem neuen Fenster gestartet."
     },
     "pending": {
-        "info": "Wir warten auf die Bestätigung Ihrer Zahlung. Bitte haben Sie einen Moment Geduld."
+        "info": "Wir warten derzeit auf eine Antwort des Zahlungsanbieters. Dies kann ein paar Sekunden dauern.",
+        "info-canceled": "Wenn Sie die Seite des Zahlungsanbieters vor dem Abschluss geschlossen oder den Zahlungsvorgang auf andere Weise abgebrochen haben, gehen Sie bitte zurück zu \"{{return-name}}\" und starten Sie den Zahlungsvorgang von vorne.",
+        "button-return": "Zurück zu {{return-name}}"
     },
     "restart": {
         "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut."

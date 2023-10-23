@@ -51,7 +51,9 @@
         "method-started-text": "The payment process started in a new window."
     },
     "pending": {
-        "info": "We are waiting for the confirmation of your payment. Please be patient for a moment."
+        "info": "We are currently waiting for a response from the payment provider. This may take a few seconds.",
+        "info-canceled": "If you have closed the page of the payment provider before completion or canceled the payment process in any other way, please go back to \"{{return-name}}\" and start the payment process from the beginning.",
+        "button-return": "Go back to {{return-name}}"
     },
     "restart": {
         "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again."

@@ -216,6 +216,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             });
     }
 
+    get returnHostname() {
+        return this.returnUrl ? new URL(this.returnUrl).hostname : '';
+    }
+
     // create payment
     async createPayment() {
         this.loading = true;
@@ -1209,9 +1213,26 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </div>
 
                 <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">
-                    <dbp-inline-notification
-                        type="info"
-                        body="${i18n.t('pending.info')}"></dbp-inline-notification>
+                    <dbp-inline-notification type="info">
+                        <div slot="body">
+                            <p>${i18n.t('pending.info')}</p>
+                            <p>
+                                ${i18n.t('pending.info-canceled', {
+                                    'return-name': this.returnHostname,
+                                })}
+                            </p>
+                            <dbp-button
+                                type="is-info"
+                                no-spinner-on-click
+                                @click="${() => {
+                                    window.location.href = this.returnUrl;
+                                }}">
+                                ${i18n.t('pending.button-return', {
+                                    'return-name': this.returnHostname,
+                                })}
+                            </dbp-button>
+                        </div>
+                    </dbp-inline-notification>
                 </div>
 
                 <div class="${classMap({hidden: !this.showPaymentMethods})}">
