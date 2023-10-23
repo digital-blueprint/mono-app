@@ -27,13 +27,13 @@
         "status": "Status:",
         "summary": "Summary"
     },
-    "data-protection": "Privacy statement",
-    "error-login-message": "You need to be logged in to process this payment!",
-    "error-message": "No active payment process found.",
     "create": {
         "too-many-requests-body": "Too many active payments. Please try again later.",
         "too-many-requests-title": "Error!"
     },
+    "data-protection": "Privacy statement",
+    "error-login-message": "You need to be logged in to process this payment!",
+    "error-message": "No active payment process found.",
     "get": {
         "too-many-requests-body": "You made too many requests on this resource.",
         "too-many-requests-title": "Error!"
@@ -49,11 +49,11 @@
         "method-started-hint-text": "Select \"Window\" in your toolbar to find \"Log in to your PayPal account\"",
         "method-started-text": "The payment process started in a new window."
     },
-    "restart": {
-        "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again."
-    },
     "pending": {
         "info": "We are waiting for the confirmation of your payment. Please be patient for a moment."
+    },
+    "restart": {
+        "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again."
     },
     "select": {
         "amount": "Amount",

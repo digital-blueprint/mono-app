@@ -27,13 +27,13 @@
         "status": "Status:",
         "summary": "Zusammenfassung"
     },
-    "data-protection": "Datenschutzerklärung",
-    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
-    "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
     "create": {
         "too-many-requests-body": "Zu viele aktive Zahlungen. Bitte versuchen Sie es später erneut.",
         "too-many-requests-title": "Fehler!"
     },
+    "data-protection": "Datenschutzerklärung",
+    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
+    "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
     "get": {
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen.",
         "too-many-requests-title": "Fehler!"
@@ -49,11 +49,11 @@
         "method-started-hint-text": "Wählen Sie „Fenster“ in Ihrer Symbolleiste, um „Bezahlen - Elektronischer Bezahlservice“ zu finden.",
         "method-started-text": "Der Bezahlvorgang wurde in einem neuen Fenster gestartet."
     },
-    "restart": {
-        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut."
-    },
     "pending": {
         "info": "Wir warten auf die Bestätigung Ihrer Zahlung. Bitte haben Sie einen Moment Geduld."
+    },
+    "restart": {
+        "info": "Diese Zahlung wurde bereits von Ihnen gestartet. Falls ein Fehler aufgetreten ist oder Sie eine andere Zahlungsmethode auswählen möchten, starten Sie die Zahlung erneut."
     },
     "select": {
         "amount": "Betrag",
