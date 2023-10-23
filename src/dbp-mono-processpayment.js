@@ -1231,7 +1231,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                     formatParams: {
                                         val: {
                                             currency: this.currency,
-                                            locale: this.lang
+                                            locale: this.lang,
                                         },
                                     },
                                 })}
@@ -1371,7 +1371,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                     formatParams: {
                                         val: {
                                             currency: this.currency,
-                                            locale: this.lang
+                                            locale: this.lang,
                                         },
                                     },
                                 })}
