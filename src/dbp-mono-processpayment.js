@@ -776,16 +776,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     getReturnButtonString() {
         const i18n = this._i18n;
-
-        let str = this.returnUrl;
+        let str = this.returnHostname;
         if (!str) {
             return i18n.t('complete.return-button-text');
         }
-        str = str.replace('https://', '');
-        str = str.split('/');
-        if (!str) return i18n.t('complete.return-button-text');
-
-        return i18n.t('complete.return-button-text-name', {name: str[0]});
+        return i18n.t('complete.return-button-text-name', {name: str});
     }
 
     static get styles() {
