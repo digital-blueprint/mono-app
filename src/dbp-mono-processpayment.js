@@ -53,7 +53,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         // restart
         this.showRestart = false;
-        this.restart = false;
         this.modalIsVisible = false;
         this.showPending = false;
 
@@ -158,7 +157,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             // restart
             showRestart: {type: Boolean, attribute: false},
-            restart: {type: Boolean, attribute: false},
             modalIsVisible: {type: Boolean, attribute: false},
             showPending: {type: Boolean, attribute: false},
 
@@ -342,7 +340,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     case 'prepared':
                         this.showPending = false;
                         this.showRestart = false;
-                        this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
@@ -351,21 +348,18 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     case 'started':
                         this.showPending = false;
                         this.showRestart = true;
-                        this.restart = true;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'pending':
                         this.showPending = true;
                         this.showRestart = false;
-                        this.restart = false;
                         this.showPaymentMethods = false;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'completed':
                         this.showPending = false;
                         this.showRestart = false;
-                        this.restart = false;
                         this.showPaymentMethods = false;
                         this.showCompleteConfirmation = true;
                         break;
@@ -515,7 +509,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             this.selectedPaymentMethod,
             returnUrl,
             this.consent,
-            this.restart,
         ).then((responseData) => {
             responseData
                 .clone()
@@ -605,13 +598,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         });
     }
 
-    async sendPostStartPayActionRequest(identifier, paymentMethod, pspReturnUrl, consent, restart) {
+    async sendPostStartPayActionRequest(identifier, paymentMethod, pspReturnUrl, consent) {
         let body = {
             identifier: identifier,
             paymentMethod: paymentMethod,
             pspReturnUrl: pspReturnUrl,
             consent: consent,
-            restart: restart,
         };
 
         const options = {
