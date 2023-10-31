@@ -251,7 +251,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             body: JSON.stringify(body),
         };
 
-        return await this.httpGetAsync(this.entryPointUrl + '/mono/payment', options);
+        return await this.httpGetAsync(this.entryPointUrl + '/mono/payments', options);
     }
 
     async createPaymentResponse(responseData) {
@@ -311,7 +311,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             headers: this._requestHeaders,
         };
 
-        return await this.httpGetAsync(this.entryPointUrl + '/mono/payment/' + identifier, options);
+        return await this.httpGetAsync(this.entryPointUrl + '/mono/payments/' + identifier, options);
     }
 
     async getPaymentResponse(responseData) {
