@@ -1213,16 +1213,16 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </div>
 
                 <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">
-                    <dbp-inline-notification type="info">
+                    <dbp-inline-notification type="warning">
                         <div slot="body">
-                            <p>${i18n.t('pending.info')}</p>
+                            <p><dbp-mini-spinner text=" "></dbp-mini-spinner> ${i18n.t('pending.info')}</p>
                             <p>
                                 ${i18n.t('pending.info-canceled', {
                                     'return-name': this.returnHostname,
                                 })}
                             </p>
                             <dbp-button
-                                type="is-info"
+                                type="is-warning"
                                 no-spinner-on-click
                                 @click="${() => {
                                     window.location.href = this.returnUrl;
