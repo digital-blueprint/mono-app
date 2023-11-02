@@ -80,6 +80,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.popUp = null;
 
+        this._paymentPollingTimerID = null;
+
         // view
         let view = this.getView();
         switch (view) {
@@ -101,6 +103,27 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.fullSizeLoading = false;
                 break;
         }
+    }
+
+    pollPayment() {
+        if (this.showPending) {
+            this.getPayment();
+        }
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+
+        this._paymentPollingTimerID = setInterval(() => {
+            this.pollPayment();
+        }, 1000 * 5);
+    }
+
+    disconnectedCallback() {
+        clearInterval(this._paymentPollingTimerID);
+        this._paymentPollingTimerID = null;
+
+        super.disconnectedCallback();
     }
 
     updated(changedProperties) {
