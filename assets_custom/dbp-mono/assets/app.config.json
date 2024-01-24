@@ -82,8 +82,6 @@
         "keyCloakBaseURL": "https://auth.tugraz.at/auth",
         "keyCloakRealm": "tugraz",
         "keyCloakClientId": "pay_tugraz_at-PAY",
-        "matomoUrl": "https://analytics.tugraz.at/",
-        "matomoSiteId": 131,
         "shortName": "TU Graz",
         "appDomain": "https://pay.tugraz.at/"
     }
