@@ -95,7 +95,7 @@ function getOrigin(url) {
     return '';
 }
 
-config.CSP = `default-src 'self' 'unsafe-eval' 'unsafe-inline' \
+config.CSP = `default-src 'self' 'unsafe-inline' \
     ${getOrigin(config.matomoUrl)} ${getOrigin(config.keyCloakBaseURL)} ${getOrigin(
         config.entryPointURL,
     )};\
@@ -125,14 +125,6 @@ export default (async () => {
         },
         treeshake: prodBuild,
         //preserveEntrySignatures: false,
-        onwarn: function (warning, warn) {
-            // keycloak bundled code uses eval
-            if (warning.code === 'EVAL' && warning.id.includes('sha256.js')) {
-                return;
-            }
-
-            warn(warning);
-        },
         plugins: [
             del({
                 targets: 'dist/*',
