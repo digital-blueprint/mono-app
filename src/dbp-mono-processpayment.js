@@ -518,7 +518,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         try {
             this.popUp.focus();
-        } catch (e) {
+        } catch {
             alert('Pop-up Blocker is enabled! Please disable your pop-up blocker.');
             return;
         }
