@@ -8,8 +8,8 @@
         "en": "Electronic Payments"
     },
     "description": {
-        "de": "Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.",
-        "en": "With this application you can perform payments to the university."
+        "de": "Applikation für elektronische Zahlungen an Universitäten. Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.",
+        "en": "Web application for electronic payments at universities. With this application you can perform payments to the university."
     },
     "routing_name": "mono",
     "activities": [

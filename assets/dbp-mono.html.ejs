@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="white"/>
+    <meta name="theme-color" content="white">
 
     <!-- Meta Data for Search Engines -->
-    <meta title="Electronic Payment | <%= shortName %>">
-    <meta name="description" content="My app description" />
+    <title>Mono</title>
+    <meta name="description" content="Applikation für elektronische Zahlungen an Universitäten. Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.">
 
     <!-- Meta Data for open graph(facebook & co) -->
-    <meta property="og:locale" content="de_DE" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Electronic Payment | <%= shortName %>" />
-    <meta property="og:description" content="My app description" />
-    <meta property="og:url" content="<%= appDomain %>" />
-    <meta property="og:site_name" content="Electronic Payment" />
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Elektronisches Bezahlservice | <%= shortName %>">
+    <meta property="og:description" content="Applikation für elektronische Zahlungen an Universitäten. Mit dieser Applikation können Sie Bezahlungen an die Universität durchführen.">
+    <meta property="og:url" content="<%= appDomain %>">
+    <meta property="og:site_name" content="Electronic Payment">
 
     <!-- Favicons -->
     <link rel="shortcut icon" type="image/x-icon" href="<%= getPrivateUrl('icon/favicon.ico') %>">
@@ -30,7 +30,7 @@
 
     <!-- Loading spinner -->
     <script type="module">
-        import {Spinner} from '<%= getPrivateUrl('org_spinner.js') %>';
+        import {Spinner} from "<%= getPrivateUrl('org_spinner.js') %>";
         customElements.define('org-spinner', Spinner);
     </script>
 
