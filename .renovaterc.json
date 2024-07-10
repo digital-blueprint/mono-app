@@ -9,10 +9,6 @@
         {
           "matchPackageNames": ["@open-wc/scoped-elements"],
           "allowedVersions": "<3"
-        },
-        {
-            "matchPackageNames": ["rollup-plugin-serve"],
-            "allowedVersions": "<3"
         }
     ]
 }
