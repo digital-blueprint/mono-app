@@ -11,8 +11,8 @@
         "en": "Process payment"
     },
     "description": {
-        "de": "Applikation für elektronische Zahlungen an Universitäten. Hier können elektronische Zahlungen an die Universität getätigt werden.",
-        "en": "Web application for electronic payments at universities. Here electronic payments can be made to the university."
+        "de": "Diese Applikation ermöglicht Ihnen einfaches Durchführen elektronischer Zahlungen.",
+        "en": "This application enables you to conduct electronic payments easily."
     },
     "subscribe": "lang,auth,entry-point-url"
 }
