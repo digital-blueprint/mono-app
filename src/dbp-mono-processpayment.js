@@ -14,6 +14,68 @@ const VIEW_RETURN = 'return';
 const VIEW_SELECT = 'select';
 const VIEW_CREATE = 'create';
 
+
+/**
+ * Parses a "select" routing URL to extract the routing ID.
+ *
+ * @param {string} routingUrl - The URL to parse.
+ * @returns {string|null} The routing ID if found, otherwise null.
+ */
+function parseSelectRoutingUrl(routingUrl) {
+    let url = new URL(routingUrl ?? '', window.location.origin);
+    let parts = url.pathname.split('/').filter(element => element !== '').map(element => decodeURIComponent(element));
+    if (parts.length >= 2 && parts[0] === 'select') {
+        return parts[1];
+    }
+    return null;
+}
+
+/**
+ * Parses the given routing URL and extracts parameters if the URL path starts
+ * with 'create'.
+ *
+ * @param {string} routingUrl - The routing URL to parse.
+ * @returns {object} An object containing the extracted parameters:
+ *   - {string} type - The type parameter from the URL.
+ *   - {string} data - The data parameter from the URL.
+ *   - {string|null} clientIp - The client IP parameter from the URL.
+ *   - {string|null} returnUrl - The return URL parameter from the URL.
+ *   - {string|null} notifyUrl - The notify URL parameter from the URL.
+ *   - {string|null} localIdentifier - The local identifier parameter from the
+ *     URL.
+ *   - {boolean} authRequired - Indicates if authentication is required.
+ */
+function parseCreateRoutingUrl(routingUrl) {
+    let url = new URL(routingUrl ?? '', window.location.origin);
+    let parts = url.pathname.split('/').filter(element => element !== '').map(element => decodeURIComponent(element));
+    if (parts.length >= 1 && parts[0] === 'create') {
+        let params = url.searchParams;
+        return {
+            type: params.get('type') ?? '',
+            data: params.get('data') ?? '',
+            clientIp: params.get('clientIp'),
+            returnUrl: params.get('returnUrl'),
+            notifyUrl: params.get('notifyUrl'),
+            localIdentifier: params.get('localIdentifier'),
+            authRequired: !!params.get('authRequired'),
+        };
+    }
+    throw new Error('Invalid routing URL');
+}
+
+
+/**
+ * Returns the PSP data from the given routing URL starting with 'return'.
+ *
+ * @param {string} routingUrl - The URL to be parsed.
+ * @returns {string} The parsed PSP data.
+ */
+function parseReturnRoutingUrl(routingUrl) {
+    // we just forward everything after the initial "return/"
+    return routingUrl.split("/").slice(1).join("/");
+}
+
+
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         super();
@@ -24,16 +86,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.loading = false;
         this.fullSizeLoading = false;
-
-        // create
-        let params = new URL(document.location).searchParams;
-        this.type = params.get('type') ?? '';
-        this.data = params.get('data') ?? '';
-        this.clientIp = params.get('clientIp');
-        this.returnUrl = params.get('returnUrl');
-        this.notifyUrl = params.get('notifyUrl');
-        this.localIdentifier = params.get('localIdentifier');
-        this.authRequired = !!params.get('authRequired');
+        this.authRequired = false;
 
         // get
         this.paymentReference = null;
@@ -47,6 +100,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.recipient = null;
         this.dataProtectionDeclarationUrl = null;
         this.alternateName = null;
+        this.returnUrl = null;
 
         // not found
         this.showNotFound = false;
@@ -82,15 +136,25 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this._paymentPollingTimerID = null;
 
+        this.view = VIEW_CREATE;
+    }
+
+    pollPayment() {
+        if (this.showPending) {
+            this.getPayment();
+        }
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+
         // view
         let view = this.getView();
         switch (view) {
             case VIEW_SELECT: {
                 this.fullSizeLoading = false;
                 this.view = view;
-                let activityPath = this.getActivityPath(1);
-                let activityPathItems = activityPath.split('/');
-                this.identifier = activityPathItems[1] ?? null;
+                this.identifier = parseSelectRoutingUrl(this.routingUrl ?? '');
                 break;
             }
             case VIEW_RETURN: {
@@ -103,16 +167,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.fullSizeLoading = false;
                 break;
         }
-    }
-
-    pollPayment() {
-        if (this.showPending) {
-            this.getPayment();
-        }
-    }
-
-    connectedCallback() {
-        super.connectedCallback();
 
         this._paymentPollingTimerID = setInterval(() => {
             this.pollPayment();
@@ -153,14 +207,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             loading: {type: Boolean, attribute: false},
             fullSizeLoading: {type: Boolean, attribute: false},
-
-            // create
-            type: {type: String},
-            data: {type: String},
-            clientIp: {type: String},
-            returnUrl: {type: String},
-            notifyUrl: {type: String},
-            localIdentifier: {type: String},
             authRequired: {type: Boolean},
 
             // get
@@ -174,6 +220,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             honoricSuffix: {type: String, attribute: false},
             recipient: {type: String, attribute: false},
             dataProtectionDeclarationUrl: {type: String, attribute: false},
+            returnUrl: {type: String},
 
             // not found
             showNotFound: {type: Boolean, attribute: false},
@@ -210,6 +257,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         if (this._loginStatus === 'logged-in' || this._loginStatus === 'logged-out') {
             switch (this.view) {
                 case VIEW_CREATE:
+                    this.authRequired = parseCreateRoutingUrl(this.routingUrl ?? '').authRequired;
                     if (this._loginStatus === 'logged-out' && this.authRequired) {
                         this.sendSetPropertyEvent('requested-login-status', 'logged-in');
                     } else {
@@ -243,14 +291,15 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // create payment
     async createPayment() {
+        let createParams = parseCreateRoutingUrl(this.routingUrl ?? '');
         this.loading = true;
         let responseData = await this.sendCreatePaymentRequest(
-            this.type,
-            this.data,
-            this.clientIp,
-            this.returnUrl,
-            this.notifyUrl,
-            this.localIdentifier,
+            createParams.type,
+            createParams.data,
+            createParams.clientIp,
+            createParams.returnUrl,
+            createParams.notifyUrl,
+            createParams.localIdentifier,
         );
         await this.createPaymentResponse(responseData);
         this.loading = false;
@@ -640,10 +689,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     // complete
     async completePayment() {
-        let regexp = new RegExp(
-            '^' + this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/',
-        );
-        let pspData = document.location.toString().replace(regexp, '');
+        let pspData = parseReturnRoutingUrl(this.routingUrl ?? '');
         let responseData = await this.sendCompletePaymentRequest(pspData);
 
         this.showTransactionSpinner = true;
