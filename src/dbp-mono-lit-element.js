@@ -9,6 +9,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this.auth = {};
         this.metadata = {};
         this.entryPointUrl = null;
+        this.routingUrl = null;
     }
 
     static get properties() {
@@ -17,6 +18,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
             lang: {type: String},
             auth: {type: Object},
             entryPointUrl: {type: String, attribute: 'entry-point-url'},
+            routingUrl: {type: String, attribute: 'routing-url'},
         };
     }
 
@@ -79,33 +81,9 @@ export default class DBPMonoLitElement extends DBPLitElement {
         return url.toString();
     }
 
-    // get everything after base url without leading and trailing slash
-    getActivityPath(skipPathItems) {
-        let url = new URL(document.location);
-        let baseUrl = new URL(this.getBaseUrl());
-        let pattern = '^' + baseUrl.pathname;
-        let regexp = new RegExp(pattern);
-        let activityPath = url.pathname.replace(regexp, '');
-        activityPath = activityPath.replace(/^\//, '');
-        activityPath = activityPath.replace(/\/$/, '');
-        let activityPathItems = activityPath.split('/');
-        if (skipPathItems) {
-            activityPathItems.splice(0, skipPathItems);
-        }
-        activityPath = activityPathItems.join('/');
-        return activityPath;
-    }
-
     // activity only
     getActivity() {
         return this.metadata['routing_name'];
-    }
-
-    // view only
-    getView() {
-        let activityPath = this.getActivityPath(1);
-        let activityPathItems = activityPath.split('/');
-        return activityPathItems[0] ?? null;
     }
 
     isLoggedIn() {
