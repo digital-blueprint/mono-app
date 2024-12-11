@@ -7,9 +7,9 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this._i18n = createInstance();
         this.lang = this._i18n.language;
         this.auth = {};
-        this.metadata = {};
         this.entryPointUrl = null;
         this.routingUrl = null;
+        this.routingBaseUrl = null;
     }
 
     static get properties() {
@@ -19,6 +19,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
             auth: {type: Object},
             entryPointUrl: {type: String, attribute: 'entry-point-url'},
             routingUrl: {type: String, attribute: 'routing-url'},
+            routingBaseUrl: {type: String, attribute: 'routing-base-url'},
         };
     }
 
@@ -29,6 +30,13 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this._requestHeaders = {
             'Accept-Language': this.lang,
         };
+    }
+
+    getRoutingBaseUrl() {
+        if (this.routingBaseUrl === null) {
+            throw new Error('routing-base-url not set');
+        }
+        return this.routingBaseUrl;
     }
 
     _updateAuth() {
@@ -57,33 +65,6 @@ export default class DBPMonoLitElement extends DBPLitElement {
         });
 
         super.update(changedProperties);
-    }
-
-    // get base url (everything before activity)
-    getBaseUrl() {
-        let that = this;
-        let url = new URL(document.location);
-        let pathname = url.pathname;
-        let pathnameItems = pathname.split('/');
-        let baseUrl = [];
-        let reached = false;
-        pathnameItems.forEach((pathnameItem) => {
-            if (pathnameItem === that.metadata['routing_name']) {
-                reached = true;
-            }
-            if (!reached) {
-                baseUrl.push(pathnameItem);
-            }
-        });
-        url.pathname = baseUrl.join('/');
-        url.search = '';
-        url.hash = '';
-        return url.toString();
-    }
-
-    // activity only
-    getActivity() {
-        return this.metadata['routing_name'];
     }
 
     isLoggedIn() {

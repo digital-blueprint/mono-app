@@ -16,7 +16,6 @@ import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT} from './utils.js';
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         super();
-        this.metadata = metadata;
         this.activity = new Activity(metadata);
 
         this.wrongPageCall = false; //TODO;
@@ -317,7 +316,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             headers: this._requestHeaders,
         };
 
-        return await this.httpGetAsync(this.entryPointUrl + '/mono/payments/' + identifier, options);
+        return await this.httpGetAsync(this.entryPointUrl + '/mono/payments/' + encodeURIComponent(identifier), options);
     }
 
     async getPaymentResponse(responseData) {
@@ -426,13 +425,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     reloadSelect() {
         window.location.replace(
-            this.getBaseUrl() +
+            this.getRoutingBaseUrl() +
                 '/' +
-                this.getActivity() +
+                encodeURIComponent(VIEW_SELECT) +
                 '/' +
-                VIEW_SELECT +
-                '/' +
-                this.identifier,
+                encodeURIComponent(this.identifier),
         );
     }
 
@@ -510,7 +507,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this.openModal();
 
-        let returnUrl = this.getBaseUrl() + '/' + this.getActivity() + '/' + VIEW_RETURN + '/';
+        let returnUrl = this.getRoutingBaseUrl() + '/' + encodeURIComponent(VIEW_RETURN) + '/';
 
         this.sendPostStartPayActionRequest(
             this.identifier,
@@ -701,13 +698,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.paymentStatus = data.paymentStatus;
 
                 let completedUrl =
-                    this.getBaseUrl() +
+                    this.getRoutingBaseUrl() +
                     '/' +
-                    this.getActivity() +
+                    encodeURIComponent(VIEW_SELECT) +
                     '/' +
-                    VIEW_SELECT +
-                    '/' +
-                    this.identifier +
+                    encodeURIComponent(this.identifier) +
                     '/';
                 if (window.opener && !window.opener.closed) {
                     window.opener.location = completedUrl;
