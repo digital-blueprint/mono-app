@@ -33,6 +33,9 @@
         "too-many-requests-title": "Error!"
     },
     "data-protection": "Privacy statement",
+    "default": {
+        "warning": "This application can only be accessed as part of a valid payment process. Please start the process through the designated entry page."
+    },
     "error-login-message": "You need to be logged in to process this payment!",
     "error-message": "No active payment process found.",
     "get": {
@@ -51,9 +54,9 @@
         "method-started-text": "The payment process started in a new window."
     },
     "pending": {
+        "button-return": "Go back to {{return-name}}",
         "info": "We are currently waiting for a response from the payment provider. This may take a few seconds.",
-        "info-canceled": "If you have closed the page of the payment provider before completion or canceled the payment process in any other way, please go back to \"{{return-name}}\" and start the payment process from the beginning.",
-        "button-return": "Go back to {{return-name}}"
+        "info-canceled": "If you have closed the page of the payment provider before completion or canceled the payment process in any other way, please go back to \"{{return-name}}\" and start the payment process from the beginning."
     },
     "restart": {
         "info": "This payment has already been started. If an error occurred or you want to select another payment method, start the payment again."
@@ -72,9 +75,6 @@
     "start": {
         "too-many-requests-body": "You are allowed to start the payment only once.",
         "too-many-requests-title": "Fehler!"
-    },
-    "default": {
-        "warning": "This application can only be accessed as part of a valid payment process. Please start the process through the designated entry page."
     },
     "transaction-text": "The payment is being processed. This may take a few minutes.",
     "warning": "Warning",
