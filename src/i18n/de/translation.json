@@ -73,6 +73,9 @@
         "too-many-requests-body": "Die Zahlung darf nur einmalig gestartet werden.",
         "too-many-requests-title": "Fehler!"
     },
+    "default": {
+        "warning": "Diese Applikation kann nur im Rahmen eines gültigen Zahlungsvorgangs aufgerufen werden. Bitte starten Sie den Prozess über die dafür vorgesehene Einstiegsseite."
+    },
     "transaction-text": "Die Zahlung wird verarbeitet. Das kann einige Minuten dauern.",
     "warning": "Achtung",
     "warning-text": "Diese Zusammenfassung dient nicht als Nachweis einer durchgeführten Zahlung."

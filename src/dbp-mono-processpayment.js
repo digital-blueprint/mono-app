@@ -10,7 +10,7 @@ import {Activity} from './activity.js';
 import DBPMonoLitElement from './dbp-mono-lit-element';
 import MicroModal from './vendor/micromodal.es';
 import {parseCreateRoutingUrl, parseSelectRoutingUrl, parseReturnRoutingUrl, parseViewRoutingUrl} from './utils.js';
-import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT} from './utils.js';
+import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT, VIEW_DEFAULT} from './utils.js';
 
 
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
@@ -23,6 +23,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.loading = false;
         this.fullSizeLoading = false;
         this.authRequired = false;
+        this.showDefaultPageMessage = false;
 
         // get
         this.paymentReference = null;
@@ -72,7 +73,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         this._paymentPollingTimerID = null;
 
-        this.view = VIEW_CREATE;
+        this.view = VIEW_DEFAULT;
     }
 
     pollPayment() {
@@ -97,8 +98,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.view = view;
                 break;
             }
+            case VIEW_CREATE: {
+                this.fullSizeLoading = true;
+                this.view = view;
+                break;
+            }
             default:
-                this.view = VIEW_CREATE;
+                this.view = VIEW_DEFAULT;
+                this.showDefaultPageMessage = true;
                 this.fullSizeLoading = false;
                 break;
         }
@@ -139,6 +146,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             ...super.properties,
 
             wrongPageCall: {type: Boolean, attribute: false},
+            showDefaultPageMessage: {type: Boolean, attribute: false},
 
             loading: {type: Boolean, attribute: false},
             fullSizeLoading: {type: Boolean, attribute: false},
@@ -1157,6 +1165,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 })}"
                 type="warning"
                 body="${i18n.t('error-login-message')}"></dbp-inline-notification>
+
+            <dbp-inline-notification
+                class=" ${classMap({hidden: !this.showDefaultPageMessage})}"
+                type="warning"
+                body="${i18n.t('default.warning')}"></dbp-inline-notification>
 
             <dbp-inline-notification
                 class="${classMap({

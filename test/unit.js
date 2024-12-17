@@ -50,16 +50,7 @@ suite('parseUrls', () => {
 
     test('parseCreateRoutingUrl with empty string', () => {
         const routingUrl = '';
-        const result = parseCreateRoutingUrl(routingUrl);
-        expect(result).to.deep.equal({
-            type: '',
-            data: '',
-            clientIp: null,
-            returnUrl: null,
-            notifyUrl: null,
-            localIdentifier: null,
-            authRequired: false,
-        });
+        expect(() => parseCreateRoutingUrl(routingUrl)).to.throw();
     });
 
     test('parseReturnRoutingUrl', () => {
@@ -82,6 +73,6 @@ suite('parseUrls', () => {
     test('parseViewRoutingUrl with empty string', () => {
         const routingUrl = '';
         const result = parseViewRoutingUrl(routingUrl);
-        expect(result).to.equal('create');
+        expect(result).to.equal('default');
     });
 });

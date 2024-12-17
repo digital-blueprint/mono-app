@@ -73,6 +73,9 @@
         "too-many-requests-body": "You are allowed to start the payment only once.",
         "too-many-requests-title": "Fehler!"
     },
+    "default": {
+        "warning": "This application can only be accessed as part of a valid payment process. Please start the process through the designated entry page."
+    },
     "transaction-text": "The payment is being processed. This may take a few minutes.",
     "warning": "Warning",
     "warning-text": "This summary does not serve as proof of an executed payment."

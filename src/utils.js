@@ -1,3 +1,4 @@
+export const VIEW_DEFAULT = 'default';
 export const VIEW_RETURN = 'return';
 export const VIEW_SELECT = 'select';
 export const VIEW_CREATE = 'create';
@@ -26,9 +27,8 @@ export function parseViewRoutingUrl(routingUrl) {
     if (parts.length > 0 && [VIEW_CREATE, VIEW_SELECT, VIEW_RETURN].includes(parts[0])) {
         return parts[0];
     }
-    // default to create view for now
     if (parts.length === 0) {
-        return VIEW_CREATE;
+        return VIEW_DEFAULT;
     }
     throw new Error('Invalid view');
 }
@@ -66,7 +66,7 @@ export function parseSelectRoutingUrl(routingUrl) {
 export function parseCreateRoutingUrl(routingUrl) {
     let url = new URL(routingUrl ?? '', window.location.origin);
     let parts = parseUrlParts(url);
-    if (parts.length === 0 || (parts.length >= 1 && parts[0] === VIEW_CREATE)) {
+    if (parts.length >= 1 && parts[0] === VIEW_CREATE) {
         let params = url.searchParams;
         return {
             type: params.get('type') ?? '',
