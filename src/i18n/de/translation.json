@@ -36,7 +36,8 @@
     "default": {
         "warning": "Diese Applikation kann nur im Rahmen eines gültigen Zahlungsvorgangs aufgerufen werden. Bitte starten Sie den Prozess über die dafür vorgesehene Einstiegsseite."
     },
-    "error-login-message": "Sie müssen angemeldet sein, um diese Zahlung durchführen zu können!",
+    "error-login-message": "Bitte melden Sie sich an, um diese Funktion nutzen zu können.",
+    "error-login-link": "Zur Anmeldung",
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
     "get": {
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen.",

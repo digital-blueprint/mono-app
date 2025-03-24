@@ -783,6 +783,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         return i18n.t('complete.return-button-text-name', {name: str});
     }
 
+    _onLoginClicked(e) {
+        this.sendSetPropertyEvent('requested-login-status', "logged-in");
+        e.preventDefault();
+    }
+
     static get styles() {
         return [
             commonStyles.getThemeCSS(),
@@ -1154,17 +1159,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 </p>
             </div>
 
-            <dbp-inline-notification
-                class=" ${classMap({
-                    hidden:
-                        (this.isLoggedIn() && this.authRequired) ||
-                        this.isLoading() ||
-                        !this.authRequired ||
-                        this.wrongPageCall ||
-                        this.loading,
-                })}"
-                type="warning"
-                body="${i18n.t('error-login-message')}"></dbp-inline-notification>
+            <div
+                    class="notification is-warning ${classMap({
+                        hidden: this.isLoggedIn() || this.isLoading(),
+                    })}">
+                ${i18n.t('error-login-message')} <a href="#" @click="${this._onLoginClicked}">${i18n.t('error-login-link')}</a>
+            </div>
 
             <dbp-inline-notification
                 class=" ${classMap({hidden: !this.showDefaultPageMessage})}"

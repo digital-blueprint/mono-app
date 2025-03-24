@@ -36,7 +36,8 @@
     "default": {
         "warning": "This application can only be accessed as part of a valid payment process. Please start the process through the designated entry page."
     },
-    "error-login-message": "You need to be logged in to process this payment!",
+    "error-login-message": "Please log in to use this functionality",
+    "error-login-link": "Log in",
     "error-message": "No active payment process found.",
     "get": {
         "too-many-requests-body": "You made too many requests on this resource.",
