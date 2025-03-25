@@ -1161,7 +1161,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             <div
                     class="notification is-warning ${classMap({
-                        hidden: this.isLoggedIn() || this.isLoading(),
+                        hidden: 
+                            (this.isLoggedIn() && this.authRequired) ||
+                            this.isLoading() ||
+                            !this.authRequired ||
+                            this.wrongPageCall ||
+                            this.loading,
                     })}">
                 ${i18n.t('error-login-message')} <a href="#" @click="${this._onLoginClicked}">${i18n.t('error-login-link')}</a>
             </div>
