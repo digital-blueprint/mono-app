@@ -504,7 +504,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     startPayAction() {
         const i18n = this._i18n;
 
-        this.popUp = this.popupCenter({url: '', title: 'xtf', w: 500, h: 768});
+        this.popUp = this.popupCenter({url: '', title: 'xtf', w: 900, h: 550});
 
         try {
             this.popUp.focus();
