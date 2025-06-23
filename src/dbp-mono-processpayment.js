@@ -833,12 +833,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 }
 
                 .details {
-                    padding: 15px 20px 15px 15px;
-                    background: var(--dbp-override-primary);
-                    color: var(--dbp-override-secondary-surface);
                     border: 1px solid var(--dbp-override-primary);
-                    width: 300px;
-                    margin-left: 15px;
+                    padding: 15px 20px 15px 15px;
                 }
 
                 .details .reference {
@@ -974,10 +970,22 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     color: var(--dbp-success);
                 }
 
+                @media only screen {
+                    .details {
+                        background: var(--dbp-override-primary);
+                        color: var(--dbp-override-secondary-surface);
+                    }
+                }
+                
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
                         margin-left: -15px;
+                    }
+
+                    .details {
+                        width: 300px;
+                        margin-left: 15px;
                     }
 
                     .col:first-child {
@@ -989,8 +997,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 @media only screen and (orientation: portrait) and (max-width: 768px) {
                     .details {
                         padding: 0;
-                        width: 100%;
-                        margin-left: 0;
                         border: none;
                     }
 
