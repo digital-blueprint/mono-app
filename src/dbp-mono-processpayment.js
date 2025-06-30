@@ -45,6 +45,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // restart
         this.showRestart = false;
         this.modalIsVisible = false;
+        this.reloadOnModalClose = true;
         this.showPending = false;
 
         // select
@@ -447,7 +448,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             MicroModal.show(modal, {
                 onClose: (modal, trigger) => {
                     if (this.popUp) this.popUp.close();
-                    this.reloadSelect();
+                    if (this.reloadOnModalClose) this.reloadSelect();
                 },
                 disableScroll: true,
                 disableFocus: false,
@@ -531,6 +532,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     switch (status) {
                         case 201: {
+                            this.reloadOnModalClose = true;
                             let widgetUrl = new URL(data.widgetUrl);
                             this.widgetUrl = widgetUrl.toString();
                             this.popUp.location = this.widgetUrl;
@@ -544,6 +546,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             break;
                         }
                         case 400:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.psp-return-url-not-allowed-title'),
                                 body: i18n.t('common.psp-return-url-not-allowed-body'),
@@ -552,6 +556,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         case 401:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.login-required-title'),
                                 body: i18n.t('common.login-required-body'),
@@ -560,6 +566,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         case 403:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.client-ip-not-allowed-title'),
                                 body: i18n.t('common.client-ip-not-allowed-body'),
@@ -568,12 +576,16 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         case 404:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             this.showNotFound = true;
                             this.showRestart = false;
                             this.showPaymentMethods = false;
                             this.showCompleteConfirmation = false;
                             break;
                         case 410:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.timeout-exceeded-title'),
                                 body: i18n.t('common.timeout-exceeded-body'),
@@ -582,6 +594,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         case 429:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             this.showPaymentMethods = true;
                             send({
                                 summary: i18n.t('start.too-many-requests-title'),
@@ -591,6 +605,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         case 500:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.backend-error-title'),
                                 body: i18n.t('common.backend-error-body'),
@@ -599,6 +615,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             });
                             break;
                         default:
+                            this.reloadOnModalClose = false;
+                            this.closeModal();
                             send({
                                 summary: i18n.t('common.other-error-title'),
                                 body: i18n.t('common.other-error-body'),
