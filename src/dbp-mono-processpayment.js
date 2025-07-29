@@ -1158,6 +1158,8 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                     .element-left {
                         width: unset;
+                        background-color: var(--dbp-background);
+                        color: var(--dbp-content);
                     }
                 }
             `,
