@@ -9,9 +9,13 @@ import metadata from './dbp-mono-processpayment.metadata.json';
 import {Activity} from './activity.js';
 import DBPMonoLitElement from './dbp-mono-lit-element';
 import MicroModal from './vendor/micromodal.es';
-import {parseCreateRoutingUrl, parseSelectRoutingUrl, parseReturnRoutingUrl, parseViewRoutingUrl} from './utils.js';
+import {
+    parseCreateRoutingUrl,
+    parseSelectRoutingUrl,
+    parseReturnRoutingUrl,
+    parseViewRoutingUrl,
+} from './utils.js';
 import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT, VIEW_DEFAULT} from './utils.js';
-
 
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
@@ -325,7 +329,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             headers: this._requestHeaders,
         };
 
-        return await this.httpGetAsync(this.entryPointUrl + '/mono/payments/' + encodeURIComponent(identifier), options);
+        return await this.httpGetAsync(
+            this.entryPointUrl + '/mono/payments/' + encodeURIComponent(identifier),
+            options,
+        );
     }
 
     async getPaymentResponse(responseData) {
@@ -473,13 +480,13 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         const width = window.innerWidth
             ? window.innerWidth
             : document.documentElement.clientWidth
-            ? document.documentElement.clientWidth
-            : screen.width;
+              ? document.documentElement.clientWidth
+              : screen.width;
         const height = window.innerHeight
             ? window.innerHeight
             : document.documentElement.clientHeight
-            ? document.documentElement.clientHeight
-            : screen.height;
+              ? document.documentElement.clientHeight
+              : screen.height;
 
         const systemZoom = width / window.screen.availWidth;
         const left = (width - w) / 2 / systemZoom + dualScreenLeft;
@@ -802,7 +809,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     _onLoginClicked(e) {
-        this.sendSetPropertyEvent('requested-login-status', "logged-in");
+        this.sendSetPropertyEvent('requested-login-status', 'logged-in');
         e.preventDefault();
     }
 
@@ -994,7 +1001,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         color: var(--dbp-override-secondary-surface);
                     }
                 }
-                
+
                 @media only screen and (min-width: 768px) {
                     .row {
                         display: flex;
@@ -1186,15 +1193,16 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             </div>
 
             <div
-                    class="notification is-warning ${classMap({
-                        hidden: 
-                            (this.isLoggedIn() && this.authRequired) ||
-                            this.isLoading() ||
-                            !this.authRequired ||
-                            this.wrongPageCall ||
-                            this.loading,
-                    })}">
-                ${i18n.t('error-login-message')} <a href="#" @click="${this._onLoginClicked}">${i18n.t('error-login-link')}</a>
+                class="notification is-warning ${classMap({
+                    hidden:
+                        (this.isLoggedIn() && this.authRequired) ||
+                        this.isLoading() ||
+                        !this.authRequired ||
+                        this.wrongPageCall ||
+                        this.loading,
+                })}">
+                ${i18n.t('error-login-message')}
+                <a href="#" @click="${this._onLoginClicked}">${i18n.t('error-login-link')}</a>
             </div>
 
             <dbp-inline-notification
@@ -1246,7 +1254,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">
                     <dbp-inline-notification type="warning">
                         <div slot="body">
-                            <p><dbp-mini-spinner text=" "></dbp-mini-spinner> ${i18n.t('pending.info')}</p>
+                            <p>
+                                <dbp-mini-spinner text=" "></dbp-mini-spinner>
+                                ${i18n.t('pending.info')}
+                            </p>
                             <p>
                                 ${i18n.t('pending.info-canceled', {
                                     'return-name': this.returnHostname,

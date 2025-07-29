@@ -2,7 +2,12 @@ import {assert, expect} from 'chai';
 
 import '../src/dbp-mono-processpayment';
 import '../src/dbp-mono.js';
-import { parseSelectRoutingUrl, parseCreateRoutingUrl, parseReturnRoutingUrl, parseViewRoutingUrl } from '../src/utils.js';
+import {
+    parseSelectRoutingUrl,
+    parseCreateRoutingUrl,
+    parseReturnRoutingUrl,
+    parseViewRoutingUrl,
+} from '../src/utils.js';
 
 suite('dbp-template-activity basics', () => {
     let node;

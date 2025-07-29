@@ -12,13 +12,8 @@ import license from 'rollup-plugin-license';
 import del from 'rollup-plugin-delete';
 import emitEJS from 'rollup-plugin-emit-ejs';
 import {getBabelOutputPlugin} from '@rollup/plugin-babel';
-import {
-    getPackagePath,
-    getBuildInfo,
-    generateTLSConfig,
-    getDistPath,
-} from '@dbp-toolkit/dev-utils';
-import { createRequire } from "node:module";
+import {getPackagePath, getBuildInfo, generateTLSConfig, getDistPath} from '@dbp-toolkit/dev-utils';
+import {createRequire} from 'node:module';
 
 const require = createRequire(import.meta.url);
 let appName = 'dbp-mono';
@@ -202,10 +197,16 @@ export default (async () => {
                     thirdParty: {
                         allow(dependency) {
                             let licenses = [
-                                'LGPL-2.1-or-later', 'MIT', 'BSD-3-Clause', 'Apache-2.0', 'BSD',
+                                'LGPL-2.1-or-later',
+                                'MIT',
+                                'BSD-3-Clause',
+                                'Apache-2.0',
+                                'BSD',
                             ];
                             if (!licenses.includes(dependency.license)) {
-                                throw new Error(`Unknown license for ${dependency.name}: ${dependency.license}`);
+                                throw new Error(
+                                    `Unknown license for ${dependency.name}: ${dependency.license}`,
+                                );
                             }
                             return true;
                         },

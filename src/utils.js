@@ -3,7 +3,6 @@ export const VIEW_RETURN = 'return';
 export const VIEW_SELECT = 'select';
 export const VIEW_CREATE = 'create';
 
-
 /**
  * Parses the pathname of a URL into its individual parts.
  *
@@ -11,7 +10,10 @@ export const VIEW_CREATE = 'create';
  * @returns {string[]} An array of decoded pathname segments.
  */
 function parseUrlParts(url) {
-    return url.pathname.split('/').filter(element => element !== '').map(element => decodeURIComponent(element));
+    return url.pathname
+        .split('/')
+        .filter((element) => element !== '')
+        .map((element) => decodeURIComponent(element));
 }
 
 /**
@@ -81,7 +83,6 @@ export function parseCreateRoutingUrl(routingUrl) {
     throw new Error('Invalid create URL');
 }
 
-
 /**
  * Returns the PSP data from the given routing URL starting with 'return'.
  *
@@ -95,5 +96,5 @@ export function parseReturnRoutingUrl(routingUrl) {
         throw new Error('Invalid return URL');
     }
     // we just forward everything after the initial "return/"
-    return routingUrl.split("/").slice(1).join("/");
+    return routingUrl.split('/').slice(1).join('/');
 }
