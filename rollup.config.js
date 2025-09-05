@@ -18,6 +18,7 @@ import {
     generateTLSConfig,
     getDistPath,
     getCopyTargets,
+    getUrlOptions,
 } from '@dbp-toolkit/dev-utils';
 import {createRequire} from 'node:module';
 
@@ -222,12 +223,7 @@ export default (async () => {
                 include: 'node_modules/**',
             }),
             json(),
-            urlPlugin({
-                limit: 0,
-                include: ['node_modules/suggestions/**/*.css', 'node_modules/select2/**/*.css'],
-                emitFiles: true,
-                fileName: 'shared/[name].[hash][extname]',
-            }),
+            urlPlugin(await getUrlOptions(pkg.name, 'shared')),
             whitelabel &&
                 copy({
                     targets: [
