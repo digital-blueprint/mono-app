@@ -32,6 +32,7 @@ let httpHost =
     process.env.ROLLUP_WATCH_HOST !== undefined ? process.env.ROLLUP_WATCH_HOST : '127.0.0.1';
 let httpPort =
     process.env.ROLLUP_WATCH_PORT !== undefined ? parseInt(process.env.ROLLUP_WATCH_PORT) : 8001;
+let isRolldown = process.argv.some((arg) => arg.includes('rolldown'));
 
 // if true, app assets and configs are whitelabel
 let whitelabel;
@@ -129,6 +130,9 @@ export default (async () => {
         },
         treeshake: prodBuild,
         //preserveEntrySignatures: false,
+        moduleTypes: {
+            '.css': 'js', // work around rolldown handling the CSS import before the URL plugin can
+        },
         plugins: [
             del({
                 targets: 'dist/*',
@@ -185,11 +189,12 @@ export default (async () => {
                         appDomain: config.appDomain,
                     },
                 }),
-            resolve({
-                browser: true,
-                preferBuiltins: true,
-                exportConditions: !prodBuild ? ['development'] : [],
-            }),
+            !isRolldown &&
+                resolve({
+                    browser: true,
+                    preferBuiltins: true,
+                    exportConditions: !prodBuild ? ['development'] : [],
+                }),
             prodBuild &&
                 license({
                     banner: {
@@ -219,10 +224,11 @@ export default (async () => {
                         },
                     },
                 }),
-            commonjs({
-                include: 'node_modules/**',
-            }),
-            json(),
+            !isRolldown &&
+                commonjs({
+                    include: 'node_modules/**',
+                }),
+            !isRolldown && json(),
             urlPlugin(await getUrlOptions(pkg.name, 'shared')),
             whitelabel &&
                 copy({
