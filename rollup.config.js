@@ -225,8 +225,9 @@ export default (async () => {
                             rename: pkg.internalName + '.webmanifest',
                         },
                         {
-                            src: await getPackagePath('@fontsource/nunito-sans', '*'),
-                            dest: 'dist/' + (await getDistPath(pkg.name, 'fonts/nunito-sans')),
+                            src: await getPackagePath('@fontsource/nunito-sans', '.'),
+                            dest: 'dist/' + (await getDistPath(pkg.name, 'fonts')),
+                            rename: 'nunito-sans',
                         },
                         {
                             src: await getPackagePath('@dbp-toolkit/common', 'src/spinner.js'),
@@ -274,8 +275,9 @@ export default (async () => {
                             rename: pkg.internalName + '.webmanifest',
                         },
                         {
-                            src: await getPackagePath('@tugraz/font-source-sans-pro', 'files/*'),
-                            dest: 'dist/' + (await getDistPath(pkg.name, 'fonts/source-sans-pro')),
+                            src: await getPackagePath('@tugraz/font-source-sans-pro', 'files'),
+                            dest: 'dist/' + (await getDistPath(pkg.name, 'fonts')),
+                            rename: 'source-sans-pro',
                         },
                         {
                             src: await getPackagePath('@dbp-toolkit/common', 'src/spinner.js'),
