@@ -1,6 +1,6 @@
 import url from 'node:url';
 import process from 'node:process';
-import {globSync} from 'glob';
+import {globSync} from 'node:fs';
 import serve from 'rollup-plugin-serve';
 import license from 'rollup-plugin-license';
 import emitEJS from 'rollup-plugin-emit-ejs';
