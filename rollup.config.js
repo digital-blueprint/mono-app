@@ -3,11 +3,9 @@ import process from 'node:process';
 import {globSync} from 'glob';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import copy from 'rollup-plugin-copy';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import serve from 'rollup-plugin-serve';
-import urlPlugin from '@rollup/plugin-url';
 import license from 'rollup-plugin-license';
 import del from 'rollup-plugin-delete';
 import emitEJS from 'rollup-plugin-emit-ejs';
@@ -17,8 +15,7 @@ import {
     getBuildInfo,
     generateTLSConfig,
     getDistPath,
-    getCopyTargets,
-    getUrlOptions,
+    assetPlugin,
 } from '@dbp-toolkit/dev-utils';
 import {createRequire} from 'node:module';
 
@@ -229,10 +226,9 @@ export default (async () => {
                     include: 'node_modules/**',
                 }),
             !isRolldown && json(),
-            urlPlugin(await getUrlOptions(pkg.name, 'shared')),
             whitelabel &&
-                copy({
-                    targets: [
+                (await assetPlugin(pkg.name, 'dist', {
+                    copyTargets: [
                         {src: 'assets/silent-check-sso.html', dest: 'dist'},
                         {src: 'assets/htaccess-shared', dest: 'dist/shared/', rename: '.htaccess'},
                         {src: 'assets/*.css', dest: 'dist/' + (await getDistPath(pkg.name))},
@@ -267,12 +263,11 @@ export default (async () => {
                             dest: 'dist/' + (await getDistPath(pkg.name)),
                         },
                         {src: 'src/*.metadata.json', dest: 'dist'},
-                        ...(await getCopyTargets(pkg.name, 'dist')),
                     ],
-                }),
+                })),
             !whitelabel &&
-                copy({
-                    targets: [
+                (await assetPlugin(pkg.name, 'dist', {
+                    copyTargets: [
                         {src: customAssetsPath + 'silent-check-sso.html', dest: 'dist'},
                         {
                             src: customAssetsPath + 'htaccess-shared',
@@ -316,9 +311,8 @@ export default (async () => {
                             dest: 'dist/' + (await getDistPath(pkg.name)),
                         },
                         {src: 'src/*.metadata.json', dest: 'dist'},
-                        ...(await getCopyTargets(pkg.name, 'dist')),
                     ],
-                }),
+                })),
             prodBuild &&
                 getBabelOutputPlugin({
                     compact: false,
