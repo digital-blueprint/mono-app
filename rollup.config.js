@@ -124,7 +124,7 @@ export default (async () => {
             chunkFileNames: 'shared/[name].[hash].js',
             format: 'esm',
             sourcemap: true,
-            ...(isRolldown ? {cleanDir: true} : {}),
+            ...(isRolldown ? {minify: prodBuild, cleanDir: true} : {}),
         },
         treeshake: prodBuild,
         //preserveEntrySignatures: false,
@@ -333,7 +333,7 @@ export default (async () => {
                         ],
                     ],
                 }),
-            prodBuild ? terser() : false,
+            prodBuild && !isRolldown ? terser() : false,
             watch
                 ? serve({
                       contentBase: '.',
