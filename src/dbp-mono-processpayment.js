@@ -366,7 +366,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
-                    case 'cancelled':
                     case 'failed':
                     case 'started':
                         this.showPending = false;
