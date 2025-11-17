@@ -39,6 +39,11 @@
     "error-login-link": "Anmelden",
     "error-login-message": "Bitte melden Sie sich an, um diese Funktion nutzen zu können.",
     "error-message": "Kein aktiver Zahlungsvorgang gefunden.",
+    "failed": {
+        "button-return": "Zurück zu {{return-name}}",
+        "info": "Zahlung fehlgeschlagen",
+        "info-failed": "Die Zahlung konnte leider nicht abgeschlossen werden. Bitte gehen Sie zurück zu \"{{return-name}}\" und versuchen Sie es erneut oder wählen Sie eine andere Zahlungsmethode."
+    },
     "get": {
         "too-many-requests-body": "Sie haben die Ressource zu oft aufgerufen.",
         "too-many-requests-title": "Fehler!"

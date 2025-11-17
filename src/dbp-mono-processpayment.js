@@ -51,6 +51,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         this.modalIsVisible = false;
         this.reloadOnModalClose = true;
         this.showPending = false;
+        this.showFailed = false;
 
         // select
         this.identifier = null;
@@ -177,6 +178,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             showRestart: {type: Boolean, attribute: false},
             modalIsVisible: {type: Boolean, attribute: false},
             showPending: {type: Boolean, attribute: false},
+            showFailed: {type: Boolean, attribute: false},
 
             // select
             identifier: {type: String},
@@ -359,6 +361,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.paymentMethods = JSON.parse(data.paymentMethod);
                 this.dataProtectionDeclarationUrl = data.dataProtectionDeclarationUrl;
                 this.returnUrl = data.returnUrl;
+                this.showFailed = false;
                 switch (data.paymentStatus) {
                     case 'prepared':
                         this.showPending = false;
@@ -367,6 +370,12 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         this.showCompleteConfirmation = false;
                         break;
                     case 'failed':
+                        this.showFailed = true;
+                        this.showPending = false;
+                        this.showRestart = false;
+                        this.showPaymentMethods = false;
+                        this.showCompleteConfirmation = false;
+                        break;
                     case 'started':
                         this.showPending = false;
                         this.showRestart = true;
@@ -1248,6 +1257,28 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <dbp-inline-notification
                         type="warning"
                         body="${i18n.t('restart.info')}"></dbp-inline-notification>
+                </div>
+
+                <div class="${classMap({hidden: !this.showFailed})}">
+                    <dbp-inline-notification type="danger">
+                        <div slot="body">
+                            <p>${i18n.t('failed.info')}</p>
+                            <p>
+                                ${i18n.t('failed.info-failed', {
+                                    'return-name': this.returnHostname,
+                                })}
+                            </p>
+                            <dbp-button
+                                no-spinner-on-click
+                                @click="${() => {
+                                    window.location.href = this.returnUrl;
+                                }}">
+                                ${i18n.t('failed.button-return', {
+                                    'return-name': this.returnHostname,
+                                })}
+                            </dbp-button>
+                        </div>
+                    </dbp-inline-notification>
                 </div>
 
                 <div class="${classMap({hidden: !this.showPending || this.modalIsVisible})}">

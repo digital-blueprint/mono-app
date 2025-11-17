@@ -39,6 +39,11 @@
     "error-login-link": "Log in",
     "error-login-message": "Please log in to use this functionality.",
     "error-message": "No active payment process found.",
+    "failed": {
+        "button-return": "Return to {{return-name}}",
+        "info": "Payment failed",
+        "info-failed": "Unfortunately, the payment could not be completed. Please go back to \"{{return-name}}\" and try again or choose a different payment method."
+    },
     "get": {
         "too-many-requests-body": "You made too many requests on this resource.",
         "too-many-requests-title": "Error!"
