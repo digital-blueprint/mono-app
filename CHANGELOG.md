@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1
+## 0.3.2
 
 - Better error notifications behavior when payment fails
 - Better error messages when a payment failed
