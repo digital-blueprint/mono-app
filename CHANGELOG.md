@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1
+
+- Better error notifications behavior when payment fails
+- Better error messages when a payment failed
+- Adjust the payment popup size for better visibility
+- Fix styling issues when printing the payment receipt with Chromium-based browsers
+
 ## 0.3.0
 
 - Compatibility with newer Keycloak version
