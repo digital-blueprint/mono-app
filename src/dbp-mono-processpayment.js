@@ -5,8 +5,6 @@ import {send} from '@dbp-toolkit/common/notification';
 import * as commonUtils from '@dbp-toolkit/common/utils';
 import {Icon, LoadingButton, Button, InlineNotification} from '@dbp-toolkit/common';
 import * as commonStyles from '@dbp-toolkit/common/styles';
-import metadata from './dbp-mono-processpayment.metadata.json';
-import {Activity} from './activity.js';
 import DBPMonoLitElement from './dbp-mono-lit-element';
 import MicroModal from './vendor/micromodal.es';
 import {
@@ -20,7 +18,6 @@ import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT, VIEW_DEFAULT} from './utils.js';
 class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     constructor() {
         super();
-        this.activity = new Activity(metadata);
 
         this.wrongPageCall = false; //TODO;
 
@@ -1184,22 +1181,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     render() {
         const i18n = this._i18n;
         return html`
-            <div
-                class="${classMap({
-                    hidden:
-                        (!this.isLoggedIn() && this.authRequired) ||
-                        this.isLoading() ||
-                        this.showNotFound ||
-                        this.wrongPageCall ||
-                        this.paymentStatus === 'completed' ||
-                        this.loading,
-                })}">
-                <h2>${this.activity.getName(this.lang)}</h2>
-                <p class="subheadline">
-                    <slot name="description">${this.activity.getDescription(this.lang)}</slot>
-                </p>
-            </div>
-
             <div
                 class="notification is-warning ${classMap({
                     hidden:
