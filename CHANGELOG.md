@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- New app shell/menu layout
+
 ## 0.3.2
 
 - Better error notifications behavior when payment fails
