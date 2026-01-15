@@ -76,6 +76,17 @@
         "shortName": "TU Graz",
         "appDomain": "https://pay.tugraz.at/"
     },
+    "staging": {
+        "basePath": "/",
+        "entryPointURL": "https://api-test.tugraz.at",
+        "keyCloakBaseURL": "https://auth-test.tugraz.at/auth",
+        "keyCloakRealm": "tugraz",
+        "keyCloakClientId": "pay-test_tugraz_at-PAY",
+        "matomoUrl": "https://analytics.tugraz.at/",
+        "matomoSiteId": 131,
+        "shortName": "TU Graz",
+        "appDomain": "https://pay-test.tugraz.at/"
+    },
     "production": {
         "basePath": "/",
         "entryPointURL": "https://api.tugraz.at",
