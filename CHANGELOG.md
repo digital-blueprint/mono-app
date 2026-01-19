@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- App menu accessibility improvements
+
 ## 0.4.0
 
 - New app shell/menu layout

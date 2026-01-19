@@ -2,7 +2,7 @@
     "name": "@digital-blueprint/mono-app",
     "internalName": "dbp-mono",
     "type": "module",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "main": "src/dbp-mono.js",
     "license": "LGPL-2.1-or-later",
     "repository": {
