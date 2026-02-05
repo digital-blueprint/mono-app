@@ -1,6 +1,7 @@
 {
     "extends": ["config:recommended", "group:allNonMajor", "schedule:monthly", ":automergePatch"],
     "rangeStrategy": "update-lockfile",
+    "postUpdateOptions": ["npmDedupe"],
     "lockFileMaintenance": {
         "enabled": true
     },
