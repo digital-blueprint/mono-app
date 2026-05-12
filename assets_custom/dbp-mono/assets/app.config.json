@@ -92,7 +92,7 @@
         "entryPointURL": "https://api.tugraz.at",
         "keyCloakBaseURL": "https://auth.tugraz.at/auth",
         "keyCloakRealm": "tugraz",
-        "keyCloakClientId": "pay_tugraz_at-PAY",
+        "keyCloakClientId": "pay_tugraz_at",
         "shortName": "TU Graz",
         "appDomain": "https://pay.tugraz.at/"
     }
