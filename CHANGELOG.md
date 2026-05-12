@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+- Minor app logo adjustments
+- Dependency updates
+
 ## 0.4.1
 
 - App menu accessibility improvements
