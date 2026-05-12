@@ -81,7 +81,7 @@
         "entryPointURL": "https://api-test.tugraz.at",
         "keyCloakBaseURL": "https://auth-test.tugraz.at/auth",
         "keyCloakRealm": "tugraz",
-        "keyCloakClientId": "pay-test_tugraz_at-PAY",
+        "keyCloakClientId": "pay-test_tugraz_at",
         "matomoUrl": "https://analytics.tugraz.at/",
         "matomoSiteId": 131,
         "shortName": "TU Graz",
