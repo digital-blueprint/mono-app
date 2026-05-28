@@ -295,7 +295,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         summary: i18n.t('common.other-error-title'),
                         body: i18n.t('error-message'),
                         type: 'danger',
-                        timeout: 5,
+                        timeout: 0,
                     });
                 }
                 this.authRequired = true;
@@ -305,7 +305,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     summary: i18n.t('create.too-many-requests-title'),
                     body: i18n.t('create.too-many-requests-body'),
                     type: 'danger',
-                    timeout: 5,
+                    timeout: 0,
                 });
                 break;
             default:
