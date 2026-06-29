@@ -12,6 +12,7 @@ import {
     parseSelectRoutingUrl,
     parseReturnRoutingUrl,
     parseViewRoutingUrl,
+    getModalDialogCSS,
 } from './utils.js';
 import {VIEW_CREATE, VIEW_RETURN, VIEW_SELECT, VIEW_DEFAULT} from './utils.js';
 
@@ -822,7 +823,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         return [
             commonStyles.getThemeCSS(),
             commonStyles.getGeneralCSS(false),
-            commonStyles.getModalDialogCSS(),
+            getModalDialogCSS(),
             commonStyles.getButtonCSS(),
             commonStyles.getNotificationCSS(),
             commonStyles.getRadioAndCheckboxCss(),

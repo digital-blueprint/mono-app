@@ -1,3 +1,5 @@
+import {css} from 'lit';
+
 export const VIEW_DEFAULT = 'default';
 export const VIEW_RETURN = 'return';
 export const VIEW_SELECT = 'select';
@@ -97,4 +99,182 @@ export function parseReturnRoutingUrl(routingUrl) {
     }
     // we just forward everything after the initial "return/"
     return routingUrl.split('/').slice(1).join('/');
+}
+
+export function getModalDialogCSS() {
+    // language=css
+    return css`
+        /**************************\\
+          Modal Styles
+        \\**************************/
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-overlay::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            background-color: var(--dbp-content-surface);
+            opacity: 0.6;
+        }
+
+        .modal-container {
+            background-color: var(--dbp-background);
+            max-width: 600px;
+            max-height: 100vh;
+            min-width: 60%;
+            min-height: 50%;
+            overflow-y: auto;
+            box-sizing: border-box;
+            display: grid;
+            height: 70%;
+            width: 70%;
+            position: relative;
+            border-radius: var(--dbp-border-radius);
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dbp-accent);
+            cursor: pointer;
+            padding: 0px;
+            position: relative;
+            z-index: 9;
+        }
+
+        .modal-close .close-icon svg,
+        .close-icon {
+            pointer-events: none;
+        }
+
+        button.modal-close:focus {
+            outline: none;
+        }
+
+        .modal-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title-icon {
+            color: var(--dbp-accent);
+            margin-top: -5px;
+            font-size: 1.3em;
+        }
+
+        .modal-title h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        #filter-modal-box p {
+            margin: 0;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        /**************************\\
+          Modal Animation Style
+        \\**************************/
+        @keyframes mmfadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes mmfadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes mmslideIn {
+            from {
+                transform: translateY(15%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes mmslideOut {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10%);
+            }
+        }
+
+        .micromodal-slide {
+            display: none;
+        }
+
+        .micromodal-slide.is-open {
+            display: block;
+        }
+
+        .micromodal-slide[aria-hidden='false'] .modal-overlay {
+            animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .micromodal-slide[aria-hidden='false'] .modal-container {
+            animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .micromodal-slide[aria-hidden='true'] .modal-overlay {
+            animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .micromodal-slide[aria-hidden='true'] .modal-container {
+            animation: mmslideOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .micromodal-slide .modal-container,
+        .micromodal-slide .modal-overlay {
+            will-change: transform;
+        }
+
+        @media only screen and (orientation: landscape) and (max-width: 768px) {
+            .modal-container {
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+            }
+
+            .micromodal-slide .modal-container {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .modal-close {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    `;
 }
