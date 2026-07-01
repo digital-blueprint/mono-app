@@ -1,4 +1,4 @@
-FROM debian:bookworm-20260421
+FROM debian:bookworm-20260623
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
