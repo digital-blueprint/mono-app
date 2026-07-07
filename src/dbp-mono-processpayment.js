@@ -1293,9 +1293,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     <div class="row">
                         <div class="details">
                             <div class="reference">
-                                ${this.alternateName
-                                    ? this.alternateName
-                                    : i18n.t('select.default-reference')}
+                                ${
+                                    this.alternateName
+                                        ? this.alternateName
+                                        : i18n.t('select.default-reference')
+                                }
                             </div>
                         </div>
                         <div class="col">
@@ -1310,108 +1312,126 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                         },
                                     },
                                 })}
-                                ${this.paymentReference
-                                    ? html`
-                                          <br />
-                                          <small>${this.paymentReference}</small>
-                                      `
-                                    : ''}
+                                ${
+                                    this.paymentReference
+                                        ? html`
+                                              <br />
+                                              <small>${this.paymentReference}</small>
+                                          `
+                                        : ''
+                                }
                             </p>
                             <p class="sender">
                                 <strong>${i18n.t('select.sender')}</strong>
                                 <br />
                                 ${this.honoricPrefix} ${this.givenName} ${this.familyName}
                                 ${this.honoricSuffix}
-                                ${this.companyName
-                                    ? html`
-                                          <br />
-                                          ${this.companyName}
-                                      `
-                                    : ''}
-                                ${!this.recipient
-                                    ? html`
-                                          <a
-                                              href="${this.dataProtectionDeclarationUrl}"
-                                              class="int-link-internal">
-                                              ${i18n.t('data-protection')}
-                                          </a>
-                                      `
-                                    : ``}
-                            </p>
-                            ${this.recipient
-                                ? html`
-                                      <p class="recipient">
-                                          <strong>${i18n.t('select.recipient')}</strong>
-                                          <br />
-                                          <span class="data-declaration">
-                                              ${this.recipient}
+                                ${
+                                    this.companyName
+                                        ? html`
+                                              <br />
+                                              ${this.companyName}
+                                          `
+                                        : ''
+                                }
+                                ${
+                                    !this.recipient
+                                        ? html`
                                               <a
                                                   href="${this.dataProtectionDeclarationUrl}"
-                                                  class="int-link-internal"
-                                                  target="_blank">
+                                                  class="int-link-internal">
                                                   ${i18n.t('data-protection')}
                                               </a>
-                                          </span>
-                                      </p>
-                                  `
-                                : ''}
+                                          `
+                                        : ``
+                                }
+                            </p>
+                            ${
+                                this.recipient
+                                    ? html`
+                                          <p class="recipient">
+                                              <strong>${i18n.t('select.recipient')}</strong>
+                                              <br />
+                                              <span class="data-declaration">
+                                                  ${this.recipient}
+                                                  <a
+                                                      href="${this.dataProtectionDeclarationUrl}"
+                                                      class="int-link-internal"
+                                                      target="_blank">
+                                                      ${i18n.t('data-protection')}
+                                                  </a>
+                                              </span>
+                                          </p>
+                                      `
+                                    : ''
+                            }
                         </div>
                     </div>
                     <div class="payment-methods">
-                        ${this.amount <= 0
-                            ? html`
-                                  <dbp-inline-notification
-                                      type="danger"
-                                      body="${i18n.t(
-                                          'select.amount-too-low',
-                                      )}"></dbp-inline-notification>
-                              `
-                            : html`
-                                  <h3>${i18n.t('select.payment-method')}</h3>
-                                  ${this.paymentMethods.map(
-                                      (paymentMethod) => html`
-                                          <div class="form-check">
-                                              <label class="button-container">
-                                                  <div class="form-check-div">
-                                                      ${paymentMethod.name}
-                                                      ${paymentMethod.image
-                                                          ? html`
-                                                                <img
-                                                                    src="${paymentMethod.image}"
-                                                                    alt="${paymentMethod.name}" />
-                                                            `
-                                                          : ''}
-                                                  </div>
-                                                  <input
-                                                      type="radio"
-                                                      name="paymentMethod"
-                                                      @click="${() =>
-                                                          this.clickOnPaymentMethod(paymentMethod)}"
-                                                      .checked="${this.selectedPaymentMethod ===
-                                                      paymentMethod.identifier}" />
-                                                  <span class="radiobutton"></span>
-                                              </label>
-                                          </div>
-                                      `,
-                                  )}
-                              `}
+                        ${
+                            this.amount <= 0
+                                ? html`
+                                      <dbp-inline-notification
+                                          type="danger"
+                                          body="${i18n.t(
+                                              'select.amount-too-low',
+                                          )}"></dbp-inline-notification>
+                                  `
+                                : html`
+                                      <h3>${i18n.t('select.payment-method')}</h3>
+                                      ${this.paymentMethods.map(
+                                          (paymentMethod) => html`
+                                              <div class="form-check">
+                                                  <label class="button-container">
+                                                      <div class="form-check-div">
+                                                          ${paymentMethod.name}
+                                                          ${
+                                                              paymentMethod.image
+                                                                  ? html`
+                                                                        <img
+                                                                            src="${paymentMethod.image}"
+                                                                            alt="${paymentMethod.name}" />
+                                                                    `
+                                                                  : ''
+                                                          }
+                                                      </div>
+                                                      <input
+                                                          type="radio"
+                                                          name="paymentMethod"
+                                                          @click="${() =>
+                                                              this.clickOnPaymentMethod(
+                                                                  paymentMethod,
+                                                              )}"
+                                                          .checked="${
+                                                              this.selectedPaymentMethod ===
+                                                              paymentMethod.identifier
+                                                          }" />
+                                                      <span class="radiobutton"></span>
+                                                  </label>
+                                              </div>
+                                          `,
+                                      )}
+                                  `
+                        }
                     </div>
-                    ${this.amount > 0
-                        ? html`
-                              <p class="button-description-text">
-                                  ${i18n.t('select.start-pay-action-info')}
-                              </p>
-                              <div class="btn-row-left">
-                                  <dbp-loading-button
-                                      type="is-primary"
-                                      @click="${this.startPayAction}"
-                                      ?disabled="${!this.isPaymentMethodSelected}"
-                                      title="${i18n.t('select.start-pay-action-btn-title')}">
-                                      ${i18n.t('select.start-pay-action-btn-title')}
-                                  </dbp-loading-button>
-                              </div>
-                          `
-                        : html``}
+                    ${
+                        this.amount > 0
+                            ? html`
+                                  <p class="button-description-text">
+                                      ${i18n.t('select.start-pay-action-info')}
+                                  </p>
+                                  <div class="btn-row-left">
+                                      <dbp-loading-button
+                                          type="is-primary"
+                                          @click="${this.startPayAction}"
+                                          ?disabled="${!this.isPaymentMethodSelected}"
+                                          title="${i18n.t('select.start-pay-action-btn-title')}">
+                                          ${i18n.t('select.start-pay-action-btn-title')}
+                                      </dbp-loading-button>
+                                  </div>
+                              `
+                            : html``
+                    }
                 </div>
             </div>
 
@@ -1435,9 +1455,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         <div class="print-content-wrapper">
                             <div class="element-left first">${i18n.t('complete.reference')}</div>
                             <div class="element-right first">
-                                ${this.alternateName
-                                    ? this.alternateName
-                                    : i18n.t('select.default-reference')}
+                                ${
+                                    this.alternateName
+                                        ? this.alternateName
+                                        : i18n.t('select.default-reference')
+                                }
                             </div>
                             <div class="element-left">${i18n.t('complete.amount')}</div>
                             <div class="element-right">
@@ -1450,34 +1472,40 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                                         },
                                     },
                                 })}
-                                ${this.paymentReference
-                                    ? html`
-                                          <br />
-                                          <small>${this.paymentReference}</small>
-                                      `
-                                    : ''}
+                                ${
+                                    this.paymentReference
+                                        ? html`
+                                              <br />
+                                              <small>${this.paymentReference}</small>
+                                          `
+                                        : ''
+                                }
                             </div>
 
                             <div class="element-left">${i18n.t('complete.sender')}</div>
                             <div class="element-right">
                                 ${this.honoricPrefix} ${this.givenName} ${this.familyName}
                                 ${this.honoricSuffix}
-                                ${this.companyName
-                                    ? html`
-                                          <br />
-                                          ${this.companyName}
-                                      `
-                                    : ''}
+                                ${
+                                    this.companyName
+                                        ? html`
+                                              <br />
+                                              ${this.companyName}
+                                          `
+                                        : ''
+                                }
                             </div>
 
-                            ${this.recipient
-                                ? html`
-                                      <div class="element-left">
-                                          ${i18n.t('complete.recipient')}
-                                      </div>
-                                      <div class="element-right">${this.recipient}</div>
-                                  `
-                                : ''}
+                            ${
+                                this.recipient
+                                    ? html`
+                                          <div class="element-left">
+                                              ${i18n.t('complete.recipient')}
+                                          </div>
+                                          <div class="element-right">${this.recipient}</div>
+                                      `
+                                    : ''
+                            }
 
                             <div class="element-left">${i18n.t('complete.payment-id')}</div>
                             <div class="element-right">${this.identifier}</div>
@@ -1506,17 +1534,19 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             <p>
                                 ${i18n.t('complete.close')}
                                 <br />
-                                ${this.returnUrl
-                                    ? html`
-                                          <a
-                                              target="_self"
-                                              rel="noopener"
-                                              class="link"
-                                              href="${this.returnUrl}">
-                                              ${this.getReturnButtonString()}
-                                          </a>
-                                      `
-                                    : html``}
+                                ${
+                                    this.returnUrl
+                                        ? html`
+                                              <a
+                                                  target="_self"
+                                                  rel="noopener"
+                                                  class="link"
+                                                  href="${this.returnUrl}">
+                                                  ${this.getReturnButtonString()}
+                                              </a>
+                                          `
+                                        : html``
+                                }
                             </p>
                         </div>
                     </div>
