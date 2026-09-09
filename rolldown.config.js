@@ -4,7 +4,6 @@ import {globSync} from 'node:fs';
 import serve from 'rollup-plugin-serve';
 import license from 'rollup-plugin-license';
 import emitEJS from 'rollup-plugin-emit-ejs';
-import {getBabelOutputPlugin} from '@rollup/plugin-babel';
 import {
     getPackagePath,
     getBuildInfo,
@@ -102,6 +101,9 @@ config.FP = `payment *`;
 export default (async () => {
     let privatePath = await getDistPath(pkg.name);
     return {
+        transform: {
+            target: prodBuild ? ['chrome106', 'firefox110', 'safari16'] : 'esnext',
+        },
         input:
             appEnv != 'test'
                 ? !whitelabel
@@ -300,24 +302,6 @@ export default (async () => {
                         {src: 'src/*.metadata.json', dest: 'dist'},
                     ],
                 })),
-            prodBuild &&
-                getBabelOutputPlugin({
-                    compact: false,
-                    presets: [
-                        [
-                            '@babel/preset-env',
-                            {
-                                loose: false,
-                                modules: false,
-                                shippedProposals: true,
-                                bugfixes: true,
-                                targets: {
-                                    esmodules: true,
-                                },
-                            },
-                        ],
-                    ],
-                }),
             watch
                 ? serve({
                       contentBase: '.',
