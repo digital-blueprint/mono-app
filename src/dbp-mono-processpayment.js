@@ -82,7 +82,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
     pollPayment() {
         if (this.showPending) {
-            this.getPayment();
+            void this.getPayment();
         }
     }
 
@@ -129,7 +129,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     updated(changedProperties) {
         if (changedProperties.has('lang')) {
             if (this._loginStatus === 'logged-in' && this.view === VIEW_SELECT) {
-                this.getPayment();
+                void this.getPayment();
             }
         }
         super.updated(changedProperties);
@@ -209,28 +209,21 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     if (this._loginStatus === 'logged-out' && this.authRequired) {
                         this.sendSetPropertyEvent('requested-login-status', 'logged-in');
                     } else {
-                        this.createPayment();
+                        void this.createPayment();
                     }
                     break;
                 case VIEW_SELECT:
-                    this.getPayment();
+                    void this.getPayment();
                     break;
                 case VIEW_RETURN:
-                    this.completePayment();
+                    void this.completePayment();
                     break;
             }
         }
     }
 
     async httpGetAsync(url, options) {
-        return await fetch(url, options)
-            .then((result) => {
-                if (!result.ok) throw result;
-                return result;
-            })
-            .catch((error) => {
-                return error;
-            });
+        return await fetch(url, options).catch((error) => error);
     }
 
     get returnHostname() {
@@ -531,7 +524,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         let returnUrl = this.getRoutingBaseUrl() + '/' + encodeURIComponent(VIEW_RETURN) + '/';
 
-        this.sendPostStartPayActionRequest(
+        void this.sendPostStartPayActionRequest(
             this.identifier,
             this.selectedPaymentMethod,
             returnUrl,

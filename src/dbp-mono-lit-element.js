@@ -55,7 +55,7 @@ export default class DBPMonoLitElement extends DBPLitElement {
         changedProperties.forEach((oldValue, propName) => {
             switch (propName) {
                 case 'lang':
-                    this._i18n.changeLanguage(this.lang);
+                    void this._i18n.changeLanguage(this.lang);
                     this._requestHeaders['Accept-Language'] = this.lang;
                     break;
                 case 'auth':
