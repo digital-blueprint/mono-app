@@ -44,8 +44,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         // not found
         this.showNotFound = false;
 
-        // restart
-        this.showRestart = false;
         this.modalIsVisible = false;
         this.reloadOnModalClose = true;
         this.showPending = false;
@@ -172,8 +170,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             // not found
             showNotFound: {type: Boolean, attribute: false},
 
-            // restart
-            showRestart: {type: Boolean, attribute: false},
             modalIsVisible: {type: Boolean, attribute: false},
             showPending: {type: Boolean, attribute: false},
             showFailed: {type: Boolean, attribute: false},
@@ -354,34 +350,26 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 this.returnUrl = data.returnUrl;
                 this.showFailed = false;
                 switch (data.paymentStatus) {
+                    // Deprecated: keep accepting "started" as an alias during backend migration.
+                    case 'started':
                     case 'prepared':
                         this.showPending = false;
-                        this.showRestart = false;
                         this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'failed':
                         this.showFailed = true;
                         this.showPending = false;
-                        this.showRestart = false;
                         this.showPaymentMethods = false;
-                        this.showCompleteConfirmation = false;
-                        break;
-                    case 'started':
-                        this.showPending = false;
-                        this.showRestart = true;
-                        this.showPaymentMethods = true;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'pending':
                         this.showPending = true;
-                        this.showRestart = false;
                         this.showPaymentMethods = false;
                         this.showCompleteConfirmation = false;
                         break;
                     case 'completed':
                         this.showPending = false;
-                        this.showRestart = false;
                         this.showPaymentMethods = false;
                         this.showCompleteConfirmation = true;
                         break;
@@ -406,7 +394,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             case 404:
                 this.showNotFound = true;
-                this.showRestart = false;
                 this.showPaymentMethods = false;
                 this.showCompleteConfirmation = false;
                 break;
@@ -585,7 +572,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             this.reloadOnModalClose = false;
                             this.closeModal();
                             this.showNotFound = true;
-                            this.showRestart = false;
                             this.showPaymentMethods = false;
                             this.showCompleteConfirmation = false;
                             break;
@@ -694,7 +680,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 break;
             case 404:
                 this.showNotFound = true;
-                this.showRestart = false;
                 this.showPaymentMethods = false;
                 this.showCompleteConfirmation = false;
                 break;
@@ -749,7 +734,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
             }
             case 404:
                 this.showNotFound = true;
-                this.showRestart = false;
                 this.showPaymentMethods = false;
                 this.showCompleteConfirmation = false;
                 break;
@@ -844,10 +828,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
                 .subheadline {
                     margin-bottom: 2em;
-                }
-
-                .restart {
-                    padding-bottom: 1.2em;
                 }
 
                 .col {
@@ -1227,13 +1207,6 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                         this.wrongPageCall ||
                         this.paymentStatus === 'completed',
                 })}">
-                <div
-                    class="restart ${classMap({hidden: !this.showRestart || this.modalIsVisible})}">
-                    <dbp-inline-notification
-                        type="warning"
-                        body="${i18n.t('restart.info')}"></dbp-inline-notification>
-                </div>
-
                 <div class="${classMap({hidden: !this.showFailed})}">
                     <dbp-inline-notification type="danger">
                         <div slot="body">
