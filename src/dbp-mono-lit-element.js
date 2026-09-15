@@ -10,6 +10,9 @@ export default class DBPMonoLitElement extends DBPLitElement {
         this.entryPointUrl = null;
         this.routingUrl = null;
         this.routingBaseUrl = null;
+        this._requestHeaders = {
+            'Accept-Language': this.lang,
+        };
     }
 
     static get properties() {

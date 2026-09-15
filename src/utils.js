@@ -1,5 +1,16 @@
 import {css} from 'lit';
 
+/**
+ * @typedef {object} CreateRoutingParams
+ * @property {string} type - The payment type.
+ * @property {string} data - The payment data.
+ * @property {string | null} clientIp - The client IP address.
+ * @property {string | null} returnUrl - The return URL.
+ * @property {string | null} notifyUrl - The notification URL.
+ * @property {string | null} localIdentifier - The local identifier.
+ * @property {boolean} authRequired - Whether authentication is required.
+ */
+
 export const VIEW_DEFAULT = 'default';
 export const VIEW_RETURN = 'return';
 export const VIEW_SELECT = 'select';
@@ -57,15 +68,7 @@ export function parseSelectRoutingUrl(routingUrl) {
  * with 'create'.
  *
  * @param {string} routingUrl - The routing URL to parse.
- * @returns {object} An object containing the extracted parameters:
- *   - {string} type - The type parameter from the URL.
- *   - {string} data - The data parameter from the URL.
- *   - {string|null} clientIp - The client IP parameter from the URL.
- *   - {string|null} returnUrl - The return URL parameter from the URL.
- *   - {string|null} notifyUrl - The notify URL parameter from the URL.
- *   - {string|null} localIdentifier - The local identifier parameter from the
- *     URL.
- *   - {boolean} authRequired - Indicates if authentication is required.
+ * @returns {CreateRoutingParams} The extracted parameters.
  */
 export function parseCreateRoutingUrl(routingUrl) {
     let url = new URL(routingUrl ?? '', window.location.origin);

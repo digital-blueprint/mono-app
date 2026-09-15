@@ -118,7 +118,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     disconnectedCallback() {
-        clearInterval(this._paymentPollingTimerID);
+        if (this._paymentPollingTimerID !== null) {
+            clearInterval(this._paymentPollingTimerID);
+        }
         this._paymentPollingTimerID = null;
 
         super.disconnectedCallback();
@@ -265,7 +267,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         const i18n = this._i18n;
 
         let status = responseData.status;
-        let data = '';
+        let data = {identifier: ''};
         try {
             data = await responseData.clone().json();
         } catch (e) {
@@ -498,10 +500,16 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     startPayAction() {
         const i18n = this._i18n;
 
-        this.popUp = this.popupCenter({url: '', title: 'xtf', w: 900, h: 550});
+        const popUp = this.popupCenter({url: '', title: 'xtf', w: 900, h: 550});
+        this.popUp = popUp;
+
+        if (popUp === null) {
+            alert('Pop-up Blocker is enabled! Please disable your pop-up blocker.');
+            return;
+        }
 
         try {
-            this.popUp.focus();
+            popUp.focus();
         } catch {
             alert('Pop-up Blocker is enabled! Please disable your pop-up blocker.');
             return;
@@ -528,9 +536,9 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                             this.reloadOnModalClose = true;
                             let widgetUrl = new URL(data.widgetUrl);
                             this.widgetUrl = widgetUrl.toString();
-                            this.popUp.location = this.widgetUrl;
+                            popUp.location.href = this.widgetUrl;
                             let popupInterval = setInterval(() => {
-                                if (this.popUp.closed) {
+                                if (popUp.closed) {
                                     clearInterval(popupInterval);
                                     this.reloadSelect();
                                 }
@@ -722,10 +730,10 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                     encodeURIComponent(this.identifier) +
                     '/';
                 if (window.opener && !window.opener.closed) {
-                    window.opener.location = completedUrl;
+                    window.opener.location.href = completedUrl;
                     window.close();
                 } else {
-                    window.location = completedUrl;
+                    window.location.href = completedUrl;
                 }
 
                 this.showCompleteConfirmation = true;
@@ -754,16 +762,22 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
     }
 
     printSummary() {
-        if (!this.shadowRoot || !this.shadowRoot.host || !this.shadowRoot.host.getRootNode()) {
+        const renderRoot = this.renderRoot;
+        const rootNode =
+            renderRoot instanceof ShadowRoot
+                ? renderRoot.host.getRootNode()
+                : renderRoot.getRootNode();
+        if (!(rootNode instanceof Document || rootNode instanceof DocumentFragment)) {
             window.print();
             return;
         }
-        const header = this.shadowRoot.host.getRootNode().querySelector('#root header');
-        const footer = this.shadowRoot.host.getRootNode().querySelector('#root footer');
-        const aside = this.shadowRoot.host.getRootNode().querySelector('#root aside');
-        const main = this.shadowRoot.host.getRootNode().querySelector('#root main');
+        const root = rootNode.querySelector('#root');
+        const header = root?.querySelector('header');
+        const footer = root?.querySelector('footer');
+        const aside = root?.querySelector('aside');
+        const main = root?.querySelector('main');
 
-        if (header !== null && footer !== null && aside !== null && main !== null) {
+        if (header && footer && aside && main) {
             footer.classList.add('hidden');
             header.classList.add('hidden');
             aside.classList.add('hidden');
@@ -774,11 +788,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         window.print();
 
-        if (header !== null && footer !== null && aside !== null && main !== null) {
+        if (header && footer && aside && main) {
             footer.classList.remove('hidden');
             header.classList.remove('hidden');
             aside.classList.remove('hidden');
-            main.style = null;
+            main.removeAttribute('style');
         }
     }
 
