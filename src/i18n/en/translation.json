@@ -69,6 +69,7 @@
         "amount-format": "{{val, currency}}",
         "amount-too-low": "Amount is too low.",
         "default-reference": "Payment",
+        "no-payment-due": "There is no payment due at the moment.",
         "payment-method": "Please select a payment method:",
         "recipient": "To",
         "sender": "From",

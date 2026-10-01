@@ -69,6 +69,7 @@
         "amount-format": "{{val, currency}}",
         "amount-too-low": "Der Zahlungsbetrag ist zu gering.",
         "default-reference": "Zahlung",
+        "no-payment-due": "Derzeit ist keine Zahlung offen.",
         "payment-method": "Bitte wählen Sie eine Zahlungsmethode aus:",
         "recipient": "An",
         "sender": "Von",

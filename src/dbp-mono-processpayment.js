@@ -43,6 +43,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
         // not found
         this.showNotFound = false;
+        this.showNoPaymentDue = false;
 
         this.modalIsVisible = false;
         this.reloadOnModalClose = true;
@@ -171,6 +172,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
 
             // not found
             showNotFound: {type: Boolean, attribute: false},
+            showNoPaymentDue: {type: Boolean, attribute: false},
 
             modalIsVisible: {type: Boolean, attribute: false},
             showPending: {type: Boolean, attribute: false},
@@ -333,6 +335,7 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
         let data = await responseData.clone().json();
 
         this.showTransactionSpinner = false;
+        this.showNoPaymentDue = false;
 
         switch (status) {
             case 200: {
@@ -416,6 +419,14 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 });
                 break;
             default:
+                if (status === 400 && data['relay:errorId'] === 'mono:no-payment-due') {
+                    this.showNoPaymentDue = true;
+                    this.showPaymentMethods = false;
+                    this.showPending = false;
+                    this.showFailed = false;
+                    this.showCompleteConfirmation = false;
+                    break;
+                }
                 this.wrongPageCall = true;
                 send({
                     summary: i18n.t('common.other-error-title'),
@@ -1198,6 +1209,11 @@ class DbpMonoProcessPayment extends ScopedElementsMixin(DBPMonoLitElement) {
                 class="${classMap({hidden: !this.showNotFound || this.loading})}"
                 type="danger"
                 body="${i18n.t('not-found.info')}"></dbp-inline-notification>
+
+            <dbp-inline-notification
+                class="no-payment-due ${classMap({hidden: !this.showNoPaymentDue || this.loading})}"
+                type="warning"
+                body="${i18n.t('select.no-payment-due')}"></dbp-inline-notification>
 
             <div class="control ${classMap({hidden: !this.isLoading() && !this.loading})}">
                 <span class="loading">
